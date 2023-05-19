@@ -1,12 +1,18 @@
-# Archivo generado por MacOS
-
+# ------------------------------ MacOS ------------------------#
 .DS_Store
 
-# Para de alguna forma utilizar Visual Studio y Xcode en el mismo proyecto
+# ------------------------------ XCODE ------------------------#
 *.xcodeproj
 *.xcworkspace
 *.entitlements
 
+#------------------------------ VISUAL STUDIO 2020 ------------------------#
+glm
+*.vcxproj*
+Debug
+include
+
+#------------------------------ Archivos generados por c++ ------------------------#
 # Prerequisites
 *.d
 
@@ -38,10 +44,3 @@
 *.exe
 *.out
 *.app
-
-#------------------------------ VISUAL STUDIO 2020 ------------------------#
-
-glm
-*.vcxproj*
-Debug
-include
