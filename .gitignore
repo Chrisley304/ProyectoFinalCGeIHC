@@ -44,3 +44,5 @@
 
 glm
 *.vcxproj*
+Debug
+include
