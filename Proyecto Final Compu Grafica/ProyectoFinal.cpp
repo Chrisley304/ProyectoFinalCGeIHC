@@ -71,20 +71,13 @@ Texture dirtTexture;
 Texture plainTexture;
 Texture pisoTexture;
 Texture AgaveTexture;
-Texture FlechaTexture;
-Texture octaedroTexture;
 
-Model Kitt_M;
-Model Llanta_M;
 Model Camino_M;
-Model Blackhawk_M;
-Model Dado_M;
 
 // Coche propio (Vocho):
-Model Vocho;
-Model Llantas_Delanteras_Vocho;
-Model Llantas_Traseras_Vocho;
-Model PistaCarreras;
+//Model Vocho;
+//Model Llantas_Delanteras_Vocho;
+//Model Llantas_Traseras_Vocho;
 
 Skybox skybox;
 
@@ -149,71 +142,6 @@ void calcAverageNormals(unsigned int *indices, unsigned int indiceCount, GLfloat
     }
 }
 
-void CrearDado8Caras()
-{
-    GLfloat verticesOctaedro[] = {
-        // x        y        z        S        T        Nx        Ny        Nz
-        // Piramide superior --------------------------------
-        // Cara 1 - A, F, G
-        0.f, 1.f, 0.f, 0.4940153616873, 0.7458299758063, 1.0f, -1.0f, -1.0f,   // 0 - A
-        -1.f, 0.f, 0.f, 0.2436577972163f, 0.498299814814f, 1.0f, -1.0f, -1.0f, // 1 - F
-        0.f, 0.f, 1.f, 0.7521710750057, 0.4978370540927, 1.0f, -1.0f, -1.0f,   // 2 - G
-        // Cara 2 - A, G, H
-        0.f, 1.f, 0.f, 0.0f, 0.25f, -1.0f, -1.0f, -1.0f,                        // 3 - A
-        0.f, 0.f, 1.f, 0.4971259273646f, 0.2494817895031f, -1.0f, -1.0f, -1.0f, // 4 - G
-        1.f, 0.f, 0.f, 0.2436577972163f, 0.498299814814f, -1.0f, -1.0f, -1.0f,  // 5 - H
-        // Cara 3 - A, H, I
-        0.f, 1.f, 0.f, 0, 0.7459840013939, -1.0f, -1.0f, 1.0f,                // 6 - A
-        1.f, 0.f, 0.f, 0.24, 0.5, -1.0f, -1.0f, 1.0f,                         // 7 - H
-        0.f, 0.f, -1.f, 0.4905520219476, 0.7464275747373, -1.0f, -1.0f, 1.0f, // 8 - I
-        // Cara 4 - A, I, F
-        0.f, 1.f, 0.f, 0.4971259273646, 0.2494817895031, 1.0f, -1.0f, 1.0f,  // 9 - A
-        0.f, 0.f, -1.f, 0.7521710750057, 0.4978370540927, 1.0f, -1.0f, 1.0f, // 10 - I
-        -1.f, 0.f, 0.f, 0.2447077950412, 0.4971758770058, 1.0f, -1.0f, 1.0f, // 11 - F
-        // Piramide inferior --------------------------------
-        // Cara 5 - B, F, G
-        0.f, -1.f, 0.f, 0.7527437890022, 0.9949471586345, 1.0f, 1.0f, -1.0f, // 12 - B
-        -1.f, 0.f, 0.f, 1.f, 0.75, 1.0f, 1.0f, -1.0f,                        // 13 - F
-        0.f, 0.f, 1.f, 0.5, 0.75, 1.0f, 1.0f, -1.0f,                         // 14 - G
-        // Cara 6 - B, G, H
-        0.f, -1.f, 0.f, 0.9928426579919, 0.248680864686, -1.0f, 1.0f, -1.0f, // 15 - B
-        0.f, 0.f, 1.f, 0.7515983809738, 0.495821007847, -1.0f, 1.0f, -1.0f,  // 16 - G
-        1.f, 0.f, 0.f, 0.5, 0.25, -1.0f, 1.0f, -1.0f,                        // 17 - H
-        // Cara 7 - B, H, I
-        0.f, -1.f, 0.f, 0.9977169711349, 0.74578176779, -1.0f, 1.0f, 1.0f,   // 18 - B
-        1.f, 0.f, 0.f, 0.7518823834043, 0.500154589373, -1.0f, 1.0f, 1.0f,   // 19 - H
-        0.f, 0.f, -1.f, 0.4994164792683, 0.7452641052236, -1.0f, 1.0f, 1.0f, // 20 - I
-        // Cara 8 - B, I, F
-        0.f, -1.f, 0.f, 0.7524450151198, 0.0016302156309, 1.0f, 1.0f, 1.0f, // 21 - B
-        0.f, 0.f, -1.f, 0.994108518509, 0.248172089342, 1.0f, 1.0f, 1.0f,   // 22 - I
-        -1.f, 0.f, 0.f, 0.4997324975772, 0.2480514725787, 1.0f, 1.0f, 1.0f, // 23 - F
-    };
-
-    unsigned int indices[] = {
-        // Piramide superior --------------------------------
-        // Cara 1 - A, F, G
-        0, 1, 2,
-        // Cara 2 - A, G, H
-        3, 4, 5,
-        // Cara 3 - A, H, I
-        6, 7, 8,
-        // Cara 4 - A, I, F
-        9, 10, 11,
-        // Piramide inferior --------------------------------
-        // Cara 5 - B, F, G
-        12, 13, 14,
-        // Cara 6 - B, G, H
-        15, 16, 17,
-        // Cara 7 - B, H, I
-        18, 19, 20,
-        // Cara 8 - B, I, F
-        21, 22, 23};
-
-    Mesh *dado = new Mesh();
-
-    dado->CreateMesh(verticesOctaedro, indices, 192, 24);
-    meshList.push_back(dado);
-}
 
 void CreateObjects()
 {
@@ -366,7 +294,6 @@ int main()
     mainWindow.Initialise();
 
     CreateObjects();
-    CrearDado8Caras();
     CreateShaders();
 
     camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 2.5f, 0.5f);
@@ -381,29 +308,14 @@ int main()
     pisoTexture.LoadTextureA();
     AgaveTexture = Texture("Textures/Agave.tga");
     AgaveTexture.LoadTextureA();
-    FlechaTexture = Texture("Textures/flechas.tga");
-    FlechaTexture.LoadTextureA();
-    Llanta_M = Model();
-    Llanta_M.LoadModel("Models/k_rueda.3ds");
-    Blackhawk_M = Model();
-    Blackhawk_M.LoadModel("Models/helicoptero.obj");
-    Camino_M = Model();
-    Camino_M.LoadModel("Models/railroad track.obj");
 
     // Coche propio (Vocho)
-    Vocho = Model();
-    Vocho.LoadModel("Models/vocho.obj");
-    Llantas_Traseras_Vocho = Model();
-    Llantas_Traseras_Vocho.LoadModel("Models/llantasvocho.obj");
-    Llantas_Delanteras_Vocho = Model();
-    Llantas_Delanteras_Vocho.LoadModel("Models/llantasvocho.obj");
-
-    // Dado 8 caras
-    octaedroTexture = Texture("Textures/Dado8Caras.tga");
-    octaedroTexture.LoadTextureA();
-    // Pista carrera
-    PistaCarreras = Model();
-    PistaCarreras.LoadModel("Models/pista_text.obj");
+//    Vocho = Model();
+//    Vocho.LoadModel("Models/vocho.obj");
+//    Llantas_Traseras_Vocho = Model();
+//    Llantas_Traseras_Vocho.LoadModel("Models/llantasvocho.obj");
+//    Llantas_Delanteras_Vocho = Model();
+//    Llantas_Delanteras_Vocho.LoadModel("Models/llantasvocho.obj");
 
     std::vector<std::string> skyboxFaces;
     skyboxFaces.push_back("Textures/Skybox/cupertin-lake_rt.tga");
@@ -450,66 +362,35 @@ int main()
     //                              15.0f);
     //    spotLightCount++;
 
-    // luz del coche
-    spotLights[1] = SpotLight(0.5f, 0.f, 0.5f,   // R, G, B
-                              1.0f, 2.0f,        // Light Intensity, Color Intensity
-                              0.f, 1.0f, -1.0f,  // xpos, ypos, zpos
-                              -1.0f, 0.0f, 0.0f, // xdir, ydir, zdir
-                              0.5f, 0.0f, 0.0f,  // con, lin, exp
-                              5.0f);             // edge
-    spotLightCount++;
+//    // luz del coche
+//    spotLights[1] = SpotLight(0.5f, 0.f, 0.5f,   // R, G, B
+//                              1.0f, 2.0f,        // Light Intensity, Color Intensity
+//                              0.f, 1.0f, -1.0f,  // xpos, ypos, zpos
+//                              -1.0f, 0.0f, 0.0f, // xdir, ydir, zdir
+//                              0.5f, 0.0f, 0.0f,  // con, lin, exp
+//                              5.0f);             // edge
+//    spotLightCount++;
 
     // Copia de luz del coche mirando al frente
-    spotLights_aux[0] = SpotLight(0.5f, 0.0f, 0.5f,  // R, G, B
-                                  1.0f, 2.0f,        // Light Intensity, Color Intensity
-                                  0.f, 1.0f, -1.0f,  // xpos, ypos, zpos
-                                  -1.0f, 0.0f, 0.0f, // xdir, ydir, zdir
-                                  0.5f, 0.0f, 0.0f,  // con, lin, exp
-                                  5.0f);
-
-    // Luz del coche mirando de reversa
-    spotLights_aux[1] = SpotLight(0.5f, 0.0f, 0.5f, // R, G, B
-                                  1.0f, 2.0f,       // Light Intensity, Color Intensity
-                                  0.f, 1.0f, -4.0f, // xpos, ypos, zpos
-                                  1.0f, 0.0f, 0.0f, // xdir, ydir, zdir
-                                  0.5f, 0.0f, 0.0f, // con, lin, exp
-                                  5.0f);            // edge
-
-    // luz de helic�ptero
-    spotLights[2] = SpotLight(1.0f, 0.0f, 0.f,
-                              1.0f, 2.0f,
-                              5.0f, 12.0f, 0.0f,
-                              0.0, -2.5f, 0.0f,
-                              0.2f, 0.0f, 0.0f,
-                              5.0f);
-    spotLightCount++;
+//    spotLights_aux[0] = SpotLight(0.5f, 0.0f, 0.5f,  // R, G, B
+//                                  1.0f, 2.0f,        // Light Intensity, Color Intensity
+//                                  0.f, 1.0f, -1.0f,  // xpos, ypos, zpos
+//                                  -1.0f, 0.0f, 0.0f, // xdir, ydir, zdir
+//                                  0.5f, 0.0f, 0.0f,  // con, lin, exp
+//                                  5.0f);
+//
+//    // Luz del coche mirando de reversa
+//    spotLights_aux[1] = SpotLight(0.5f, 0.0f, 0.5f, // R, G, B
+//                                  1.0f, 2.0f,       // Light Intensity, Color Intensity
+//                                  0.f, 1.0f, -4.0f, // xpos, ypos, zpos
+//                                  1.0f, 0.0f, 0.0f, // xdir, ydir, zdir
+//                                  0.5f, 0.0f, 0.0f, // con, lin, exp
+//                                  5.0f);            // edge
 
     GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
            uniformSpecularIntensity = 0, uniformShininess = 0, uniformTextureOffset = 0;
     GLuint uniformColor = 0;
     glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
-
-
-    // Variables Helicoptero
-    movHelicopteroOffset = 0.2f;
-    giroHelicoptero = 0.0f;
-    giroHelicopteroOffset = 0.5f;
-    int direccionHelicoptero = 1;
-    avanzaHelicoptero = true;
-    int nVueltasHelicop = 0;
-    int cuentaLuzHelicoptero = 0;
-
-    //Variables movimiento coche
-    movCoche = 0.0f;
-    movOffset = 0.2f;
-    rotllanta = 0.0f;
-    avanzaDerecho = true;
-    rotllantaOffset = 2.5f;
-//    int nVueltasAuto = 0;
-    int curvaPista = 1;
-    float giroAutoY = 0.0f;
-    float giroAutoYAux = 0.0f;
-    float giroAutoOffset = 0.5f;
 
     // Loop mientras no se cierra la ventana
     while (!mainWindow.getShouldClose())
@@ -552,7 +433,6 @@ int main()
         // informaci�n al shader de fuentes de iluminaci�n
         shaderList[0].SetDirectionalLight(&mainLight);
         shaderList[0].SetPointLights(pointLights, pointLightCount);
-        //        shaderList[0].SetSpotLights(spotLights, spotLightCount);
 
         glm::mat4 model(1.0);
         glm::mat4 modelaux(1.0);
@@ -570,168 +450,10 @@ int main()
 
         meshList[2]->RenderMesh();
         
-        // Botón de reset (F5)
-        if(mainWindow.resetCarro()){
-            curvaPista = 0;
-            mainWindow.setResetFlag(false);
-        }
+        // Poner los modelos aquí
+       
         
-        switch (curvaPista)
-        {
-            case 0:{
-                movCoche = 0.0f;
-                giroAutoY = 0.0f;
-                curvaPista = 1;
-            }break;
-                
-            case 1:
-                if (movCoche > -32.0f)
-                {
-                    movCoche -= movOffset * deltaTime;
-                    rotllanta += rotllantaOffset * deltaTime;
-                }
-                else
-                {
-                    curvaPista = 2;
-                    giroAutoYAux = giroAutoY;
-                }
-                break;
-                
-            case 2:
-                if (giroAutoY < 90.0f + giroAutoYAux)
-                {
-                    giroAutoY += movOffset * deltaTime;
-                }
-                else
-                {
-                    curvaPista = 3;
-                }
-                break;
-
-            default:
-                break;
-        }
-
-        // Carroceria Vocho
-        model = glm::mat4(1.0);
-        if (mainWindow.isAutoManual())
-        {
-            model = glm::translate(model, glm::vec3(mainWindow.getMovimientoXAuto(), 0.f, mainWindow.getMovimientoZAuto())); //         Movimiento manual del auto
-            spotLights[1].SetPos(glm::vec3(0.0f + mainWindow.getMovimientoXAuto(), 0.0, mainWindow.getMovimientoZAuto()));
-        }
-        else
-        {
-            model = glm::translate(model, glm::vec3(movCoche, 0.f, 0.f)); //         Movimiento manual del auto
-            spotLights[1].SetPos(glm::vec3(0.0f + movCoche, 0.0, 0.0));
-        }
-        spotLights[1] = spotLights_aux[0]; // Direccion "de frente" del auto
-        model = glm::translate(model, glm::vec3(0.0f, -0.5f, -0.f));
-        modelaux = model;
-        model = glm::scale(model, glm::vec3(5.f, 5.f, 5.f));
-        model = glm::rotate(model, glm::radians(giroAutoY), glm::vec3(0.0f, 1.0f, 0.0f));
-        model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-        glUniform3fv(uniformColor, 1, glm::value_ptr(color));
-        Vocho.RenderModel();
-
-        // Llantas delanteras
-        model = modelaux;
-        model = glm::rotate(model, glm::radians(giroAutoY), glm::vec3(0.0f, 1.0f, 0.0f));
-        model = glm::translate(model, glm::vec3(-6.5f, 1.5f, -0.f));
-        model = glm::scale(model, glm::vec3(5.f, 5.f, 5.f));
-        model = glm::rotate(model, glm::radians(rotllanta), glm::vec3(0.0f, 0.0f, 1.0f));
-        model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-        glUniform3fv(uniformColor, 1, glm::value_ptr(color));
-        Llantas_Delanteras_Vocho.RenderModel();
-
-        // Llantas traseras
-        model = modelaux;
-        model = glm::rotate(model, glm::radians(giroAutoY), glm::vec3(0.0f, 1.0f, 0.0f));
-        model = glm::translate(model, glm::vec3(5.35f, 1.5f, -0.f));
-        model = glm::scale(model, glm::vec3(5.f, 5.f, 5.f));
-        model = glm::rotate(model, glm::radians(rotllanta), glm::vec3(0.0f, 0.0f, 1.0f));
-        model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-        glUniform3fv(uniformColor, 1, glm::value_ptr(color));
-        Llantas_Traseras_Vocho.RenderModel();
-
-        // Movimiento del helicoptero:
-
-        // Luz del helicoptero
-        if (cuentaLuzHelicoptero >= 60)
-        {
-            cuentaLuzHelicoptero = 0;
-            mainWindow.alternHelicopteroEncendido();
-        }
-
-        if (mainWindow.isHelicopteroEncendido())
-        {
-            shaderList[0].SetSpotLights(spotLights, spotLightCount);
-        }
-        else
-        {
-            shaderList[0].SetSpotLights(spotLights, spotLightCount - 1); // Se resta -1 para no renderizar la luz del helicoptero
-        }
-        cuentaLuzHelicoptero++;
-
-        // movimiento vertical:
-        movYHelicoptero += giroHelicopteroOffset * deltaTime;
-
-        // Avanza hacia adelante hasta topar con "pared"
-        if (avanzaHelicoptero)
-        {
-            if (direccionHelicoptero == 1 && movZHelicoptero > -10.0f)
-            {
-                movZHelicoptero -= movHelicopteroOffset * deltaTime;
-            }
-            else if (direccionHelicoptero == -1 && movZHelicoptero < 10.0f)
-            {
-                movZHelicoptero += movHelicopteroOffset * deltaTime;
-            }
-            else
-            {
-                avanzaHelicoptero = false;
-            }
-        }
-
-        // Giro del helicoptero al estar parado
-        if (!avanzaHelicoptero)
-        {
-            if ((giroHelicoptero - nVueltasHelicop * 180) < 180.0f)
-            {
-                giroHelicoptero += giroHelicopteroOffset * deltaTime;
-            }
-            else
-            {
-                nVueltasHelicop++;
-                avanzaHelicoptero = true;
-                direccionHelicoptero = direccionHelicoptero * -1;
-            }
-        }
-
-        // Helicoptero
-        model = glm::mat4(1.0);
-        // Si se multiplica por una constante afuera del sin se hace mas alta la onda, y si se multiplica dentro de la funcio radians, se hace el movimiento mas rapido
-        model = glm::translate(model, glm::vec3(0.0f, 10.0f + sin(glm::radians(movYHelicoptero)), 0.0f + movZHelicoptero));
-        model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
-        model = glm::rotate(model, giroHelicoptero * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-        Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-        // color = glm::vec3(0.0f, 1.0f, 0.0f);
-        // glUniform3fv(uniformColor, 1, glm::value_ptr(color));
-        spotLights[2].SetPos(glm::vec3(0.0f, 7.0f + sin(glm::radians(movYHelicoptero)), 0.0f + movZHelicoptero));
-        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-        Blackhawk_M.RenderModel();
-
-        // Pista de carreras
-        model = glm::mat4(1.0);
-        model = glm::translate(model, glm::vec3(5.f, -2.0f, 26.0f));
-        model = glm::scale(model, glm::vec3(0.75f, 0.75f, 0.75f));
-        //        model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-        glUniform3fv(uniformColor, 1, glm::value_ptr(color));
-        PistaCarreras.RenderModel();
-
+        
         // Las texturas transparentes, se ponen al final xd
         // Agave �qu� sucede si lo renderizan antes del coche y de la pista?
         model = glm::mat4(1.0);
@@ -762,14 +484,14 @@ int main()
         // pasar a la variable uniform el valor actualizado
         toffset = glm::vec2(toffsetu, toffsetv);
 
-        model = glm::mat4(1.0);
-        model = glm::translate(model, glm::vec3(0.0f, 0.2f, -15.0f));
-        model = glm::rotate(model, 90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
-        glUniform2fv(uniformTextureOffset, 1, glm::value_ptr(toffset)); // Esta linea es importante porque le "avisa" al shader que se va a actualizar el valor del offset
-        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-
-        FlechaTexture.UseTexture();
+//        model = glm::mat4(1.0);
+//        model = glm::translate(model, glm::vec3(0.0f, 0.2f, -15.0f));
+//        model = glm::rotate(model, 90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+//        model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+//        glUniform2fv(uniformTextureOffset, 1, glm::value_ptr(toffset)); // Esta linea es importante porque le "avisa" al shader que se va a actualizar el valor del offset
+//        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+//
+//        FlechaTexture.UseTexture();
         // Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
         meshList[4]->RenderMesh();
         glDisable(GL_BLEND);
