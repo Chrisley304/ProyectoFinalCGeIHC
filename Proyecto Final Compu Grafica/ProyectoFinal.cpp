@@ -1,11 +1,6 @@
 /*
-   Semestre 2023-2
-   Animaci�n:
-   1.- Simple o basica:Por banderas y condicionales
-   2.- Compleja: Por medio de funciones y algoritmos,Textura Animada.
-   Adicional.- Texturizado con transparencia usando Blending: Requerimos dibujar lo que esta atras primero
- */
- // para cargar imagen
+Proyecto final de Computación Gráfica e Iteracción Humano-Computadora.
+*/
 #define STB_IMAGE_IMPLEMENTATION
 
 #include <cmath>
@@ -20,8 +15,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-// para probar el importer
-// #include<assimp/Importer.hpp>
 
 #include "Camera.h"
 #include "Mesh.h"
@@ -32,7 +25,6 @@
 #include "Texture.h"
 #include "Window.h"
 
-// para iluminaci�n
 #include "CommonValues.h"
 #include "DirectionalLight.h"
 #include "Material.h"
@@ -85,7 +77,9 @@ Model Camino_M;
 
 Skybox skybox;
 
-// materiales
+/// <summary>
+/// Materiales.
+/// </summary>
 Material Material_brillante;
 Material Material_opaco;
 
@@ -94,24 +88,47 @@ GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
 static double limitFPS = 1.0 / 60.0;
 
-// luz direccional
+/// <summary>
+/// Luz direccional.
+/// </summary>
 DirectionalLight mainLight;
-// para declarar varias luces de tipo pointlight
+
+/// <summary>
+/// Máximo de luces puntuales.
+/// </summary>
 PointLight pointLights[MAX_POINT_LIGHTS];
+
+/// <summary>
+/// Máximo de luces direccionales.
+/// </summary>
 SpotLight spotLights[MAX_SPOT_LIGHTS];
+
+/// <summary>
+/// Luces direccionales auxiliares.
+/// </summary>
 SpotLight spotLights_aux[MAX_SPOT_LIGHTS];
 
-// Vertex Shader
+/// <summary>
+/// Vertex shader.
+/// </summary>
 static const char* vShader = "shaders/shader_light.vert";
 
-// Fragment Shader
+/// <summary>
+/// Fragment shader.
+/// </summary>
 static const char* fShader = "shaders/shader_light.frag";
 
 /********************** Funciones **************************/
-
-// c�lculo del promedio de las normales para sombreado de Phong
-void calcAverageNormals(unsigned int* indices, unsigned int indiceCount, GLfloat* vertices, unsigned int verticeCount,
-	unsigned int vLength, unsigned int normalOffset)
+/// <summary>
+/// Cálculo del promedio de las normales para sombreado de Phong
+/// </summary>
+/// <param name="indices"></param>
+/// <param name="indiceCount"></param>
+/// <param name="vertices"></param>
+/// <param name="verticeCount"></param>
+/// <param name="vLength"></param>
+/// <param name="normalOffset"></param>
+void calcAverageNormals(unsigned int* indices, unsigned int indiceCount, GLfloat* vertices, unsigned int verticeCount, unsigned int vLength, unsigned int normalOffset)
 {
 	for (size_t i = 0; i < indiceCount; i += 3)
 	{
@@ -148,6 +165,9 @@ void calcAverageNormals(unsigned int* indices, unsigned int indiceCount, GLfloat
 	}
 }
 
+/// <summary>
+/// Creador de objetos por vectores.
+/// </summary>
 void CreateObjects()
 {
 	unsigned int indices[] = {
@@ -285,6 +305,9 @@ void CreateObjects()
 	meshList.push_back(obj5);
 }
 
+/// <summary>
+/// Creador de shaders.
+/// </summary>
 void CreateShaders()
 {
 	Shader* shader1 = new Shader();
@@ -326,15 +349,14 @@ int main()
 	/********************** Cargas de texturas **************************/
 
 	/********************** Cargas de Modelos **************************/
-	// Coche propio (Vocho)
-//    Vocho = Model();
-//    Vocho.LoadModel("Models/vocho.obj");
-//    Llantas_Traseras_Vocho = Model();
-//    Llantas_Traseras_Vocho.LoadModel("Models/llantasvocho.obj");
-//    Llantas_Delanteras_Vocho = Model();
-//    Llantas_Delanteras_Vocho.LoadModel("Models/llantasvocho.obj");
+		// Coche propio (Vocho)
+	//    Vocho = Model();
+	//    Vocho.LoadModel("Models/vocho.obj");
+	//    Llantas_Traseras_Vocho = Model();
+	//    Llantas_Traseras_Vocho.LoadModel("Models/llantasvocho.obj");
+	//    Llantas_Delanteras_Vocho = Model();
+	//    Llantas_Delanteras_Vocho.LoadModel("Models/llantasvocho.obj");
 	/********************** Fin de cargas de Modelos **************************/
-
 	/********************** Skybox **************************/
 	std::vector<std::string> skyboxFaces;
 	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_rt.tga");
@@ -355,7 +377,11 @@ int main()
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
 		0.3f, 0.3f,
 		0.0f, 0.0f, -1.0f);
-	// contador de luces puntuales
+
+	/// <summary>
+	/// Contador de luces puntuales.
+	/// </summary>
+	/// <returns></returns>
 	unsigned int pointLightCount = 0;
 	// Declaraci�n de primer luz puntual
 	//    pointLights[0] = PointLight(1.0f, 0.0f, 0.0f,
@@ -365,7 +391,11 @@ int main()
 	//    pointLightCount++;
 
 	unsigned int spotLightCount = 0;
-	// linterna
+	
+	/// <summary>
+	/// Linterna.
+	/// </summary>
+	/// <returns></returns>
 	spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
 		0.0f, 2.0f,
 		0.0f, 0.0f, 0.0f,
@@ -407,7 +437,7 @@ int main()
 //                                  1.0f, 0.0f, 0.0f, // xdir, ydir, zdir
 //                                  0.5f, 0.0f, 0.0f, // con, lin, exp
 //                                  5.0f);            // edge
-	/********************** Fin Luces **************************/
+/********************** Fin Luces **************************/
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
 		uniformSpecularIntensity = 0, uniformShininess = 0, uniformTextureOffset = 0;
@@ -448,7 +478,7 @@ int main()
 		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
 
 		/********************** Renderizado Luces **************************/
-		// luz ligada a la camara de tipo flash
+				// luz ligada a la camara de tipo flash
 		glm::vec3 lowerLight = camera.getCameraPosition();
 		lowerLight.y -= 0.3f;
 
@@ -498,7 +528,8 @@ int main()
 		toffsetu += 0.001 * deltaTime;
 		toffsetv += 0.0 * deltaTime;
 
-		// para que no se desborde la variable
+		/********************** Texturas animadas. ************************************/
+				// para que no se desborde la variable
 		if (toffsetu > 1.0)
 		{
 			toffsetu = 0.0;
