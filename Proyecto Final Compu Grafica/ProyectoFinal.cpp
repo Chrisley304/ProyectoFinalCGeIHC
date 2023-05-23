@@ -69,6 +69,7 @@ Texture AgaveTexture;
 
 /********************** Modelos **************************/
 Model Camino_M;
+Model Edificio;
 // Coche propio (Vocho):
 //Model Vocho;
 //Model Llantas_Delanteras_Vocho;
@@ -356,6 +357,8 @@ int main()
 	//    Llantas_Traseras_Vocho.LoadModel("Models/llantasvocho.obj");
 	//    Llantas_Delanteras_Vocho = Model();
 	//    Llantas_Delanteras_Vocho.LoadModel("Models/llantasvocho.obj");
+	Edificio = Model();
+	Edificio.LoadModel("Models/Edificio.obj");
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
 	std::vector<std::string> skyboxFaces;
@@ -391,7 +394,7 @@ int main()
 	//    pointLightCount++;
 
 	unsigned int spotLightCount = 0;
-	
+
 	/// <summary>
 	/// Linterna.
 	/// </summary>
@@ -509,7 +512,11 @@ int main()
 		meshList[2]->RenderMesh();
 
 		// Poner los modelos aquí
-
+		model = glm::mat4(1.0);
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniform2fv(uniformTextureOffset, 1, glm::value_ptr(toffset));
+		Edificio.RenderModel();
 		// Las texturas transparentes, se ponen al final xd
 		// Agave �qu� sucede si lo renderizan antes del coche y de la pista?
 		model = glm::mat4(1.0);
