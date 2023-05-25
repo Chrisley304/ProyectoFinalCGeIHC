@@ -70,6 +70,7 @@ Texture AgaveTexture;
 /********************** Modelos **************************/
 Model Camino_M;
 Model Edificio;
+Model UFO;
 /********************** Fin Modelos **************************/
 
 Skybox skybox;
@@ -292,6 +293,8 @@ int main()
 	/********************** Cargas de Modelos **************************/
 	Edificio = Model();
 	Edificio.LoadModel("Models/Edificio/Edificio.obj");
+	UFO = Model();
+	UFO.LoadModel("Models/UFO/UFO.obj");
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
 	std::vector<std::string> skyboxFaces;
@@ -340,39 +343,18 @@ int main()
 		5.0f);
 	spotLightCount++;
 
-	// luz fija
-	//    spotLights[1] = SpotLight(0.0f, 0.0f, 1.0f,
-	//                              1.0f, 2.0f,
-	//                              5.0f, 10.0f, 0.0f,
-	//                              0.0f, -5.0f, 0.0f,
-	//                              1.0f, 0.0f, 0.0f,
-	//                              15.0f);
-	//    spotLightCount++;
+	/// <summary>
+	/// Luz UFO
+	/// </summary>
+	/// <returns></returns>
+	spotLights[1] = SpotLight(0.0f, 1.0f, 0.0f,
+		20.f, 20.0f,
+		-230.0f, 150.0f, -190.0f,
+		0.0f, -1.0f, 0.0f,
+		0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
+		15.0f); // Angulo de apertura
 
-//    // luz del coche
-//    spotLights[1] = SpotLight(0.5f, 0.f, 0.5f,   // R, G, B
-//                              1.0f, 2.0f,        // Light Intensity, Color Intensity
-//                              0.f, 1.0f, -1.0f,  // xpos, ypos, zpos
-//                              -1.0f, 0.0f, 0.0f, // xdir, ydir, zdir
-//                              0.5f, 0.0f, 0.0f,  // con, lin, exp
-//                              5.0f);             // edge
-//    spotLightCount++;
-
-	// Copia de luz del coche mirando al frente
-//    spotLights_aux[0] = SpotLight(0.5f, 0.0f, 0.5f,  // R, G, B
-//                                  1.0f, 2.0f,        // Light Intensity, Color Intensity
-//                                  0.f, 1.0f, -1.0f,  // xpos, ypos, zpos
-//                                  -1.0f, 0.0f, 0.0f, // xdir, ydir, zdir
-//                                  0.5f, 0.0f, 0.0f,  // con, lin, exp
-//                                  5.0f);
-//
-//    // Luz del coche mirando de reversa
-//    spotLights_aux[1] = SpotLight(0.5f, 0.0f, 0.5f, // R, G, B
-//                                  1.0f, 2.0f,       // Light Intensity, Color Intensity
-//                                  0.f, 1.0f, -4.0f, // xpos, ypos, zpos
-//                                  1.0f, 0.0f, 0.0f, // xdir, ydir, zdir
-//                                  0.5f, 0.0f, 0.0f, // con, lin, exp
-//                                  5.0f);            // edge
+	spotLightCount++;
 /********************** Fin Luces **************************/
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
@@ -444,13 +426,28 @@ int main()
 
 		meshList[2]->RenderMesh();
 
-		// Poner los modelos aquí
+		/// <summary>
+		/// Modelo del edificio
+		/// </summary>
+		/// <returns></returns>
 		model = glm::mat4(1.0);
 		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniform2fv(uniformTextureOffset, 1, glm::value_ptr(toffset));
 		Edificio.RenderModel();
+
+		/// <summary>
+		/// UFO
+		/// </summary>
+		/// <returns></returns>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-230.0f, 100.0f, -190));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		UFO.RenderModel();
+
 		// Las texturas transparentes, se ponen al final xd
 		// Agave �qu� sucede si lo renderizan antes del coche y de la pista?
 		model = glm::mat4(1.0);
@@ -475,22 +472,8 @@ int main()
 		{
 			toffsetu = 0.0;
 		}
-
-		// if (toffsetv > 1.0)
-		//	toffsetv = 0;
-		// printf("\ntfosset %f \n", toffsetu);
-		// pasar a la variable uniform el valor actualizado
 		toffset = glm::vec2(toffsetu, toffsetv);
 
-		//        model = glm::mat4(1.0);
-		//        model = glm::translate(model, glm::vec3(0.0f, 0.2f, -15.0f));
-		//        model = glm::rotate(model, 90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		//        model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
-		//        glUniform2fv(uniformTextureOffset, 1, glm::value_ptr(toffset)); // Esta linea es importante porque le "avisa" al shader que se va a actualizar el valor del offset
-		//        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		//
-		//        FlechaTexture.UseTexture();
-				// Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		meshList[4]->RenderMesh();
 		glDisable(GL_BLEND);
 

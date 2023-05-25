@@ -14,14 +14,9 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 {
 	width = windowWidth;
 	height = windowHeight;
-//	muevex = 2.0f;
-//	movX_helicoptero = 0.0f;
-//	movY_helicoptero = 0.0f;
-//	movZ_helicoptero = 0.0f;
-//	movimientoXAuto = 0.0f;
-//	movimientoZAuto = 0.0f;
-//	direccionAuto = -1.0f;
-//    autoManual = false;
+	muevex = 0.0f;
+	muevey = 0.0f;
+	muevez = 0.0f;
 
 	for (size_t i = 0; i < 1024; i++)
 	{
@@ -114,7 +109,31 @@ void Window::ManejaTeclado(GLFWwindow *window, int key, int code, int action, in
 	{
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
+	if (key == GLFW_KEY_Y)
+	{
+		theWindow->muevex += 1.0;
+	}
+	if (key == GLFW_KEY_U)
+	{
+		theWindow->muevex -= 1.0;
 
+	}
+	if (key == GLFW_KEY_I)
+	{
+		theWindow->muevey += 1.0;
+	}
+	if (key == GLFW_KEY_O)
+	{
+		theWindow->muevey -= 1.0;
+	}
+	if (key == GLFW_KEY_P)
+	{
+		theWindow->muevez += 1.0;
+	}
+	if (key == GLFW_KEY_L)
+	{
+		theWindow->muevez -= 1.0;
+	}
 	if (key >= 0 && key < 1024)
 	{
 		if (action == GLFW_PRESS)

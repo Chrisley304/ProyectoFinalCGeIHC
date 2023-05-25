@@ -14,6 +14,8 @@ public:
 	GLfloat getXChange();
 	GLfloat getYChange();
 	GLfloat getmuevex() { return muevex; }
+	GLfloat getmuevey() { return muevey; }
+	GLfloat getmuevez() { return muevez; }
 	bool getShouldClose()
 	{
 		return glfwWindowShouldClose(mainWindow);
@@ -50,6 +52,8 @@ private:
 	GLfloat xChange;
 	GLfloat yChange;
 	GLfloat muevex;
+	GLfloat muevey;
+	GLfloat muevez;
 	GLfloat movimientoXAuto;
 	GLfloat direccionAuto;
 	GLfloat movimientoZAuto;
