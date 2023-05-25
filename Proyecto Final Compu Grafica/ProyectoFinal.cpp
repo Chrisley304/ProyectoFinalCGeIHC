@@ -33,15 +33,22 @@ Proyecto final de Computación Gráfica e Iteracción Humano-Computadora.
 const float toRadians = 3.14159265f / 180.0f;
 
 /********************** Inicio variables animación **************************/
-//Prueba
+//OVNI
 float movUFOX;
 float movUFOY;
 float movUFOZ;
 float rotUFO;
 float rotUFOOffset;
+float movUFOOffset;
 float toffsetu = 0.0f;
 float toffsetv = 0.0f;
-
+// Meap
+float movMeapX;
+float movMeapY;
+float movMeapZ;
+float rotMeap;
+float movMeapOffset;
+float rotMeapOffset;
 /********************** Fin Variables animación **************************/
 
 Window mainWindow;
@@ -62,6 +69,7 @@ Texture AgaveTexture;
 Model Camino_M;
 Model Edificio;
 Model UFO;
+Model Meap;
 /********************** Fin Modelos **************************/
 
 Skybox skybox;
@@ -286,6 +294,8 @@ int main()
 	Edificio.LoadModel("Models/Edificio/Edificio.obj");
 	UFO = Model();
 	UFO.LoadModel("Models/UFO/UFO.obj");
+	Meap = Model();
+	Meap.LoadModel("Models/Meap/meap.obj");
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
 	std::vector<std::string> skyboxFaces;
@@ -340,18 +350,34 @@ int main()
 	/// <returns></returns>
 	spotLights[1] = SpotLight(0.0f, 1.0f, 0.0f,
 		20.f, 20.0f,
-		-230.0f, 150.0f, -190.0f,
+		-230.0f, 180.0f, -190.0f,
 		0.0f, -1.0f, 0.0f,
 		0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
 		15.0f); // Angulo de apertura
 
 	spotLightCount++;
-/********************** Fin Luces **************************/
+	/********************** Fin Luces **************************/
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
 		uniformSpecularIntensity = 0, uniformShininess = 0, uniformTextureOffset = 0;
 	GLuint uniformColor = 0;
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
+
+	/******************* Animaciones Inicializacion ****************************/
+	// OVNI
+	rotUFO = 0.0f;
+	rotUFOOffset = 1.0f;
+	movUFOOffset = 1.0f;
+	int tipoMovUFO = 1;
+	bool luzUFO = false;
+	// Meap
+	movMeapOffset = 1.0f;
+	rotMeapOffset = 1.0f;
+	float MeapPosX = 0.0f;
+	float MeapPosZ = 0.0f;
+
+	/******************* Fin Animaciones Inicializacion ****************************/
+
 
 	// Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
@@ -360,6 +386,113 @@ int main()
 		deltaTime = now - lastTime;
 		deltaTime += (now - lastTime) / limitFPS;
 		lastTime = now;
+
+		/*************************** Animaciones *************************************/
+		switch (tipoMovUFO)
+		{
+		case 1:
+			movUFOX = -300.0f;
+			movUFOZ = -300.0f;
+			movMeapX = -300.0f;
+			movMeapY = 125.0f;
+			movMeapZ = -300.0f;
+			MeapPosX = -230.0;
+			MeapPosZ = -90.0;
+			rotMeap = 0.0f;
+			tipoMovUFO = 2;
+			break;
+		case 2:
+			if (movUFOX < 0 && movUFOZ < 0)
+			{
+				movUFOX += movUFOOffset * deltaTime;
+				movUFOZ += movUFOOffset * deltaTime;
+				movMeapX += movUFOOffset * deltaTime;
+				movMeapZ += movUFOOffset * deltaTime;
+			}
+			else {
+				tipoMovUFO = 3;
+				luzUFO = true;
+			}
+			break;
+		case 3:
+			if (movMeapY > 0) {
+				movMeapY -= movMeapOffset * deltaTime;
+				rotMeap += rotMeapOffset * deltaTime * 3;
+			}
+			else
+			{
+				luzUFO = false;
+				tipoMovUFO = 4;
+			}
+			break;
+		case 4:
+			if (movUFOX < 300) {
+				movUFOX += movUFOOffset * deltaTime;
+			}
+			else {
+				tipoMovUFO = 5;
+			}
+			break;
+		case 5:
+			if (movUFOZ < 300) {
+				movUFOZ += movUFOOffset * deltaTime;
+			}
+			else {
+				tipoMovUFO = 6;
+			}
+			break;
+		case 6:
+			if (movUFOX > 0 && movUFOZ > 0)
+			{
+				movUFOX -= movUFOOffset * deltaTime;
+				movUFOZ -= movUFOOffset * deltaTime;
+			}
+			else {
+				tipoMovUFO = 7;
+			}
+			break;
+		case 7:
+			if (movUFOX > 0 && movUFOZ > 0)
+			{
+				movUFOX -= movUFOOffset * deltaTime;
+				movUFOZ -= movUFOOffset * deltaTime;
+			}
+			else {
+				luzUFO = true;
+				tipoMovUFO = 8;
+			}
+			break;
+		case 8:
+			if (movMeapY < 125) {
+				movMeapY += movMeapOffset * deltaTime;
+				rotMeap -= rotMeapOffset * deltaTime * 3;
+			}
+			else
+			{
+				luzUFO = false;
+				tipoMovUFO = 9;
+			}
+			break;
+		case 9:
+			if (movUFOX > -300 && movUFOZ > -300)
+			{
+				movUFOX -= movUFOOffset * deltaTime;
+				movUFOZ -= movUFOOffset * deltaTime;
+				movMeapX -= movUFOOffset * deltaTime;
+				movMeapZ -= movUFOOffset * deltaTime;
+			}
+			else {
+				tipoMovUFO = 1;
+			}
+			break;
+		default:
+			tipoMovUFO = 1;
+			break;
+		}
+		rotUFO += rotUFOOffset * deltaTime;
+
+		/*************************** FIN Animaciones *************************************/
+
 
 		// Recibir eventos del usuario
 		glfwPollEvents();
@@ -396,7 +529,13 @@ int main()
 		shaderList[0].SetPointLights(pointLights, pointLightCount);
 
 		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
-		shaderList[0].SetSpotLights(spotLights, spotLightCount);
+		if (luzUFO) {
+			shaderList[0].SetSpotLights(spotLights, spotLightCount);
+		}
+		else
+		{
+			shaderList[0].SetSpotLights(spotLights, spotLightCount - 1);
+		}
 		/********************** Fin renderizado luces **************************/
 
 		/********************** Renderizado modelos **************************/
@@ -431,13 +570,22 @@ int main()
 		/// <summary>
 		/// UFO
 		/// </summary>
-		/// <returns></returns>
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-230.0f, 100.0f, -190));
+		model = glm::translate(model, glm::vec3(-230.0f + movUFOX, 120.0f + movUFOY, -190 + movUFOZ));
 		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, rotUFO * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		UFO.RenderModel();
+
+		/// <summary>
+		/// Modelo de Meap.
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-230.0f + movMeapX, 0.0f + movMeapY, -190 + movMeapZ));
+		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		model = glm::rotate(model, rotMeap * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Meap.RenderModel();
 
 		// Las texturas transparentes, se ponen al final xd
 		// Agave �qu� sucede si lo renderizan antes del coche y de la pista?
