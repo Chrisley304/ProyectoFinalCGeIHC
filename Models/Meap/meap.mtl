@@ -1,0 +1,65 @@
+# Blender MTL File: 'meap.blend'
+# Material Count: 6
+
+newmtl Material
+Ns 323.999994
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/ProyectoFinalCGeIHC/Textures/plain.png
+
+newmtl None
+Ns 500
+Ka 0.8 0.8 0.8
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+
+newmtl OJOS
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.098021 0.606901 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/ProyectoFinalCGeIHC/Textures/azul-ojos.jpg
+
+newmtl Ojo_Retina
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/ProyectoFinalCGeIHC/Textures/negro.jpg
+
+newmtl Rosa
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.030818 0.519844
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/ProyectoFinalCGeIHC/Textures/rosa.jpg
+
+newmtl nendroidbasemesh_lambert2SG
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/ProyectoFinalCGeIHC/Textures/plain.png
