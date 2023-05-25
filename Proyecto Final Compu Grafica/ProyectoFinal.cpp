@@ -70,10 +70,6 @@ Texture AgaveTexture;
 /********************** Modelos **************************/
 Model Camino_M;
 Model Edificio;
-// Coche propio (Vocho):
-//Model Vocho;
-//Model Llantas_Delanteras_Vocho;
-//Model Llantas_Traseras_Vocho;
 /********************** Fin Modelos **************************/
 
 Skybox skybox;
@@ -200,71 +196,15 @@ void CreateObjects()
 		4, 6, 7 };
 
 	GLfloat vegetacionVertices[] = {
-		-0.5f,
-		-0.5f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.5f,
-		-0.5f,
-		0.0f,
-		1.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.5f,
-		0.5f,
-		0.0f,
-		1.0f,
-		1.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		-0.5f,
-		0.5f,
-		0.0f,
-		0.0f,
-		1.0f,
-		0.0f,
-		0.0f,
-		0.0f,
+		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		0.5f,-0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+		-0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
 
-		0.0f,
-		-0.5f,
-		-0.5f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		-0.5f,
-		0.5f,
-		1.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.5f,
-		0.5f,
-		1.0f,
-		1.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.5f,
-		-0.5f,
-		0.0f,
-		1.0f,
-		0.0f,
-		0.0f,
-		0.0f,
+		0.0f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 0.5f, 0.5f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
 	};
 
 	unsigned int flechaIndices[] = {
@@ -350,13 +290,6 @@ int main()
 	/********************** Cargas de texturas **************************/
 
 	/********************** Cargas de Modelos **************************/
-		// Coche propio (Vocho)
-	//    Vocho = Model();
-	//    Vocho.LoadModel("Models/vocho.obj");
-	//    Llantas_Traseras_Vocho = Model();
-	//    Llantas_Traseras_Vocho.LoadModel("Models/llantasvocho.obj");
-	//    Llantas_Delanteras_Vocho = Model();
-	//    Llantas_Delanteras_Vocho.LoadModel("Models/llantasvocho.obj");
 	Edificio = Model();
 	Edificio.LoadModel("Models/Edificio/Edificio.obj");
 	/********************** Fin de cargas de Modelos **************************/
