@@ -33,24 +33,14 @@ Proyecto final de Computación Gráfica e Iteracción Humano-Computadora.
 const float toRadians = 3.14159265f / 180.0f;
 
 /********************** Inicio variables animación **************************/
-float movCoche;
-float movZHelicoptero = 0.0f;
-float movYHelicoptero = 0.0f;
-float movHelicopteroOffset;
-float giroHelicoptero;
-float giroHelicopteroOffset;
-float movOffset;
-float rotllanta;
-float rotllantaOffset;
-bool avanzaDerecho;
-bool avanzaHelicoptero;
-bool reversaHelicoptero;
+float movUFOX;
+float movUFOY;
+float movUFOZ;
+float rotUFO;
+float rotUFOOffset;
 float toffsetu = 0.0f;
 float toffsetv = 0.0f;
-float movYDado;
-float movYDadoOffset;
-float giroDado;
-float giroDadoOffset;
+
 /********************** Fin Variables animación **************************/
 
 Window mainWindow;
