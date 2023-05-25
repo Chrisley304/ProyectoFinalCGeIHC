@@ -358,7 +358,7 @@ int main()
 	//    Llantas_Delanteras_Vocho = Model();
 	//    Llantas_Delanteras_Vocho.LoadModel("Models/llantasvocho.obj");
 	Edificio = Model();
-	Edificio.LoadModel("Models/Edificio.obj");
+	Edificio.LoadModel("Models/Edificio/Edificio.obj");
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
 	std::vector<std::string> skyboxFaces;
