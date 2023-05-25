@@ -12,8 +12,8 @@ newmtl Pared
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Edificio\Pared.jpg
-	map_Kd Edificio\Pared.jpg
+	map_Ka Pared.jpg
+	map_Kd Pared.jpg
 
 newmtl Ventanas
 	Ns 10.0000
@@ -26,8 +26,8 @@ newmtl Ventanas
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Edificio\MarcoVentana.jpg
-	map_Kd Edificio\MarcoVentana.jpg
+	map_Ka MarcoVentana.jpg
+	map_Kd MarcoVentana.jpg
 
 newmtl Puerta_Marco
 	Ns 10.0000
@@ -40,8 +40,8 @@ newmtl Puerta_Marco
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Edificio\Puerta.jpg
-	map_Kd Edificio\Puerta.jpg
+	map_Ka Puerta.jpg
+	map_Kd Puerta.jpg
 
 newmtl 13___Default
 	Ns 10.0000
@@ -54,8 +54,8 @@ newmtl 13___Default
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Edificio\MarcoPuerta.png
-	map_Kd Edificio\MarcoPuerta.png
+	map_Ka MarcoPuerta.png
+	map_Kd MarcoPuerta.png
 
 newmtl PisoNormal
 	Ns 10.0000
@@ -68,8 +68,8 @@ newmtl PisoNormal
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Edificio\PisoEsc.jpg
-	map_Kd Edificio\PisoEsc.jpg
+	map_Ka PisoEsc.jpg
+	map_Kd PisoEsc.jpg
 
 newmtl PisoBanio
 	Ns 10.0000
@@ -82,8 +82,8 @@ newmtl PisoBanio
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Edificio\PisoBanio.png
-	map_Kd Edificio\PisoBanio.png
+	map_Ka PisoBanio.png
+	map_Kd PisoBanio.png
 
 newmtl Pavimento
 	Ns 10.0000
@@ -96,5 +96,5 @@ newmtl Pavimento
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka Edificio\Estacionamiento.jpg
-	map_Kd Edificio\Estacionamiento.jpg
+	map_Ka Estacionamiento.jpg
+	map_Kd Estacionamiento.jpg

@@ -12,5 +12,5 @@ newmtl Material__487
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka UFO\ufo_diffuse.png
-	map_Kd UFO\ufo_diffuse.png
+	map_Ka ufo_diffuse.png
+	map_Kd ufo_diffuse.png
