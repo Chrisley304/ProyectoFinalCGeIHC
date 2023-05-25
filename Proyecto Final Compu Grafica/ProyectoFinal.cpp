@@ -33,6 +33,7 @@ Proyecto final de Computación Gráfica e Iteracción Humano-Computadora.
 const float toRadians = 3.14159265f / 180.0f;
 
 /********************** Inicio variables animación **************************/
+//Prueba
 float movUFOX;
 float movUFOY;
 float movUFOZ;
