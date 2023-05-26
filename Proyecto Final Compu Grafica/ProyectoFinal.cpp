@@ -516,18 +516,17 @@ int main()
 	UFO.LoadModel("Models/UFO/UFO.obj");
 	Meap = Model();
 	Meap.LoadModel("Models/Meap/meap.obj");
-	//Innador = Model();
-	//Innador.LoadModel("Models/Innador.obj");
-
+	Innador = Model();
+	Innador.LoadModel("Models/Innador.obj");
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
 	std::vector<std::string> skyboxFaces;
-	skyboxFaces.push_back("Textures/Skybox/rainbow_rt.png");
-	skyboxFaces.push_back("Textures/Skybox/rainbow_lf.png");
-	skyboxFaces.push_back("Textures/Skybox/rainbow_dn.png");
-	skyboxFaces.push_back("Textures/Skybox/rainbow_up.png");
-	skyboxFaces.push_back("Textures/Skybox/rainbow_bk.png");
-	skyboxFaces.push_back("Textures/Skybox/rainbow_ft.png");
+	skyboxFaces.push_back("Textures/Skybox/Dia/rainbow_rt.png");
+	skyboxFaces.push_back("Textures/Skybox/Dia/rainbow_lf.png");
+	skyboxFaces.push_back("Textures/Skybox/Dia/rainbow_dn.png");
+	skyboxFaces.push_back("Textures/Skybox/Dia/rainbow_up.png");
+	skyboxFaces.push_back("Textures/Skybox/Dia/rainbow_bk.png");
+	skyboxFaces.push_back("Textures/Skybox/Dia/rainbow_ft.png");
 
 	skybox = Skybox(skyboxFaces);
 	/********************** Fin Skybox **************************/
@@ -800,15 +799,25 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		UFO.RenderModel();
 
-		/// <summary>
-		/// Modelo de Meap.
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-230.0f + movMeapX, 0.0f + movMeapY, -190 + movMeapZ));
-		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::rotate(model, rotMeap * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Meap.RenderModel();
+        /// <summary>
+        /// Modelo de Meap.
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(-230.0f + movMeapX, 0.0f + movMeapY, -190 + movMeapZ));
+        model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+        model = glm::rotate(model, rotMeap * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Meap.RenderModel();
+
+        /// <summary>
+        /// Modelo del edificio
+        /// </summary>
+        /// <returns></returns>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(0.0f, 10.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.050f, 0.05f, 0.05f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Innador.RenderModel();
 
 		/*/// <summary>
 		/// Modelo del edificio
