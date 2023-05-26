@@ -1,5 +1,5 @@
 # 3ds Max Wavefront OBJ Exporter v0.99 - (c)2007 guruware
-# File Created: 25.05.2023 13:11:26
+# File Created: 26.05.2023 15:41:26
 
 newmtl Pared
 	Ns 10.0000
@@ -82,8 +82,8 @@ newmtl PisoBanio
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka PisoBanio.png
-	map_Kd PisoBanio.png
+	map_Ka PisoBanio.jpg
+	map_Kd PisoBanio.jpg
 
 newmtl Pavimento
 	Ns 10.0000
