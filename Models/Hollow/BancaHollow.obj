@@ -1,5 +1,5 @@
 # 3ds Max Wavefront OBJ Exporter v0.99 - (c)2007 guruware
-# File Created: 26.05.2023 13:02:17
+# File Created: 26.05.2023 13:55:22
 
 mtllib BancaHollow.mtl
 
@@ -28328,7 +28328,7 @@ vn 0.5737 0.1534 0.8046
 vn -0.6866 -0.2906 0.6663
 vn -0.7812 -0.3578 0.5116
 vn -0.1824 -0.3422 -0.9217
-vn -0.0000 -0.2696 -0.9630
+vn 0.0000 -0.2696 -0.9630
 vn -0.3578 -0.4073 -0.8403
 vn 0.9816 0.1614 -0.1020
 vn 0.9778 0.1813 0.1053
@@ -45113,7 +45113,7 @@ vt 0.0208 0.5556 0.0000
 
 o Bench_Plane_001
 g Bench_Plane_001
-usemtl DarkMetal
+usemtl 02___Default
 s off
 f 1/1/1 2/2/1 3/3/1 
 f 3/3/1 4/4/1 1/1/1 

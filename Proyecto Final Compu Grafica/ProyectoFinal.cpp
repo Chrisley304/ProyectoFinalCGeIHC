@@ -79,6 +79,7 @@ Model Meap;
 Model Innador;
 Model Farol;
 Model Luciernagas;
+Model BancaHollow;
 /********************** Fin Modelos **************************/
 
 Skybox skybox;
@@ -531,6 +532,8 @@ int main()
 	Farol.LoadModel("Models/Hollow/FarolHollow.obj");
 	Luciernagas = Model();
 	Luciernagas.LoadModel("Models/Hollow/Luciernagas.obj");
+	BancaHollow = Model();
+	BancaHollow.LoadModel("Models/Hollow/BancaHollow.obj");
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
 	std::vector<std::string> skyboxFaces;
@@ -856,6 +859,17 @@ int main()
 		model = glm::rotate(model, rotLuciernagas * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Luciernagas.RenderModel();
+
+		/// <summary>
+		/// Banca Hollow
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-100.0f, 0.0f, -70.0f));
+		model = glm::scale(model, glm::vec3(15.f, 15.f, 15.f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		BancaHollow.RenderModel();
 
 		/// <summary>
 		/// Cartel en construccion.
