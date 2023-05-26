@@ -71,6 +71,7 @@ Model Camino_M;
 Model Edificio;
 Model UFO;
 Model Meap;
+Model Innador;
 /********************** Fin Modelos **************************/
 
 Skybox skybox;
@@ -376,6 +377,8 @@ int main()
 	UFO.LoadModel("Models/UFO/UFO.obj");
 	Meap = Model();
 	Meap.LoadModel("Models/Meap/meap.obj");
+	Meap = Model();
+	Meap.LoadModel("Models/Innador.obj");
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
 	std::vector<std::string> skyboxFaces;
@@ -666,6 +669,15 @@ int main()
 		model = glm::rotate(model, rotMeap * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Meap.RenderModel();
+
+		/// <summary>
+		/// Modelo del edificio
+		/// </summary>
+		/// <returns></returns>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Innador.RenderModel();
 
 		/// <summary>
 		/// Cartel en construccion.
