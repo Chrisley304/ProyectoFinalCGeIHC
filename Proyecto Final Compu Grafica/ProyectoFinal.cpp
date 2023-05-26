@@ -524,12 +524,12 @@ int main()
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
 	std::vector<std::string> skyboxFaces;
-	skyboxFaces.push_back("Textures/Skybox/Dia/rainbow_rt.png");
-	skyboxFaces.push_back("Textures/Skybox/Dia/rainbow_lf.png");
-	skyboxFaces.push_back("Textures/Skybox/Dia/rainbow_dn.png");
-	skyboxFaces.push_back("Textures/Skybox/Dia/rainbow_up.png");
-	skyboxFaces.push_back("Textures/Skybox/Dia/rainbow_bk.png");
-	skyboxFaces.push_back("Textures/Skybox/Dia/rainbow_ft.png");
+	skyboxFaces.push_back("Textures/Skybox/Dia/sh_rt.png");
+	skyboxFaces.push_back("Textures/Skybox/Dia/sh_lf.png");
+	skyboxFaces.push_back("Textures/Skybox/Dia/sh_dn.png");
+	skyboxFaces.push_back("Textures/Skybox/Dia/sh_up.png");
+	skyboxFaces.push_back("Textures/Skybox/Dia/sh_bk.png");
+	skyboxFaces.push_back("Textures/Skybox/Dia/sh_ft.png");
 
 	skybox = Skybox(skyboxFaces);
 	/********************** Fin Skybox **************************/
