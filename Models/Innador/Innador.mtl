@@ -1,0 +1,89 @@
+# Blender MTL File: 'Innador.blend'
+# Material Count: 8
+
+newmtl 01___Default
+Ns 10.000002
+Ka 1.000000 1.000000 1.000000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd /Users/chrisley/Documents/Development/C:C++/ProyectoFinalCGeIHC/Textures/Mat_Cuerpo_albedo.jpg
+
+newmtl 02___Default
+Ns 10.000002
+Ka 1.000000 1.000000 1.000000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd /Users/chrisley/Documents/Development/C:C++/ProyectoFinalCGeIHC/Textures/Mat_Cartel_albedo.jpg
+
+newmtl 07___Default
+Ns 10.000002
+Ka 1.000000 1.000000 1.000000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd /Users/chrisley/Documents/Development/C:C++/ProyectoFinalCGeIHC/Textures/Mat_Adds_albedo.jpg
+
+newmtl 08___Default
+Ns 10.000002
+Ka 1.000000 1.000000 1.000000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd /Users/chrisley/Documents/Development/C:C++/ProyectoFinalCGeIHC/Textures/Mat_Tprnillos_albedo.jpg
+
+newmtl 09___Default
+Ns 10.000002
+Ka 1.000000 1.000000 1.000000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd /Users/chrisley/Documents/Development/C:C++/ProyectoFinalCGeIHC/Textures/Mat_verde_albedo.jpg
+
+newmtl 14___Default
+Ns 10.000002
+Ka 1.000000 1.000000 1.000000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd /Users/chrisley/Documents/Development/C:C++/ProyectoFinalCGeIHC/Textures/Mat_Adds_roughness.jpg
+
+newmtl 19___Default
+Ns 10.000002
+Ka 1.000000 1.000000 1.000000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 1
+map_Kd /Users/chrisley/Documents/Development/C:C++/ProyectoFinalCGeIHC/Textures/Mat_MEtal_AO.jpg
+
+newmtl None
+Ns 500.000001
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
