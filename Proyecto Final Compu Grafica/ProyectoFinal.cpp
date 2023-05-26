@@ -583,10 +583,23 @@ int main()
 	spotLightCount++;
 
 	/// <summary>
+	/// Luz Lampara
+	/// </summary>
+	/// <returns></returns>
+	spotLights[1] = SpotLight(1.0f, 1.0f, 1.0f,
+		20.f, 20.0f,
+		-100.0f, 45.0f, -68.0f,
+		0.0f, -1.0f, 0.0f,
+		1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
+		40.0f); // Angulo de apertura
+
+	spotLightCount++;
+
+	/// <summary>
 	/// Luz UFO
 	/// </summary>
 	/// <returns></returns>
-	spotLights[1] = SpotLight(0.0f, 1.0f, 0.0f,
+	spotLights[2] = SpotLight(0.0f, 1.0f, 0.0f,
 		20.f, 20.0f,
 		-230.0f, 180.0f, -190.0f,
 		0.0f, -1.0f, 0.0f,
@@ -776,6 +789,8 @@ int main()
 		{
 			shaderList[0].SetSpotLights(spotLights, spotLightCount - 1);
 		}
+
+		//spotLights[1].SetPos(glm::vec3(-100.0f + mainWindow.getmuevex(), 60.0f + mainWindow.getmuevey(), -80.0f + mainWindow.getmuevez()));
 		/********************** Fin renderizado luces **************************/
 
 		/********************** Renderizado modelos **************************/
@@ -845,6 +860,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-100.0f, 0.0f, -80.0f));
 		model = glm::scale(model, glm::vec3(15.f, 15.f, 15.f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		modelFarol = model;
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -854,7 +870,7 @@ int main()
 		/// Luciernagas
 		/// </summary>
 		model = modelFarol;
-		model = glm::translate(model, glm::vec3(0.0f, 3.0f, 0.0));
+		model = glm::translate(model, glm::vec3(0.0f, 2.0f, 0.0));
 		model = glm::scale(model, glm::vec3(2.f, 2.f, 2.f));
 		model = glm::rotate(model, rotLuciernagas * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -864,9 +880,9 @@ int main()
 		/// Banca Hollow
 		/// </summary>
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-100.0f, 0.0f, -70.0f));
-		model = glm::scale(model, glm::vec3(15.f, 15.f, 15.f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-100.0f, 0.0f, -67.0f));
+		model = glm::scale(model, glm::vec3(25.f, 25.f, 25.f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		BancaHollow.RenderModel();
@@ -914,11 +930,34 @@ int main()
 
 
 		/// <summary>
-		/// Pizarron.
+		/// Pizarron Hollow.
 		/// </summary>
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 50.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(15.f, 15.f, 1.f));
+		model = glm::translate(model, glm::vec3(31.0f, 22.0f, -170.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(80.f, 25.f, 1.f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Pizarron.UseTexture();
+		meshList[5]->RenderMesh();
+
+		/// <summary>
+		/// Pizarron Piolin.
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(33.0f, 22.0f, -170.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(80.f, 25.f, 1.f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Pizarron.UseTexture();
+		meshList[5]->RenderMesh();
+
+		/// <summary>
+		/// Pizarron Perri.
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(135.0f, 22.0f, -101.0f));
+		//model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(80.f, 25.f, 1.f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Pizarron.UseTexture();
 		meshList[5]->RenderMesh();
@@ -951,19 +990,19 @@ int main()
 
 		meshList[4]->RenderMesh();
 		glDisable(GL_BLEND);
-        
-        //Tecla de cambio de tipo de camara
-        // 0 -> Plano XZ
-        // 1 -> Libre
-        // 2 -> Isometrica
-        if (mainWindow.getCambioCamara())
-        {
-            cameraMode++;
-            if (cameraMode >= 3) {
-                cameraMode = 0;
-            }
-            mainWindow.toogleCambioCamara();
-        }
+
+		//Tecla de cambio de tipo de camara
+		// 0 -> Plano XZ
+		// 1 -> Libre
+		// 2 -> Isometrica
+		if (mainWindow.getCambioCamara())
+		{
+			cameraMode++;
+			if (cameraMode >= 3) {
+				cameraMode = 0;
+			}
+			mainWindow.toogleCambioCamara();
+		}
 
 		glUseProgram(0);
 
