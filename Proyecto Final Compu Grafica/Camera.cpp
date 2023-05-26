@@ -2,26 +2,19 @@
 
 Camera::Camera() {}
 
-Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed)
+Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed, int startCameraMode)
 {
 	position = startPosition;
+    lastPosition = position;
 	worldUp = startUp;
 	yaw = startYaw;
+    lastYaw = yaw; // Se guarda el ultimo valor de yaw
 	pitch = startPitch;
 	front = glm::vec3(0.0f, 0.0f, -1.0f);
+    lastFront = front;
 
 	moveSpeed = startMoveSpeed;
 	turnSpeed = startTurnSpeed;
-
-	//Camara libre
-	// 0 -> Plano XZ
-	// 1 -> Libre
-	// 2 -> Isometrica
-	cameraMode = 0;
-
-	habilitaCambioCamara = 0;
-	reinicioCambioCamara = 0;
-
 
 	//Camara isometrica
 	rotation = 0.0f;   // Ángulo de vista inicial de 45 grados
@@ -33,16 +26,54 @@ Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLf
 	zoomFactor = 1.0f;  // Factor de zoom inicial
 	zoomSpeed = 0.001f;   // Velocidad de zoom
 	habilitaZoom = 0;
+    
+    cameraMode = startCameraMode;
 
 	update();
 }
 
-void Camera::keyControl(bool* keys, GLfloat deltaTime)
+void Camera::keyControl(bool* keys, GLfloat deltaTime, int newCameraMode)
 {
 	GLfloat velocity = moveSpeed * deltaTime;
+    cameraMode = newCameraMode; // Se actualiza el tipo de camara obtenida del programa principal con la entrada del teclado.
 
-	//Controles WASD si se está en modo de camara de plano XZ o libre
-	if (cameraMode == 0 or cameraMode == 1) {
+    //Controles WASD para el modo de camara de plano XZ
+    if (cameraMode == 0) {
+        
+        
+        if (keys[GLFW_KEY_W])
+        {
+            lastPosition += front * velocity;
+        }
+
+        if (keys[GLFW_KEY_S])
+        {
+            lastPosition -= front * velocity;
+        }
+
+        if (keys[GLFW_KEY_A])
+        {
+            lastPosition -= right * velocity;
+        }
+
+        if (keys[GLFW_KEY_D])
+        {
+            lastPosition += right * velocity;
+        }
+        
+        position = lastPosition;
+        
+        // DEBUG de posici—n
+        /*if (keys[GLFW_KEY_Q]) {
+            printf("Vector de front: x=%f, y=%f, z=%f", front.x, front.y, front.z);
+            printf("Vector de up: x=%f, y=%f, z=%f", up.x, up.y, up.z);
+            printf("Vector de posicion: x=%f, y=%f, z=%f", position.x, position.y, position.z);
+        }*/
+
+    }
+    
+	//Controles WASD para los modos de camara libre
+	if (cameraMode == 1) {
 		if (keys[GLFW_KEY_W])
 		{
 			position += front * velocity;
@@ -62,7 +93,8 @@ void Camera::keyControl(bool* keys, GLfloat deltaTime)
 		{
 			position += right * velocity;
 		}
-
+        
+        // DEBUG de posici—n
 		/*if (keys[GLFW_KEY_Q]) {
 			printf("Vector de front: x=%f, y=%f, z=%f", front.x, front.y, front.z);
 			printf("Vector de up: x=%f, y=%f, z=%f", up.x, up.y, up.z);
@@ -70,6 +102,8 @@ void Camera::keyControl(bool* keys, GLfloat deltaTime)
 		}*/
 
 	}
+    
+    // Camara Isometrica
 	else if (cameraMode == 2) {
 		if (keys[GLFW_KEY_A]) {
 			pan(0.1f, 0.0f);  // Desplazamiento a la izquierda
@@ -101,45 +135,33 @@ void Camera::keyControl(bool* keys, GLfloat deltaTime)
 				zoomFactor -= zoomSpeed;  // Alejamiento
 			}
 				habilitaZoom = 0;
-			
 		}
 
-	}
-
-	//Tecla de cambio de tipo de camara
-	if (keys[GLFW_KEY_V])
-	{
-		if (habilitaCambioCamara < 1)
-		{
-			habilitaCambioCamara++;
-			reinicioCambioCamara = 0;
-			cameraMode++;
-			if (cameraMode == 3) {
-				cameraMode = 0;
-			}
-		}
-	}
-	//Tecla que habilita
-	if (keys[GLFW_KEY_C])
-	{
-		if (reinicioCambioCamara < 1)
-		{
-			habilitaCambioCamara = 0;
-		}
 	}
 
 }
 
 void Camera::mouseControl(GLfloat xChange, GLfloat yChange)
 {
-
-
 	//Camara fija plano XZ
 	if (cameraMode == 0) {
 		xChange *= turnSpeed;
 		yChange *= turnSpeed;
-
+        
 		yaw += xChange;
+        lastYaw = yaw; // Se guarda el ultimo valor de yaw
+        
+        pitch += yChange;
+        
+        if (pitch > 89.0f)
+        {
+            pitch = 89.0f;
+        }
+        
+        if (pitch < -89.0f)
+        {
+            pitch = -89.0f;
+        }
 	}
 
 	//Camara libre
@@ -173,7 +195,10 @@ void Camera::mouseControl(GLfloat xChange, GLfloat yChange)
 
 glm::mat4 Camera::calculateViewMatrix()
 {
-	if (cameraMode == 0 or cameraMode == 1) {
+    if (cameraMode == 0) {
+        return glm::lookAt(lastPosition, lastPosition + lastFront, up);
+    }
+    else if (cameraMode == 1) {
 		return glm::lookAt(position, position + front, up);
 	}
 	//Modo de camara isometrica
@@ -190,6 +215,9 @@ glm::mat4 Camera::calculateViewMatrix()
 
 glm::vec3 Camera::getCameraPosition()
 {
+//    if (cameraMode==0){
+//        position = lastPosition;
+//    }
 	return position;
 }
 
@@ -205,15 +233,20 @@ void Camera::update()
 	//Camara fija al plano XZ
 	if (cameraMode == 0)
 	{
-		glm::vec3 newFront;
-		newFront.x = cos(glm::radians(yaw));
-		newFront.y = 0.0f;
-		newFront.z = sin(glm::radians(yaw));
-		front = glm::normalize(newFront);
-
-		right = glm::normalize(glm::cross(front, worldUp));
-		up = glm::normalize(glm::cross(right, front));
-
+        // Front para el movimiento
+        front.x = cos(glm::radians(lastYaw));
+        front.y = 0.0f;
+        front.z = sin(glm::radians(lastYaw));
+        
+        // front para la camara
+        lastFront.x = cos(glm::radians(lastYaw));
+        lastFront.y = sin(glm::radians(pitch));
+        lastFront.z = sin(glm::radians(lastYaw));
+        
+        front = glm::normalize(front);
+        lastFront = glm::normalize(lastFront);
+		right = glm::normalize(glm::cross(lastFront, worldUp));
+		up = glm::normalize(glm::cross(right, lastFront));
 	}
 
 	//Camara libre

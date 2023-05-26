@@ -88,6 +88,7 @@ Material Material_opaco;
 GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
 static double limitFPS = 1.0 / 60.0;
+int cameraMode = 0; // Variable que llevara el tipo de camara que se va a utilizar en el programa.
 
 /// <summary>
 /// Luz direccional.
@@ -491,7 +492,7 @@ int main()
 	CrearMesa();
 	/********************** Fin llamadas funciones **************************/
 
-	camera = Camera(glm::vec3(0.0f, 20.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 2.5f, 0.5f);
+	camera = Camera(glm::vec3(0.0f, 20.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 2.5f, 0.5f, cameraMode);
 
 	/********************** Cargas de texturas **************************/
 	brickTexture = Texture("Textures/brick.png");
@@ -721,7 +722,7 @@ int main()
 
 		// Recibir eventos del usuario
 		glfwPollEvents();
-		camera.keyControl(mainWindow.getsKeys(), deltaTime);
+		camera.keyControl(mainWindow.getsKeys(), deltaTime, cameraMode);
 		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
 
 		// Clear the window
@@ -912,6 +913,19 @@ int main()
 
 		meshList[4]->RenderMesh();
 		glDisable(GL_BLEND);
+        
+        //Tecla de cambio de tipo de camara
+        // 0 -> Plano XZ
+        // 1 -> Libre
+        // 2 -> Isometrica
+        if (mainWindow.getCambioCamara())
+        {
+            cameraMode++;
+            if (cameraMode >= 3) {
+                cameraMode = 0;
+            }
+            mainWindow.toogleCambioCamara();
+        }
 
 		glUseProgram(0);
 

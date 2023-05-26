@@ -11,9 +11,9 @@ class Camera
 {
 public:
 	Camera();
-	Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed);
+	Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed, int startCameraMode);
 
-	void keyControl(bool* keys, GLfloat deltaTime);
+	void keyControl(bool* keys, GLfloat deltaTime, int newCameraMode);
 	void mouseControl(GLfloat xChange, GLfloat yChange);
 
 	//Camara isometrica
@@ -29,24 +29,27 @@ public:
 
 private:
 	glm::vec3 position;
-	glm::vec3 front;
-	glm::vec3 up;
-	glm::vec3 right;
-	glm::vec3 worldUp;
+    glm::vec3 front;
+    glm::vec3 up;
+    glm::vec3 right;
+    glm::vec3 worldUp;
 
-	GLfloat yaw;
-	GLfloat pitch;
+    GLfloat yaw;
+    GLfloat pitch;
 
-	GLfloat moveSpeed;
-	GLfloat turnSpeed;
-
-	//Camara libre
-	int cameraMode;
-	int habilitaCambioCamara;
-	int reinicioCambioCamara;
-
-	//Camara isometrica
-	float rotation;     // Ángulo de vista
+    GLfloat moveSpeed;
+    GLfloat turnSpeed;
+    
+    // Tipo de camara
+    int cameraMode;
+    
+    // Camara XY
+    glm::vec3 lastPosition; // Almacena la ultima posicion de la camara en XY.
+    GLfloat lastYaw; // Valor para almacenar el ultimo movimiento de la camara.
+    glm::vec3 lastFront;
+    
+    //Camara isometrica
+    float rotation;     // Ángulo de vista
 	float scale;        // Escala de la cámara
 	glm::vec3 frontIsometrica;
 	glm::vec3 upIsometrica;

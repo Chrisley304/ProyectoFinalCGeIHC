@@ -22,22 +22,8 @@ public:
 	}
 	bool *getsKeys() { return keys; }
 	void swapBuffers() { return glfwSwapBuffers(mainWindow); }
-	GLfloat getMovimientoXAuto() { return movimientoXAuto; }
-	GLfloat getDireccionAuto() { return direccionAuto; }
-	GLfloat getMovimientoZAuto() { return movimientoZAuto; }
-	GLfloat getMovimientoXHelicoptero() { return movX_helicoptero; }
-	GLfloat getMovimientoYHelicoptero() { return movY_helicoptero; }
-	GLfloat getMovimientoZHelicoptero() { return movZ_helicoptero; }
-	GLfloat getMovimientoRuedas() { return mov_ruedas; }
-	GLfloat isHelicopteroEncendido() { return helicopteroEncendido; }
-	void alternHelicopteroEncendido() { helicopteroEncendido = !helicopteroEncendido; }
-	void toggleAutoManual()
-	{
-		autoManual = !autoManual;
-	}
-    bool isAutoManual() { return autoManual; }
-    bool resetCarro() { return resetCar; }
-	void setResetFlag(bool val) { resetCar = val; }
+    bool getCambioCamara(){return cambioCamara; }
+    void toogleCambioCamara(){cambioCamara = !cambioCamara; }
 
 	~Window();
 
@@ -54,16 +40,7 @@ private:
 	GLfloat muevex;
 	GLfloat muevey;
 	GLfloat muevez;
-	GLfloat movimientoXAuto;
-	GLfloat direccionAuto;
-	GLfloat movimientoZAuto;
-	GLfloat movX_helicoptero;
-	GLfloat movY_helicoptero;
-	GLfloat movZ_helicoptero;
-	GLfloat mov_ruedas;
-	bool helicopteroEncendido;
-    bool autoManual;
-	bool resetCar;
+    bool cambioCamara;
 
 	bool mouseFirstMoved;
 	static void ManejaTeclado(GLFWwindow *window, int key, int code, int action, int mode);
