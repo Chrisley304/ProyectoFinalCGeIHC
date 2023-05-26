@@ -80,6 +80,7 @@ Model Innador;
 Model Farol;
 Model Luciernagas;
 Model BancaHollow;
+Model Elderbug;
 /********************** Fin Modelos **************************/
 
 Skybox skybox;
@@ -534,6 +535,9 @@ int main()
 	Luciernagas.LoadModel("Models/Hollow/Luciernagas.obj");
 	BancaHollow = Model();
 	BancaHollow.LoadModel("Models/Hollow/BancaHollow.obj");
+    Elderbug = Model();
+    Elderbug.LoadModel("Models/Hollow/ElderBug.obj");
+
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
 	std::vector<std::string> skyboxFaces;
@@ -876,16 +880,23 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Luciernagas.RenderModel();
 
+        /// <summary>
+        /// Banca Hollow
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(-100.0f, 0.0f, -67.0f));
+        model = glm::scale(model, glm::vec3(25.f, 25.f, 25.f));
+        model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        BancaHollow.RenderModel();
+
 		/// <summary>
-		/// Banca Hollow
+		/// ElderBug Hollow
 		/// </summary>
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-100.0f, 0.0f, -67.0f));
-		model = glm::scale(model, glm::vec3(25.f, 25.f, 25.f));
-		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		BancaHollow.RenderModel();
+        Elderbug.RenderModel();
 
 		/// <summary>
 		/// Cartel en construccion.

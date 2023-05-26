@@ -12,8 +12,8 @@ newmtl Cuerpo
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka C:\Users\cedua\Desktop\Clases\Computacion grafica\Proyecto\ProyectoFinal\ProyectoFinal\Textures\negro.jpg
-	map_Kd C:\Users\cedua\Desktop\Clases\Computacion grafica\Proyecto\ProyectoFinal\ProyectoFinal\Textures\negro.jpg
+	map_Ka negro.jpg
+	map_Kd negro.jpg
 
 newmtl Mascara
 	Ns 10.0000
@@ -26,8 +26,8 @@ newmtl Mascara
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka C:\Users\cedua\Desktop\Clases\Computacion grafica\Proyecto\ProyectoFinal\ProyectoFinal\Textures\CabezasHollow.jpg
-	map_Kd C:\Users\cedua\Desktop\Clases\Computacion grafica\Proyecto\ProyectoFinal\ProyectoFinal\Textures\CabezasHollow.jpg
+	map_Ka CabezasHollow.jpg
+	map_Kd CabezasHollow.jpg
 
 newmtl 07___Default
 	Ns 10.0000
@@ -40,8 +40,8 @@ newmtl 07___Default
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka C:\Users\cedua\Desktop\Clases\Computacion grafica\Proyecto\ProyectoFinal\ProyectoFinal\Textures\MetalHollow.jpg
-	map_Kd C:\Users\cedua\Desktop\Clases\Computacion grafica\Proyecto\ProyectoFinal\ProyectoFinal\Textures\MetalHollow.jpg
+	map_Ka MetalHollow.jpg
+	map_Kd MetalHollow.jpg
 
 newmtl Capa
 	Ns 10.0000
@@ -54,5 +54,5 @@ newmtl Capa
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka C:\Users\cedua\Desktop\Clases\Computacion grafica\Proyecto\ProyectoFinal\ProyectoFinal\Textures\CapaHollow.jpg
-	map_Kd C:\Users\cedua\Desktop\Clases\Computacion grafica\Proyecto\ProyectoFinal\ProyectoFinal\Textures\CapaHollow.jpg
+	map_Ka CapaHollow.jpg
+	map_Kd CapaHollow.jpg
