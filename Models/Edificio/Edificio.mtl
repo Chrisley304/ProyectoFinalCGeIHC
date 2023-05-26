@@ -82,8 +82,8 @@ newmtl PisoBanio
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka PisoBanio.jpg
-	map_Kd PisoBanio.jpg
+	map_Ka PisoBanio.png
+	map_Kd PisoBanio.png
 
 newmtl Pavimento
 	Ns 10.0000
