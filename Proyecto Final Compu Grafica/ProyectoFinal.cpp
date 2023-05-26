@@ -491,7 +491,7 @@ int main()
 	CrearMesa();
 	/********************** Fin llamadas funciones **************************/
 
-	camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 2.5f, 0.5f);
+	camera = Camera(glm::vec3(0.0f, 20.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 2.5f, 0.5f);
 
 	/********************** Cargas de texturas **************************/
 	brickTexture = Texture("Textures/brick.png");
