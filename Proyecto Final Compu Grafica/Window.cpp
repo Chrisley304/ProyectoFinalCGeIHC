@@ -115,7 +115,34 @@ void Window::ManejaTeclado(GLFWwindow *window, int key, int code, int action, in
     if (key == GLFW_KEY_V && action == GLFW_RELEASE){
         theWindow->toogleCambioCamara();
     }
-    
+
+	/*if (key == GLFW_KEY_Y)
+	{
+		theWindow->muevex += 1.0;
+
+	}
+	if (key == GLFW_KEY_U)
+	{
+		theWindow->muevex -= 1.0;
+
+	}
+	if (key == GLFW_KEY_I)
+	{
+		theWindow->muevey += 1.0;
+	}
+	if (key == GLFW_KEY_O)
+	{
+		theWindow->muevey -= 1.0;
+	}
+	if (key == GLFW_KEY_P)
+	{
+		theWindow->muevez += 1.0;
+	}
+	if (key == GLFW_KEY_L)
+	{
+		theWindow->muevez -= 1.0;
+	}
+    */
 	if (key >= 0 && key < 1024)
 	{
 		if (action == GLFW_PRESS)
