@@ -49,6 +49,9 @@ float movMeapZ;
 float rotMeap;
 float movMeapOffset;
 float rotMeapOffset;
+// Luciernagas
+float rotLuciernagas;
+float rotLuciernagasOffset;
 /********************** Fin Variables animación **************************/
 
 Window mainWindow;
@@ -74,6 +77,8 @@ Model Edificio;
 Model UFO;
 Model Meap;
 Model Innador;
+Model Farol;
+Model Luciernagas;
 /********************** Fin Modelos **************************/
 
 Skybox skybox;
@@ -521,6 +526,10 @@ int main()
 	Meap.LoadModel("Models/Meap/meap.obj");
 	Innador = Model();
 	Innador.LoadModel("Models/Innador/Innador.obj");
+	Farol = Model();
+	Farol.LoadModel("Models/Hollow/FarolHollow.obj");
+	Luciernagas = Model();
+	Luciernagas.LoadModel("Models/Hollow/Luciernagas.obj");
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
 	std::vector<std::string> skyboxFaces;
@@ -600,7 +609,9 @@ int main()
 	rotMeapOffset = 1.0f;
 	float MeapPosX = 0.0f;
 	float MeapPosZ = 0.0f;
-
+	// Luciernagas
+	rotLuciernagas = 0.0f;
+	rotLuciernagasOffset = 1.0f;
 	/******************* Fin Animaciones Inicializacion ****************************/
 
 
@@ -715,7 +726,7 @@ int main()
 			break;
 		}
 		rotUFO += rotUFOOffset * deltaTime;
-
+		rotLuciernagas += rotLuciernagasOffset * deltaTime;
 		/*************************** FIN Animaciones *************************************/
 
 
@@ -766,6 +777,7 @@ int main()
 		/********************** Renderizado modelos **************************/
 
 		glm::mat4 model(1.0);
+		glm::mat4 modelFarol(1.0);
 		glm::mat4 modelaux(1.0);
 		glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
 		glm::vec2 toffset = glm::vec2(0.0f, 0.0f);
@@ -822,15 +834,27 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Innador.RenderModel();
 
-		/*/// <summary>
-		/// Modelo del edificio
+		/// <summary>
+		/// FarolHollow
 		/// </summary>
 		/// <returns></returns>
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 10.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.050f, 0.05f, 0.05f));
+		model = glm::translate(model, glm::vec3(-100.0f, 0.0f, -80.0f));
+		model = glm::scale(model, glm::vec3(15.f, 15.f, 15.f));
+		modelFarol = model;
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Innador.RenderModel();*/
+		Farol.RenderModel();
+
+		/// <summary>
+		/// Luciernagas
+		/// </summary>
+		model = modelFarol;
+		model = glm::translate(model, glm::vec3(0.0f, 3.0f, 0.0));
+		model = glm::scale(model, glm::vec3(2.f, 2.f, 2.f));
+		model = glm::rotate(model, rotLuciernagas * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Luciernagas.RenderModel();
 
 		/// <summary>
 		/// Cartel en construccion.
