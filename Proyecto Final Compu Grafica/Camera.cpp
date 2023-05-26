@@ -203,8 +203,6 @@ glm::mat4 Camera::calculateViewMatrix()
 	}
 	//Modo de camara isometrica
 	else {
-		//return glm::lookAt(positionIsometrica, positionIsometrica + frontIsometrica, upIsometrica);
-		
 		// Ajustar la posición de la cámara isométrica en función del zoom
 		positionIsometrica = zoomFactor * positionIsometrica;
 		zoomFactor = 1.0f;
@@ -215,9 +213,6 @@ glm::mat4 Camera::calculateViewMatrix()
 
 glm::vec3 Camera::getCameraPosition()
 {
-//    if (cameraMode==0){
-//        position = lastPosition;
-//    }
 	return position;
 }
 
@@ -291,7 +286,7 @@ void Camera::pan(float dx, float dy) {
 }
 
 void Camera::zoom(float delta) {
-	// Acercamiento o alejamiento de la cámara
+	// Acercamiento o alejamiento de la camara
 	scale += delta;
 	// Limitar el valor mínimo de la escala
 	if (scale < 0.1f) {

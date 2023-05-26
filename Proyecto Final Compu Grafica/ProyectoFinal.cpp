@@ -84,6 +84,7 @@ Model Elderbug;
 /********************** Fin Modelos **************************/
 
 Skybox skybox;
+bool noche = true; // Variable para llevar a cabo el cambio de ciclo día/noche
 
 /// <summary>
 /// Materiales.
@@ -541,12 +542,21 @@ int main()
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
 	std::vector<std::string> skyboxFaces;
-	skyboxFaces.push_back("Textures/Skybox/Dia/sh_rt.png");
-	skyboxFaces.push_back("Textures/Skybox/Dia/sh_lf.png");
-	skyboxFaces.push_back("Textures/Skybox/Dia/sh_dn.png");
-	skyboxFaces.push_back("Textures/Skybox/Dia/sh_up.png");
-	skyboxFaces.push_back("Textures/Skybox/Dia/sh_bk.png");
-	skyboxFaces.push_back("Textures/Skybox/Dia/sh_ft.png");
+    if (!noche){
+        skyboxFaces.push_back("Textures/Skybox/Dia/sh_rt.png");
+        skyboxFaces.push_back("Textures/Skybox/Dia/sh_lf.png");
+        skyboxFaces.push_back("Textures/Skybox/Dia/sh_dn.png");
+        skyboxFaces.push_back("Textures/Skybox/Dia/sh_up.png");
+        skyboxFaces.push_back("Textures/Skybox/Dia/sh_bk.png");
+        skyboxFaces.push_back("Textures/Skybox/Dia/sh_ft.png");
+    }else{
+        skyboxFaces.push_back("Textures/Skybox/Noche/sh_rt.png");
+        skyboxFaces.push_back("Textures/Skybox/Noche/sh_lf.png");
+        skyboxFaces.push_back("Textures/Skybox/Noche/sh_dn.png");
+        skyboxFaces.push_back("Textures/Skybox/Noche/sh_up.png");
+        skyboxFaces.push_back("Textures/Skybox/Noche/sh_bk.png");
+        skyboxFaces.push_back("Textures/Skybox/Noche/sh_ft.png");
+    }
 
 	skybox = Skybox(skyboxFaces);
 	/********************** Fin Skybox **************************/
@@ -807,7 +817,7 @@ int main()
 
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(50.0f, 1.0f, 50.0f));
+		model = glm::scale(model, glm::vec3(100.0f, 1.0f, 100.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniform2fv(uniformTextureOffset, 1, glm::value_ptr(toffset));
