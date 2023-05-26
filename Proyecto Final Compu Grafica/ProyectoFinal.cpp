@@ -519,8 +519,8 @@ int main()
 	UFO.LoadModel("Models/UFO/UFO.obj");
 	Meap = Model();
 	Meap.LoadModel("Models/Meap/meap.obj");
-	//Innador = Model();
-	//Innador.LoadModel("Models/Innador.obj");
+	Innador = Model();
+	Innador.LoadModel("Models/Innador/Innador.obj");
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
 	std::vector<std::string> skyboxFaces;
