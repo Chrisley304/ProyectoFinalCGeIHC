@@ -224,7 +224,11 @@ glm::vec3 Camera::getCameraPosition()
 
 glm::vec3 Camera::getCameraDirection()
 {
-	return glm::normalize(front);
+    if (cameraMode == 0){
+        return glm::normalize(lastFront);
+    }else{
+        return glm::normalize(front);
+    }
 }
 
 void Camera::update()
