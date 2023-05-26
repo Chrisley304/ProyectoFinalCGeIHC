@@ -64,6 +64,7 @@ Texture plainTexture;
 Texture pisoTexture;
 Texture AgaveTexture;
 Texture CartelConstruccion;
+Texture MesaMetal;
 /********************** Fin Texturas **************************/
 
 /********************** Modelos **************************/
@@ -71,6 +72,7 @@ Model Camino_M;
 Model Edificio;
 Model UFO;
 Model Meap;
+Model Innador;
 /********************** Fin Modelos **************************/
 
 Skybox skybox;
@@ -333,6 +335,141 @@ void CrearCubo()
 	meshList.push_back(dado);
 
 }
+
+/// <summary>
+/// Crea una mesa.
+/// </summary>
+void CrearMesa()
+{
+	unsigned int mesa_indices[] = {
+		// front
+		0, 1, 2,
+		2, 3, 0,
+		// Cara mesa Y
+		4,5,6,
+		6,7,4,
+		//Cara mesa X
+		8,9,10,
+		10,11,8,
+		//Cara mesa -Y
+		12,13,14,
+		14,15,12,
+		// Cara mesa -X
+		16,17,18,
+		18,19,16,
+		// Pata Y-1
+		20,21,22,
+		22,23,20,
+		//Pata Y-2
+		24,25,26,
+		26,27,24,
+		//Pata X-1
+		28,29,30,
+		30,31,28,
+		//Para X-2
+		32,33,34,
+		34,35,32,
+		// Pata -Y-1
+		36,37,38,
+		38,39,36,
+		// Pata -Y-2
+		40,41,42,
+		42,43,40,
+		// Pata -X-1
+		44,45,46,
+		46,47,44,
+		// Pata -X-2
+		48,49,50,
+		50,51,48,
+	};
+	//Ejercicio 1: reemplazar con sus dados de 6 caras texturizados, agregar normales
+// average normals
+	GLfloat mesa_vertices[] = {
+		// parte superior mesa
+		//x		y		z		S		T			NX		NY		NZ
+		2.5f,	1.5f,	-1.5f,	1.0f,	0.0f,	0.0f,	-1.0f,	0.0f,	//0
+		-2.5f,	1.5f,	-1.5f,	1.0f,	1.0f,	0.0f,	-1.0f,	0.0f,	//1
+		-2.5f,	1.5f,	1.5f,	0.0f,	1.0f,	0.0f,	-1.0f,	0.0f,	//2
+		2.5f,	1.5f,	1.5f,	0.0f,	0.0f,	0.0f,	-1.0f,	0.0f,	//3
+
+		//Cara mesa Y
+		2.0f,	1.5f,	1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	-1.0f,	//4
+		-2.0f,	1.5f,	1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	-1.0f,	//5
+		-2.0f,	0.5f,	1.0f,	1.0f,	0.0f,	0.0f,	0.0f,	-1.0f,	//6
+		2.0f,	0.5f,	1.0f,	0.0f,	0.0f,	0.0f,	0.0f,	-1.0f,	//7
+
+		//Cara mesa X
+		2.0f,	1.5f,	-1.0f,	0.0f,	1.0f,	-1.0f,	0.0f,	0.0f,	//8
+		2.0f,	1.5f,	1.0f,	1.0f,	1.0f,	-1.0f,	0.0f,	0.0f,	//9
+		2.0f,	0.5f,	1.0f,	1.0f,	0.0f,	-1.0f,	0.0f,	0.0f,	//10
+		2.0f,	0.5f,	-1.0f,	0.0f,	0.0f,	-1.0f,	0.0f,	0.0f,	//11
+
+		// Cara mesa -Y
+		-2.0f,	1.5f,	-1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	1.0f,	//12
+		2.0f,	1.5f,	-1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	1.0f,	//13
+		2.0f,	0.5f,	-1.0f,	1.0f,	0.0f,	0.0f,	0.0f,	1.0f,	//14
+		-2.0f,	0.5f,	-1.0f,	0.0f,	0.0f,	0.0f,	0.0f,	1.0f,	//15
+
+		// Cara mesa -X
+		-2.0f,	1.5f,	1.0f,	0.0f,	1.0f,	1.0f,	0.0f,	0.0f,	//16
+		-2.0f,	1.5f,	-1.0f,	1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	//17
+		-2.0f,	0.5f,	-1.0f,	1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	//18
+		-2.0f,	0.5f,	1.0f,	0.0f,	0.0f,	1.0f,	0.0f,	0.0f,	//19
+
+		// Pata Y-1
+		2.0f,	0.5f,	1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	-1.0f,	//20
+		1.8f,	0.5f,	1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	-1.0f,	//21
+		1.8f,	0.0f,	1.0f,	1.0f,	0.0f,	0.0f,	0.0f,	-1.0f,	//22
+		2.0f,	0.0f,	1.0f,	0.0f,	0.0f,	0.0f,	0.0f,	-1.0f,	//23
+
+		// Para Y-2
+		-1.8f,	0.5f,	1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	-1.0f,	//24
+		-2.0f,	0.5f,	1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	-1.0f,	//25
+		-2.0f,	0.0f,	1.0f,	1.0f,	0.0f,	0.0f,	0.0f,	-1.0f,	//26
+		-1.8f,	0.0f,	1.0f,	0.0f,	0.0f,	0.0f,	0.0f,	-1.0f,	//27
+
+		// Pata X-1
+		2.0f,	0.5f,	-1.0f,	0.0f,	1.0f,	-1.0f,	0.0f,	0.0f,	//28
+		2.0f,	0.5f,	-0.8f,	1.0f,	1.0f,	-1.0f,	0.0f,	0.0f,	//29
+		2.0f,	0.0f,	-0.8f,	1.0f,	0.0f,	-1.0f,	0.0f,	0.0f,	//30
+		2.0f,	0.0f,	-1.0f,	0.0f,	0.0f,	-1.0f,	0.0f,	0.0f,	//31
+
+		// Para X-2
+		2.0f,	0.5f,	0.8f,	0.0f,	1.0f,	-1.0f,	0.0f,	0.0f,	//32
+		2.0f,	0.5f,	1.0f,	1.0f,	1.0f,	-1.0f,	0.0f,	0.0f,	//33
+		2.0f,	0.0f,	1.0f,	1.0f,	0.0f,	-1.0f,	0.0f,	0.0f,	//34
+		2.0f,	0.0f,	0.8f,	0.0f,	0.0f,	-1.0f,	0.0f,	0.0f,	//35
+
+		// Pata -Y-1
+		-2.0f,	0.5f,	-1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	1.0f,	//36
+		-1.8f,	0.5f,	-1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	1.0f,	//37
+		-1.8f,	0.0f,	-1.0f,	1.0f,	0.0f,	0.0f,	0.0f,	1.0f,	//38
+		-2.0f,	0.0f,	-1.0f,	0.0f,	0.0f,	0.0f,	0.0f,	1.0f,	//39
+
+		// Pata -Y-2
+		1.8f,	0.5f,	-1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	1.0f,	//40
+		2.0f,	0.5f,	-1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	1.0f,	//41
+		2.0f,	0.0f,	-1.0f,	1.0f,	0.0f,	0.0f,	0.0f,	1.0f,	//42
+		1.8f,	0.0f,	-1.0f,	0.0f,	0.0f,	0.0f,	0.0f,	1.0f,	//43
+
+		// Pata -X-1
+		-2.0f,	0.5f,	1.0f,	0.0f,	1.0f,	1.0f,	0.0f,	0.0f,	//44
+		-2.0f,	0.5f,	0.8f,	1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	//45
+		-2.0f,	0.0f,	0.8f,	1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	//46
+		-2.0f,	0.0f,	1.0f,	0.0f,	0.0f,	1.0f,	0.0f,	0.0f,	//47
+
+		// Pata -X-2
+		-2.0f,	0.5f,	-0.8f,	0.0f,	1.0f,	1.0f,	0.0f,	0.0f,	//48
+		-2.0f,	0.5f,	-1.0f,	0.0f,	1.0f,	1.0f,	0.0f,	0.0f,	//48
+		-2.0f,	0.0f,	-1.0f,	1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	//49
+		-2.0f,	0.0f,	-0.8f,	1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	//49
+	};
+
+	Mesh* mesa = new Mesh();
+	mesa->CreateMesh(mesa_vertices, mesa_indices, 416, 78);
+	meshList.push_back(mesa);
+
+}
 /********************** Fin funciones **************************/
 
 /// <summary>
@@ -350,6 +487,7 @@ int main()
 	CreateObjects();
 	CreateShaders();
 	CrearCubo();
+	CrearMesa();
 	/********************** Fin llamadas funciones **************************/
 
 	camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 2.5f, 0.5f);
@@ -367,6 +505,8 @@ int main()
 	AgaveTexture.LoadTextureA();
 	CartelConstruccion = Texture("Textures/CartelConstruccion.png");
 	CartelConstruccion.LoadTextureA();
+	MesaMetal = Texture("Textures/MetalMesa.png");
+	MesaMetal.LoadTextureA();
 	/********************** Cargas de texturas **************************/
 
 	/********************** Cargas de Modelos **************************/
@@ -376,6 +516,9 @@ int main()
 	UFO.LoadModel("Models/UFO/UFO.obj");
 	Meap = Model();
 	Meap.LoadModel("Models/Meap/meap.obj");
+	//Innador = Model();
+	//Innador.LoadModel("Models/Innador.obj");
+
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
 	std::vector<std::string> skyboxFaces;
@@ -667,6 +810,16 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Meap.RenderModel();
 
+		/*/// <summary>
+		/// Modelo del edificio
+		/// </summary>
+		/// <returns></returns>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 10.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.050f, 0.05f, 0.05f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Innador.RenderModel();*/
+
 		/// <summary>
 		/// Cartel en construccion.
 		/// </summary>
@@ -676,6 +829,38 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		CartelConstruccion.UseTexture();
 		meshList[5]->RenderMesh();
+
+		/// <summary>
+		/// Mesa de metal 1.
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(50.0f, 0.f, 220.0f));
+		model = glm::scale(model, glm::vec3(20.f, 5.f,7.f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		MesaMetal.UseTexture();
+		meshList[6]->RenderMesh();
+
+		/// <summary>
+		/// Mesa de metal 2.
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-50.0f, 0.f, 220.0f));
+		model = glm::scale(model, glm::vec3(20.f, 5.f, 7.f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		MesaMetal.UseTexture();
+		meshList[6]->RenderMesh();
+
+		/// <summary>
+		/// Mesa de metal 3.
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-110.0f, 0.f, 170.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(24.f, 5.f, 7.f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		MesaMetal.UseTexture();
+		meshList[6]->RenderMesh();
+
 
 		// Las texturas transparentes, se ponen al final xd
 		// Agave �qu� sucede si lo renderizan antes del coche y de la pista?
