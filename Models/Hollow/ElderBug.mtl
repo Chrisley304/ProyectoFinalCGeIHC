@@ -1,0 +1,58 @@
+# 3ds Max Wavefront OBJ Exporter v0.99 - (c)2007 guruware
+# File Created: 26.05.2023 15:59:58
+
+newmtl Cuerpo
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\cedua\Desktop\Clases\Computacion grafica\Proyecto\ProyectoFinal\ProyectoFinal\Textures\negro.jpg
+	map_Kd C:\Users\cedua\Desktop\Clases\Computacion grafica\Proyecto\ProyectoFinal\ProyectoFinal\Textures\negro.jpg
+
+newmtl Mascara
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\cedua\Desktop\Clases\Computacion grafica\Proyecto\ProyectoFinal\ProyectoFinal\Textures\CabezasHollow.jpg
+	map_Kd C:\Users\cedua\Desktop\Clases\Computacion grafica\Proyecto\ProyectoFinal\ProyectoFinal\Textures\CabezasHollow.jpg
+
+newmtl 07___Default
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\cedua\Desktop\Clases\Computacion grafica\Proyecto\ProyectoFinal\ProyectoFinal\Textures\MetalHollow.jpg
+	map_Kd C:\Users\cedua\Desktop\Clases\Computacion grafica\Proyecto\ProyectoFinal\ProyectoFinal\Textures\MetalHollow.jpg
+
+newmtl Capa
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\cedua\Desktop\Clases\Computacion grafica\Proyecto\ProyectoFinal\ProyectoFinal\Textures\CapaHollow.jpg
+	map_Kd C:\Users\cedua\Desktop\Clases\Computacion grafica\Proyecto\ProyectoFinal\ProyectoFinal\Textures\CapaHollow.jpg
