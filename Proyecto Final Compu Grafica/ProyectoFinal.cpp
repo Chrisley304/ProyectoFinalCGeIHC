@@ -80,6 +80,12 @@ Model Innador;
 Model Farol;
 Model Luciernagas;
 Model BancaHollow;
+Model MesaBanco;
+Model EscritorioTocino;
+Model Tocino;
+Model Piolin;
+Model Huevo;
+Model Sarten;
 /********************** Fin Modelos **************************/
 
 Skybox skybox;
@@ -535,6 +541,18 @@ int main()
 	Luciernagas.LoadModel("Models/Hollow/Luciernagas.obj");
 	BancaHollow = Model();
 	BancaHollow.LoadModel("Models/Hollow/BancaHollow.obj");
+	MesaBanco = Model();
+	MesaBanco.LoadModel("Models/Cartoon/MesaBanco.obj");
+	EscritorioTocino = Model();
+	EscritorioTocino.LoadModel("Models/Cartoon/Escritorio.obj");
+	Tocino = Model();
+	Tocino.LoadModel("Models/Cartoon/TocinoCharacter.obj");
+	Piolin = Model();
+	Piolin.LoadModel("Models/Cartoon/Piolin.obj");
+	Huevo = Model();
+	Huevo.LoadModel("Models/Cartoon/HuevoMacho.obj");
+	Sarten = Model();
+	Sarten.LoadModel("Models/Cartoon/Sarten.obj");
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
 	std::vector<std::string> skyboxFaces;
@@ -854,7 +872,7 @@ int main()
 		Meap.RenderModel();
 
 		/// <summary>
-		/// Modelo del edificio
+		/// Modelo del innador
 		/// </summary>
 		/// <returns></returns>
 		model = glm::mat4(1.0);
@@ -896,6 +914,88 @@ int main()
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		BancaHollow.RenderModel();
+
+		/// <summary>
+		/// MesaBancos
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(185.0f, 0.0f, -315.0));
+		model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		MesaBanco.RenderModel();
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(185.0f, 0.0f, -215.0));
+		model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		MesaBanco.RenderModel();
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(225.0f, 0.0f, -315.0));
+		model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		MesaBanco.RenderModel();
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(225.0f, 0.0f, -215.0));
+		model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		MesaBanco.RenderModel();
+
+		/// <summary>
+		/// Escritorio Tocino
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(95.0f, 0.0f, -300.0f));
+		model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(36.0f, 36.0f, 36.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		EscritorioTocino.RenderModel();
+
+		/// <summary>
+		/// Tocino
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(85.0f, 0.0f, -225.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 20.0f, 20.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Tocino.RenderModel();
+
+		/// <summary>
+		/// Piolin
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(150.0f, 0.0f, -215.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Piolin.RenderModel();
+
+		/// <summary>
+		/// Huevo
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(220.0f, 0.0f, -260.0f));
+		model = glm::scale(model, glm::vec3(2.5f, 2.5f, 2.5f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Huevo.RenderModel();
+
+		/// <summary>
+		/// Sarten
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(130.0f, 0.0f, -348.0f));
+		model = glm::scale(model, glm::vec3(2.5f, 2.5f, 2.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Sarten.RenderModel();
 
 		/// <summary>
 		/// Cartel en construccion.
@@ -951,7 +1051,7 @@ int main()
 		meshList[5]->RenderMesh();
 
 		/// <summary>
-		/// Pizarron Piolin.
+		/// Pizarron Tocino.
 		/// </summary>
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(33.0f, 22.0f, -170.0f));
