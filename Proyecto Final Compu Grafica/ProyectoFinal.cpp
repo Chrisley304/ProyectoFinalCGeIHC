@@ -593,7 +593,8 @@ int main()
 	//                                0.3f, 0.2f, 0.1f);
 	//    pointLightCount++;
 
-	unsigned int spotLightCount = 0;
+    unsigned int spotLightCount = 0;
+	unsigned int spotLightAuxCount = 0;
 
 	/// <summary>
 	/// Linterna.
@@ -611,28 +612,44 @@ int main()
 	/// Luz Lampara
 	/// </summary>
 	/// <returns></returns>
-	spotLights[1] = SpotLight(1.0f, 1.0f, 1.0f,
+    spotLights[1] = SpotLight(1.0f, 1.0f, 1.0f,
+        20.f, 20.0f,
+        -100.0f, 45.0f, -68.0f,
+        0.0f, -1.0f, 0.0f,
+        1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
+        40.0f); // Angulo de apertura
+    
+	spotLights_aux[0] = SpotLight(1.0f, 1.0f, 1.0f,
 		20.f, 20.0f,
 		-100.0f, 45.0f, -68.0f,
 		0.0f, -1.0f, 0.0f,
 		1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
 		40.0f); // Angulo de apertura
 
-	spotLightCount++;
+    spotLightCount++;
+    spotLightAuxCount++;
 
-	/// <summary>
-	/// Luz UFO
-	/// </summary>
-	/// <returns></returns>
-	spotLights[2] = SpotLight(0.0f, 1.0f, 0.0f,
-		20.f, 20.0f,
-		-230.0f, 180.0f, -190.0f,
-		0.0f, -1.0f, 0.0f,
-		0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
-		15.0f); // Angulo de apertura
+    /// <summary>
+    /// Luz UFO
+    /// </summary>
+    /// <returns></returns>
+    spotLights[2] = SpotLight(0.0f, 1.0f, 0.0f,
+        20.f, 20.0f,
+        -230.0f, 180.0f, -190.0f,
+        0.0f, -1.0f, 0.0f,
+        0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
+        15.0f); // Angulo de apertura
+    
+    spotLights_aux[1] = SpotLight(0.0f, 1.0f, 0.0f,
+        20.f, 20.0f,
+        -230.0f, 180.0f, -190.0f,
+        0.0f, -1.0f, 0.0f,
+        0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
+        15.0f); // Angulo de apertura
 
-	spotLightCount++;
-	/********************** Fin Luces **************************/
+    spotLightCount++;
+    spotLightAuxCount++;
+    /********************** Fin Luces **************************/
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
 		uniformSpecularIntensity = 0, uniformShininess = 0, uniformTextureOffset = 0;
@@ -786,7 +803,8 @@ int main()
 			tipoMovUFO = 1;
 			break;
 		}
-		// Mov ElderBug.
+		
+        // Mov ElderBug.
 		switch (tipoMovElderBug)
 		{
 		case 1:
@@ -1031,7 +1049,11 @@ int main()
 			break;
 		}
 		rotUFO += rotUFOOffset * deltaTime;
-		rotLuciernagas += rotLuciernagasOffset * deltaTime;
+        
+        if (mainWindow.getInicioMoscas()){
+            rotLuciernagas += rotLuciernagasOffset * deltaTime;
+        }
+        
 		/*************************** FIN Animaciones *************************************/
 
 
@@ -1044,7 +1066,7 @@ int main()
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        // Generación de
+        // Generación de cambio de hora del día
         
         if(cambioSkybox){
             noche = !noche;
@@ -1095,12 +1117,26 @@ int main()
 		shaderList[0].SetPointLights(pointLights, pointLightCount);
 
 		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
+        
 		if (luzUFO) {
-			shaderList[0].SetSpotLights(spotLights, spotLightCount);
-		}
-		else
-		{
-			shaderList[0].SetSpotLights(spotLights, spotLightCount - 1);
+            // Enciende lampara en la solo en la noche
+            if (!noche){
+                spotLights[1] = spotLights_aux[1]; // Se coloca primero la luz del UFO
+                shaderList[0].SetSpotLights(spotLights, spotLightCount - 1);
+            }else{
+                spotLights[1] = spotLights_aux[0]; // Se coloca primero la luz del faro
+                shaderList[0].SetSpotLights(spotLights, spotLightCount);
+            }
+            shaderList[0].SetSpotLights(spotLights, spotLightCount);
+        }
+        else
+        {
+            if (!noche){
+                shaderList[0].SetSpotLights(spotLights, spotLightCount - 2);
+            }else{
+                spotLights[1] = spotLights_aux[0]; // Se coloca primero la luz del faro
+                shaderList[0].SetSpotLights(spotLights, spotLightCount - 1);
+            }
 		}
 
 		//spotLights[1].SetPos(glm::vec3(-100.0f + mainWindow.getmuevex(), 60.0f + mainWindow.getmuevey(), -80.0f + mainWindow.getmuevez()));
