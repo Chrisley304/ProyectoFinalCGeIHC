@@ -61,7 +61,7 @@ float rotElderBugOffset;
 /********************** Fin Variables animación **************************/
 
 Window mainWindow;
-std::vector<Mesh *> meshList;
+std::vector<Mesh*> meshList;
 std::vector<Shader> shaderList;
 
 Camera camera;
@@ -93,6 +93,12 @@ Model Tocino;
 Model Piolin;
 Model Huevo;
 Model Sarten;
+Model Microondas;
+Model CartelCafeteria;
+Model Pan;
+Model Cafe;
+Model Queso;
+Model Sandwich;
 /********************** Fin Modelos **************************/
 
 /********************** Skybox **************************/
@@ -137,12 +143,12 @@ SpotLight spotLights_aux[MAX_SPOT_LIGHTS];
 /// <summary>
 /// Vertex shader.
 /// </summary>
-static const char *vShader = "shaders/shader_light.vert";
+static const char* vShader = "shaders/shader_light.vert";
 
 /// <summary>
 /// Fragment shader.
 /// </summary>
-static const char *fShader = "shaders/shader_light.frag";
+static const char* fShader = "shaders/shader_light.frag";
 
 /********************** Funciones **************************/
 /// <summary>
@@ -154,7 +160,7 @@ static const char *fShader = "shaders/shader_light.frag";
 /// <param name="verticeCount"></param>
 /// <param name="vLength"></param>
 /// <param name="normalOffset"></param>
-void calcAverageNormals(unsigned int *indices, unsigned int indiceCount, GLfloat *vertices, unsigned int verticeCount, unsigned int vLength, unsigned int normalOffset)
+void calcAverageNormals(unsigned int* indices, unsigned int indiceCount, GLfloat* vertices, unsigned int verticeCount, unsigned int vLength, unsigned int normalOffset)
 {
 	for (size_t i = 0; i < indiceCount; i += 3)
 	{
@@ -200,29 +206,29 @@ void CreateObjects()
 		0, 3, 1,
 		1, 3, 2,
 		2, 3, 0,
-		0, 1, 2};
+		0, 1, 2 };
 
 	GLfloat vertices[] = {
 		//	x      y      z			u	  v			nx	  ny    nz
 		-1.0f, -1.0f, -0.6f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, -1.0f, 1.0f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f,
 		1.0f, -1.0f, -0.6f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f};
+		0.0f, 1.0f, 0.0f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f };
 
 	unsigned int floorIndices[] = {
 		0, 2, 1,
-		1, 2, 3};
+		1, 2, 3 };
 
 	GLfloat floorVertices[] = {
 		-10.0f, 0.0f, -10.0f, 0.0f, 0.0f, 0.0f, -1.0f, 0.0f,
 		10.0f, 0.0f, -10.0f, 10.0f, 0.0f, 0.0f, -1.0f, 0.0f,
 		-10.0f, 0.0f, 10.0f, 0.0f, 10.0f, 0.0f, -1.0f, 0.0f,
-		10.0f, 0.0f, 10.0f, 10.0f, 10.0f, 0.0f, -1.0f, 0.0f};
+		10.0f, 0.0f, 10.0f, 10.0f, 10.0f, 0.0f, -1.0f, 0.0f };
 	unsigned int vegetacionIndices[] = {
 		0, 1, 2,
 		0, 2, 3,
 		4, 5, 6,
-		4, 6, 7};
+		4, 6, 7 };
 
 	GLfloat vegetacionVertices[] = {
 		-0.5f,
@@ -294,7 +300,7 @@ void CreateObjects()
 
 	unsigned int flechaIndices[] = {
 		0, 1, 2,
-		0, 2, 3};
+		0, 2, 3 };
 
 	GLfloat flechaVertices[] = {
 		-0.5f, 0.0f, 0.5f,
@@ -307,26 +313,26 @@ void CreateObjects()
 		0.0f, -1.0f, 0.0f,
 		-0.5f, 0.0f, -0.5f,
 		0.0f, 1.0f, 0.0f,
-		-1.0f, 0.0f};
+		-1.0f, 0.0f };
 
-	Mesh *obj1 = new Mesh();
+	Mesh* obj1 = new Mesh();
 
 	obj1->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj1);
 
-	Mesh *obj2 = new Mesh();
+	Mesh* obj2 = new Mesh();
 	obj2->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj2);
 
-	Mesh *obj3 = new Mesh();
+	Mesh* obj3 = new Mesh();
 	obj3->CreateMesh(floorVertices, floorIndices, 32, 6);
 	meshList.push_back(obj3);
 
-	Mesh *obj4 = new Mesh();
+	Mesh* obj4 = new Mesh();
 	obj4->CreateMesh(vegetacionVertices, vegetacionIndices, 64, 12);
 	meshList.push_back(obj4);
 
-	Mesh *obj5 = new Mesh();
+	Mesh* obj5 = new Mesh();
 	obj5->CreateMesh(flechaVertices, flechaIndices, 32, 6);
 	meshList.push_back(obj5);
 }
@@ -336,7 +342,7 @@ void CreateObjects()
 /// </summary>
 void CreateShaders()
 {
-	Shader *shader1 = new Shader();
+	Shader* shader1 = new Shader();
 
 	shader1->CreateFromFiles(vShader, fShader);
 	shaderList.push_back(*shader1);
@@ -604,7 +610,7 @@ void CrearCubo()
 
 	};
 
-	Mesh *dado = new Mesh();
+	Mesh* dado = new Mesh();
 	dado->CreateMesh(cubo_vertices, cubo_indices, 192, 36);
 	meshList.push_back(dado);
 }
@@ -790,7 +796,7 @@ void CrearMesa()
 		-2.0f, 0.0f, -0.8f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // 49
 	};
 
-	Mesh *mesa = new Mesh();
+	Mesh* mesa = new Mesh();
 	mesa->CreateMesh(mesa_vertices, mesa_indices, 416, 78);
 	meshList.push_back(mesa);
 }
@@ -865,6 +871,18 @@ int main()
 	Huevo.LoadModel("Models/Cartoon/HuevoMacho.obj");
 	Sarten = Model();
 	Sarten.LoadModel("Models/Cartoon/Sarten.obj");
+	Microondas = Model();
+	Microondas.LoadModel("Models/Cafeteria/Mircoondas.obj");
+	CartelCafeteria = Model();
+	CartelCafeteria.LoadModel("Models/Cafeteria/Cartel.obj");
+	Pan = Model();
+	Pan.LoadModel("Models/Cafeteria/Pan.obj");
+	Cafe = Model();
+	Cafe.LoadModel("Models/Cafeteria/Cafe.obj");	
+	Queso= Model();
+	Queso.LoadModel("Models/Cafeteria/Queso.obj");	
+	Sandwich= Model();
+	Sandwich.LoadModel("Models/Cafeteria/Sandwich.obj");
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
 	std::vector<std::string> skyboxFaces;
@@ -896,8 +914,8 @@ int main()
 
 	// luz direccional, s�lo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
-								 0.3f, 0.3f,
-								 0.0f, 0.0f, -1.0f);
+		0.3f, 0.3f,
+		0.0f, 0.0f, -1.0f);
 
 	/// <summary>
 	/// Contador de luces puntuales.
@@ -919,11 +937,11 @@ int main()
 	/// </summary>
 	/// <returns></returns>
 	spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
-							  0.0f, 2.0f,
-							  0.0f, 0.0f, 0.0f,
-							  0.0f, -1.0f, 0.0f,
-							  1.0f, 0.0f, 0.0f,
-							  5.0f);
+		0.0f, 2.0f,
+		0.0f, 0.0f, 0.0f,
+		0.0f, -1.0f, 0.0f,
+		1.0f, 0.0f, 0.0f,
+		5.0f);
 	spotLightCount++;
 
 	/// <summary>
@@ -931,18 +949,18 @@ int main()
 	/// </summary>
 	/// <returns></returns>
 	spotLights[1] = SpotLight(1.0f, 1.0f, 1.0f,
-							  20.f, 20.0f,
-							  -100.0f, 45.0f, -68.0f,
-							  0.0f, -1.0f, 0.0f,
-							  1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
-							  40.0f);			// Angulo de apertura
+		20.f, 20.0f,
+		-100.0f, 45.0f, -68.0f,
+		0.0f, -1.0f, 0.0f,
+		1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
+		40.0f);			// Angulo de apertura
 
 	spotLights_aux[0] = SpotLight(1.0f, 1.0f, 1.0f,
-								  20.f, 20.0f,
-								  -100.0f, 45.0f, -68.0f,
-								  0.0f, -1.0f, 0.0f,
-								  1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
-								  40.0f);			// Angulo de apertura
+		20.f, 20.0f,
+		-100.0f, 45.0f, -68.0f,
+		0.0f, -1.0f, 0.0f,
+		1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
+		40.0f);			// Angulo de apertura
 
 	spotLightCount++;
 	spotLightAuxCount++;
@@ -952,25 +970,25 @@ int main()
 	/// </summary>
 	/// <returns></returns>
 	spotLights[2] = SpotLight(0.0f, 1.0f, 0.0f,
-							  20.f, 20.0f,
-							  -230.0f, 180.0f, -190.0f,
-							  0.0f, -1.0f, 0.0f,
-							  0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
-							  15.0f);			 // Angulo de apertura
+		20.f, 20.0f,
+		-230.0f, 180.0f, -190.0f,
+		0.0f, -1.0f, 0.0f,
+		0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
+		15.0f);			 // Angulo de apertura
 
 	spotLights_aux[1] = SpotLight(0.0f, 1.0f, 0.0f,
-								  20.f, 20.0f,
-								  -230.0f, 180.0f, -190.0f,
-								  0.0f, -1.0f, 0.0f,
-								  0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
-								  15.0f);			 // Angulo de apertura
+		20.f, 20.0f,
+		-230.0f, 180.0f, -190.0f,
+		0.0f, -1.0f, 0.0f,
+		0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
+		15.0f);			 // Angulo de apertura
 
 	spotLightCount++;
 	spotLightAuxCount++;
 	/********************** Fin Luces **************************/
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
-		   uniformSpecularIntensity = 0, uniformShininess = 0, uniformTextureOffset = 0;
+		uniformSpecularIntensity = 0, uniformShininess = 0, uniformTextureOffset = 0;
 	GLuint uniformColor = 0;
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
 
@@ -1619,6 +1637,66 @@ int main()
 		Elderbug.RenderModel();
 
 		/// <summary>
+		/// Microondas
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-50.0f, 12.0f, 220.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 20.0f, 20.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Microondas.RenderModel();
+
+		/// <summary>
+		/// Cartel cafetería.
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(30.0f, 0.0f, 80.0f));
+		model = glm::scale(model, glm::vec3(0.75f, 0.75f, 0.75f));
+		//model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		CartelCafeteria.RenderModel();
+
+		/// <summary>
+		/// Pan.
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-80.0f, 7.0f, 220.0f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
+		model = glm::rotate(model, 15 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Pan.RenderModel();
+
+		/// <summary>
+		/// Café.
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-110.0f, 7.0f, 170.0f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Cafe.RenderModel();
+
+		/// <summary>
+		/// Queso.
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 8.0f, 220.0f));
+		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Queso.RenderModel();
+
+		/// <summary>
+		/// Sandwich.
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-100.0f, 8.0f, 220.0f));
+		model = glm::scale(model, glm::vec3(0.7f, 0.7f, 0.7f));
+		//model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Sandwich.RenderModel();
+
+		/// <summary>
 		/// MesaBancos
 		/// </summary>
 		// model = glm::mat4(1.0);
@@ -1770,7 +1848,6 @@ int main()
 		/// </summary>
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(135.0f, 22.0f, -101.0f));
-		// model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(80.f, 25.f, 1.f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Pizarron.UseTexture();
