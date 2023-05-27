@@ -33,7 +33,7 @@ Proyecto final de Computación Gráfica e Iteracción Humano-Computadora.
 const float toRadians = 3.14159265f / 180.0f;
 
 /********************** Inicio variables animación **************************/
-//OVNI
+// OVNI
 float movUFOX;
 float movUFOY;
 float movUFOZ;
@@ -61,7 +61,7 @@ float rotElderBugOffset;
 /********************** Fin Variables animación **************************/
 
 Window mainWindow;
-std::vector<Mesh*> meshList;
+std::vector<Mesh *> meshList;
 std::vector<Shader> shaderList;
 
 Camera camera;
@@ -87,6 +87,12 @@ Model Farol;
 Model Luciernagas;
 Model BancaHollow;
 Model Elderbug;
+Model MesaBanco;
+Model EscritorioTocino;
+Model Tocino;
+Model Piolin;
+Model Huevo;
+Model Sarten;
 /********************** Fin Modelos **************************/
 
 /********************** Skybox **************************/
@@ -131,12 +137,12 @@ SpotLight spotLights_aux[MAX_SPOT_LIGHTS];
 /// <summary>
 /// Vertex shader.
 /// </summary>
-static const char* vShader = "shaders/shader_light.vert";
+static const char *vShader = "shaders/shader_light.vert";
 
 /// <summary>
 /// Fragment shader.
 /// </summary>
-static const char* fShader = "shaders/shader_light.frag";
+static const char *fShader = "shaders/shader_light.frag";
 
 /********************** Funciones **************************/
 /// <summary>
@@ -148,7 +154,7 @@ static const char* fShader = "shaders/shader_light.frag";
 /// <param name="verticeCount"></param>
 /// <param name="vLength"></param>
 /// <param name="normalOffset"></param>
-void calcAverageNormals(unsigned int* indices, unsigned int indiceCount, GLfloat* vertices, unsigned int verticeCount, unsigned int vLength, unsigned int normalOffset)
+void calcAverageNormals(unsigned int *indices, unsigned int indiceCount, GLfloat *vertices, unsigned int verticeCount, unsigned int vLength, unsigned int normalOffset)
 {
 	for (size_t i = 0; i < indiceCount; i += 3)
 	{
@@ -194,45 +200,101 @@ void CreateObjects()
 		0, 3, 1,
 		1, 3, 2,
 		2, 3, 0,
-		0, 1, 2 };
+		0, 1, 2};
 
 	GLfloat vertices[] = {
 		//	x      y      z			u	  v			nx	  ny    nz
 		-1.0f, -1.0f, -0.6f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, -1.0f, 1.0f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f,
 		1.0f, -1.0f, -0.6f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f };
+		0.0f, 1.0f, 0.0f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f};
 
 	unsigned int floorIndices[] = {
 		0, 2, 1,
-		1, 2, 3 };
+		1, 2, 3};
 
 	GLfloat floorVertices[] = {
 		-10.0f, 0.0f, -10.0f, 0.0f, 0.0f, 0.0f, -1.0f, 0.0f,
 		10.0f, 0.0f, -10.0f, 10.0f, 0.0f, 0.0f, -1.0f, 0.0f,
 		-10.0f, 0.0f, 10.0f, 0.0f, 10.0f, 0.0f, -1.0f, 0.0f,
-		10.0f, 0.0f, 10.0f, 10.0f, 10.0f, 0.0f, -1.0f, 0.0f };
+		10.0f, 0.0f, 10.0f, 10.0f, 10.0f, 0.0f, -1.0f, 0.0f};
 	unsigned int vegetacionIndices[] = {
 		0, 1, 2,
 		0, 2, 3,
 		4, 5, 6,
-		4, 6, 7 };
+		4, 6, 7};
 
 	GLfloat vegetacionVertices[] = {
-		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-		0.5f,-0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-		0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-		-0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+		-0.5f,
+		-0.5f,
+		0.0f,
+		0.0f,
+		0.0f,
+		0.0f,
+		0.0f,
+		0.0f,
+		0.5f,
+		-0.5f,
+		0.0f,
+		1.0f,
+		0.0f,
+		0.0f,
+		0.0f,
+		0.0f,
+		0.5f,
+		0.5f,
+		0.0f,
+		1.0f,
+		1.0f,
+		0.0f,
+		0.0f,
+		0.0f,
+		-0.5f,
+		0.5f,
+		0.0f,
+		0.0f,
+		1.0f,
+		0.0f,
+		0.0f,
+		0.0f,
 
-		0.0f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 0.5f, 0.5f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f,
+		-0.5f,
+		-0.5f,
+		0.0f,
+		0.0f,
+		0.0f,
+		0.0f,
+		0.0f,
+		0.0f,
+		-0.5f,
+		0.5f,
+		1.0f,
+		0.0f,
+		0.0f,
+		0.0f,
+		0.0f,
+		0.0f,
+		0.5f,
+		0.5f,
+		1.0f,
+		1.0f,
+		0.0f,
+		0.0f,
+		0.0f,
+		0.0f,
+		0.5f,
+		-0.5f,
+		0.0f,
+		1.0f,
+		0.0f,
+		0.0f,
+		0.0f,
 	};
 
 	unsigned int flechaIndices[] = {
 		0, 1, 2,
-		0, 2, 3 };
+		0, 2, 3};
 
 	GLfloat flechaVertices[] = {
 		-0.5f, 0.0f, 0.5f,
@@ -245,26 +307,26 @@ void CreateObjects()
 		0.0f, -1.0f, 0.0f,
 		-0.5f, 0.0f, -0.5f,
 		0.0f, 1.0f, 0.0f,
-		-1.0f, 0.0f };
+		-1.0f, 0.0f};
 
-	Mesh* obj1 = new Mesh();
+	Mesh *obj1 = new Mesh();
 
 	obj1->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj1);
 
-	Mesh* obj2 = new Mesh();
+	Mesh *obj2 = new Mesh();
 	obj2->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj2);
 
-	Mesh* obj3 = new Mesh();
+	Mesh *obj3 = new Mesh();
 	obj3->CreateMesh(floorVertices, floorIndices, 32, 6);
 	meshList.push_back(obj3);
 
-	Mesh* obj4 = new Mesh();
+	Mesh *obj4 = new Mesh();
 	obj4->CreateMesh(vegetacionVertices, vegetacionIndices, 64, 12);
 	meshList.push_back(obj4);
 
-	Mesh* obj5 = new Mesh();
+	Mesh *obj5 = new Mesh();
 	obj5->CreateMesh(flechaVertices, flechaIndices, 32, 6);
 	meshList.push_back(obj5);
 }
@@ -274,7 +336,7 @@ void CreateObjects()
 /// </summary>
 void CreateShaders()
 {
-	Shader* shader1 = new Shader();
+	Shader *shader1 = new Shader();
 
 	shader1->CreateFromFiles(vShader, fShader);
 	shaderList.push_back(*shader1);
@@ -287,73 +349,264 @@ void CrearCubo()
 {
 	unsigned int cubo_indices[] = {
 		// front
-		0, 1, 2,
-		2, 3, 0,
+		0,
+		1,
+		2,
+		2,
+		3,
+		0,
 		// right
-		4, 5, 6,
-		6, 7, 4,
+		4,
+		5,
+		6,
+		6,
+		7,
+		4,
 		// back
-		8, 9, 10,
-		10, 11, 8,
+		8,
+		9,
+		10,
+		10,
+		11,
+		8,
 
 		// left
-		12, 13, 14,
-		14, 15, 12,
+		12,
+		13,
+		14,
+		14,
+		15,
+		12,
 		// bottom
-		16, 17, 18,
-		18, 19, 16,
+		16,
+		17,
+		18,
+		18,
+		19,
+		16,
 		// top
-		20, 21, 22,
-		22, 23, 20,
+		20,
+		21,
+		22,
+		22,
+		23,
+		20,
 	};
-	//Ejercicio 1: reemplazar con sus dados de 6 caras texturizados, agregar normales
-// average normals
+	// Ejercicio 1: reemplazar con sus dados de 6 caras texturizados, agregar normales
+	// average normals
 	GLfloat cubo_vertices[] = {
 		// front
-		//x		y		z		S		T			NX		NY		NZ
-		-0.5f, -0.5f,  0.5f,	0.25f,  0.33f,		0.0f,	0.0f,	-1.0f,	//0
-		0.5f, -0.5f,  0.5f,		0.5f,	0.33f,		0.0f,	0.0f,	-1.0f,	//1
-		0.5f,  0.5f,  0.5f,		0.5f,	0.66f,		0.0f,	0.0f,	-1.0f,	//2
-		-0.5f,  0.5f,  0.5f,	0.25f,	0.66f,		0.0f,	0.0f,	-1.0f,	//3
+		// x		y		z		S		T			NX		NY		NZ
+		-0.5f,
+		-0.5f,
+		0.5f,
+		0.25f,
+		0.33f,
+		0.0f,
+		0.0f,
+		-1.0f, // 0
+		0.5f,
+		-0.5f,
+		0.5f,
+		0.5f,
+		0.33f,
+		0.0f,
+		0.0f,
+		-1.0f, // 1
+		0.5f,
+		0.5f,
+		0.5f,
+		0.5f,
+		0.66f,
+		0.0f,
+		0.0f,
+		-1.0f, // 2
+		-0.5f,
+		0.5f,
+		0.5f,
+		0.25f,
+		0.66f,
+		0.0f,
+		0.0f,
+		-1.0f, // 3
 		// right
-		//x		y		z		S		T
-		0.5f, -0.5f,  0.5f,	    0.5f,  0.33f,		-1.0f,	0.0f,	0.0f,
-		0.5f, -0.5f,  -0.5f,	0.75f,	0.33f,		-1.0f,	0.0f,	0.0f,
-		0.5f,  0.5f,  -0.5f,	0.75f,	0.66f,		-1.0f,	0.0f,	0.0f,
-		0.5f,  0.5f,  0.5f,	    0.5f,	0.66f,		-1.0f,	0.0f,	0.0f,
+		// x		y		z		S		T
+		0.5f,
+		-0.5f,
+		0.5f,
+		0.5f,
+		0.33f,
+		-1.0f,
+		0.0f,
+		0.0f,
+		0.5f,
+		-0.5f,
+		-0.5f,
+		0.75f,
+		0.33f,
+		-1.0f,
+		0.0f,
+		0.0f,
+		0.5f,
+		0.5f,
+		-0.5f,
+		0.75f,
+		0.66f,
+		-1.0f,
+		0.0f,
+		0.0f,
+		0.5f,
+		0.5f,
+		0.5f,
+		0.5f,
+		0.66f,
+		-1.0f,
+		0.0f,
+		0.0f,
 		// back
-		-0.5f, -0.5f, -0.5f,	1.0f,  0.33f,		0.0f,	0.0f,	1.0f,
-		0.5f, -0.5f, -0.5f,		0.75f,	0.33f,		0.0f,	0.0f,	1.0f,
-		0.5f,  0.5f, -0.5f,		0.75f,	0.66f,		0.0f,	0.0f,	1.0f,
-		-0.5f,  0.5f, -0.5f,	1.0f,	0.66f,		0.0f,	0.0f,	1.0f,
+		-0.5f,
+		-0.5f,
+		-0.5f,
+		1.0f,
+		0.33f,
+		0.0f,
+		0.0f,
+		1.0f,
+		0.5f,
+		-0.5f,
+		-0.5f,
+		0.75f,
+		0.33f,
+		0.0f,
+		0.0f,
+		1.0f,
+		0.5f,
+		0.5f,
+		-0.5f,
+		0.75f,
+		0.66f,
+		0.0f,
+		0.0f,
+		1.0f,
+		-0.5f,
+		0.5f,
+		-0.5f,
+		1.0f,
+		0.66f,
+		0.0f,
+		0.0f,
+		1.0f,
 
 		// left
-		//x		y		z		S		T
-		-0.5f, -0.5f,  -0.5f,	0.0f,  0.33f,		1.0f,	0.0f,	0.0f,
-		-0.5f, -0.5f,  0.5f,	0.25f,	0.33f,		1.0f,	0.0f,	0.0f,
-		-0.5f,  0.5f,  0.5f,	0.25f,	0.66f,		1.0f,	0.0f,	0.0f,
-		-0.5f,  0.5f,  -0.5f,	0.0f,	0.66f,		1.0f,	0.0f,	0.0f,
+		// x		y		z		S		T
+		-0.5f,
+		-0.5f,
+		-0.5f,
+		0.0f,
+		0.33f,
+		1.0f,
+		0.0f,
+		0.0f,
+		-0.5f,
+		-0.5f,
+		0.5f,
+		0.25f,
+		0.33f,
+		1.0f,
+		0.0f,
+		0.0f,
+		-0.5f,
+		0.5f,
+		0.5f,
+		0.25f,
+		0.66f,
+		1.0f,
+		0.0f,
+		0.0f,
+		-0.5f,
+		0.5f,
+		-0.5f,
+		0.0f,
+		0.66f,
+		1.0f,
+		0.0f,
+		0.0f,
 
 		// bottom
-		//x		y		z		S		T
-		-0.5f, -0.5f,  0.5f,	0.25f,  0.33f,		0.0f,	1.0f,	0.0f,
-		0.5f,  -0.5f,  0.5f,	0.5f,	0.33f,		0.0f,	1.0f,	0.0f,
-		 0.5f,  -0.5f,  -0.5f,	0.5f,	0.0f,		0.0f,	1.0f,	0.0f,
-		-0.5f, -0.5f,  -0.5f,	0.25f,	0.0f,		0.0f,	1.0f,	0.0f,
+		// x		y		z		S		T
+		-0.5f,
+		-0.5f,
+		0.5f,
+		0.25f,
+		0.33f,
+		0.0f,
+		1.0f,
+		0.0f,
+		0.5f,
+		-0.5f,
+		0.5f,
+		0.5f,
+		0.33f,
+		0.0f,
+		1.0f,
+		0.0f,
+		0.5f,
+		-0.5f,
+		-0.5f,
+		0.5f,
+		0.0f,
+		0.0f,
+		1.0f,
+		0.0f,
+		-0.5f,
+		-0.5f,
+		-0.5f,
+		0.25f,
+		0.0f,
+		0.0f,
+		1.0f,
+		0.0f,
 
-		//UP
-		 //x		y		z		S		T
-		 -0.5f, 0.5f,  0.5f,	0.25f,  0.66f,		0.0f,	-1.0f,	0.0f,
-		 0.5f,  0.5f,  0.5f,	0.5f,	0.66f,		0.0f,	-1.0f,	0.0f,
-		  0.5f, 0.5f,  -0.5f,	0.5f,	1.0f,		0.0f,	-1.0f,	0.0f,
-		 -0.5f, 0.5f,  -0.5f,	0.25f,	1.0f,		0.0f,	-1.0f,	0.0f,
+		// UP
+		// x		y		z		S		T
+		-0.5f,
+		0.5f,
+		0.5f,
+		0.25f,
+		0.66f,
+		0.0f,
+		-1.0f,
+		0.0f,
+		0.5f,
+		0.5f,
+		0.5f,
+		0.5f,
+		0.66f,
+		0.0f,
+		-1.0f,
+		0.0f,
+		0.5f,
+		0.5f,
+		-0.5f,
+		0.5f,
+		1.0f,
+		0.0f,
+		-1.0f,
+		0.0f,
+		-0.5f,
+		0.5f,
+		-0.5f,
+		0.25f,
+		1.0f,
+		0.0f,
+		-1.0f,
+		0.0f,
 
 	};
 
-	Mesh* dado = new Mesh();
+	Mesh *dado = new Mesh();
 	dado->CreateMesh(cubo_vertices, cubo_indices, 192, 36);
 	meshList.push_back(dado);
-
 }
 
 /// <summary>
@@ -363,132 +616,183 @@ void CrearMesa()
 {
 	unsigned int mesa_indices[] = {
 		// front
-		0, 1, 2,
-		2, 3, 0,
+		0,
+		1,
+		2,
+		2,
+		3,
+		0,
 		// Cara mesa Y
-		4,5,6,
-		6,7,4,
-		//Cara mesa X
-		8,9,10,
-		10,11,8,
-		//Cara mesa -Y
-		12,13,14,
-		14,15,12,
+		4,
+		5,
+		6,
+		6,
+		7,
+		4,
+		// Cara mesa X
+		8,
+		9,
+		10,
+		10,
+		11,
+		8,
+		// Cara mesa -Y
+		12,
+		13,
+		14,
+		14,
+		15,
+		12,
 		// Cara mesa -X
-		16,17,18,
-		18,19,16,
+		16,
+		17,
+		18,
+		18,
+		19,
+		16,
 		// Pata Y-1
-		20,21,22,
-		22,23,20,
-		//Pata Y-2
-		24,25,26,
-		26,27,24,
-		//Pata X-1
-		28,29,30,
-		30,31,28,
-		//Para X-2
-		32,33,34,
-		34,35,32,
+		20,
+		21,
+		22,
+		22,
+		23,
+		20,
+		// Pata Y-2
+		24,
+		25,
+		26,
+		26,
+		27,
+		24,
+		// Pata X-1
+		28,
+		29,
+		30,
+		30,
+		31,
+		28,
+		// Para X-2
+		32,
+		33,
+		34,
+		34,
+		35,
+		32,
 		// Pata -Y-1
-		36,37,38,
-		38,39,36,
+		36,
+		37,
+		38,
+		38,
+		39,
+		36,
 		// Pata -Y-2
-		40,41,42,
-		42,43,40,
+		40,
+		41,
+		42,
+		42,
+		43,
+		40,
 		// Pata -X-1
-		44,45,46,
-		46,47,44,
+		44,
+		45,
+		46,
+		46,
+		47,
+		44,
 		// Pata -X-2
-		48,49,50,
-		50,51,48,
+		48,
+		49,
+		50,
+		50,
+		51,
+		48,
 	};
-	//Ejercicio 1: reemplazar con sus dados de 6 caras texturizados, agregar normales
-// average normals
+	// Ejercicio 1: reemplazar con sus dados de 6 caras texturizados, agregar normales
+	// average normals
 	GLfloat mesa_vertices[] = {
 		// parte superior mesa
-		//x		y		z		S		T			NX		NY		NZ
-		2.5f,	1.5f,	-1.5f,	1.0f,	0.0f,	0.0f,	-1.0f,	0.0f,	//0
-		-2.5f,	1.5f,	-1.5f,	1.0f,	1.0f,	0.0f,	-1.0f,	0.0f,	//1
-		-2.5f,	1.5f,	1.5f,	0.0f,	1.0f,	0.0f,	-1.0f,	0.0f,	//2
-		2.5f,	1.5f,	1.5f,	0.0f,	0.0f,	0.0f,	-1.0f,	0.0f,	//3
+		// x		y		z		S		T			NX		NY		NZ
+		2.5f, 1.5f, -1.5f, 1.0f, 0.0f, 0.0f, -1.0f, 0.0f,  // 0
+		-2.5f, 1.5f, -1.5f, 1.0f, 1.0f, 0.0f, -1.0f, 0.0f, // 1
+		-2.5f, 1.5f, 1.5f, 0.0f, 1.0f, 0.0f, -1.0f, 0.0f,  // 2
+		2.5f, 1.5f, 1.5f, 0.0f, 0.0f, 0.0f, -1.0f, 0.0f,   // 3
 
-		//Cara mesa Y
-		2.0f,	1.5f,	1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	-1.0f,	//4
-		-2.0f,	1.5f,	1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	-1.0f,	//5
-		-2.0f,	0.5f,	1.0f,	1.0f,	0.0f,	0.0f,	0.0f,	-1.0f,	//6
-		2.0f,	0.5f,	1.0f,	0.0f,	0.0f,	0.0f,	0.0f,	-1.0f,	//7
+		// Cara mesa Y
+		2.0f, 1.5f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, -1.0f,  // 4
+		-2.0f, 1.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, -1.0f, // 5
+		-2.0f, 0.5f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, -1.0f, // 6
+		2.0f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, -1.0f,  // 7
 
-		//Cara mesa X
-		2.0f,	1.5f,	-1.0f,	0.0f,	1.0f,	-1.0f,	0.0f,	0.0f,	//8
-		2.0f,	1.5f,	1.0f,	1.0f,	1.0f,	-1.0f,	0.0f,	0.0f,	//9
-		2.0f,	0.5f,	1.0f,	1.0f,	0.0f,	-1.0f,	0.0f,	0.0f,	//10
-		2.0f,	0.5f,	-1.0f,	0.0f,	0.0f,	-1.0f,	0.0f,	0.0f,	//11
+		// Cara mesa X
+		2.0f, 1.5f, -1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 0.0f, // 8
+		2.0f, 1.5f, 1.0f, 1.0f, 1.0f, -1.0f, 0.0f, 0.0f,  // 9
+		2.0f, 0.5f, 1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 0.0f,  // 10
+		2.0f, 0.5f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, // 11
 
 		// Cara mesa -Y
-		-2.0f,	1.5f,	-1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	1.0f,	//12
-		2.0f,	1.5f,	-1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	1.0f,	//13
-		2.0f,	0.5f,	-1.0f,	1.0f,	0.0f,	0.0f,	0.0f,	1.0f,	//14
-		-2.0f,	0.5f,	-1.0f,	0.0f,	0.0f,	0.0f,	0.0f,	1.0f,	//15
+		-2.0f, 1.5f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, // 12
+		2.0f, 1.5f, -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f,  // 13
+		2.0f, 0.5f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,  // 14
+		-2.0f, 0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, // 15
 
 		// Cara mesa -X
-		-2.0f,	1.5f,	1.0f,	0.0f,	1.0f,	1.0f,	0.0f,	0.0f,	//16
-		-2.0f,	1.5f,	-1.0f,	1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	//17
-		-2.0f,	0.5f,	-1.0f,	1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	//18
-		-2.0f,	0.5f,	1.0f,	0.0f,	0.0f,	1.0f,	0.0f,	0.0f,	//19
+		-2.0f, 1.5f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f,  // 16
+		-2.0f, 1.5f, -1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // 17
+		-2.0f, 0.5f, -1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, // 18
+		-2.0f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,  // 19
 
 		// Pata Y-1
-		2.0f,	0.5f,	1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	-1.0f,	//20
-		1.8f,	0.5f,	1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	-1.0f,	//21
-		1.8f,	0.0f,	1.0f,	1.0f,	0.0f,	0.0f,	0.0f,	-1.0f,	//22
-		2.0f,	0.0f,	1.0f,	0.0f,	0.0f,	0.0f,	0.0f,	-1.0f,	//23
+		2.0f, 0.5f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, -1.0f, // 20
+		1.8f, 0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, -1.0f, // 21
+		1.8f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, -1.0f, // 22
+		2.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, -1.0f, // 23
 
 		// Para Y-2
-		-1.8f,	0.5f,	1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	-1.0f,	//24
-		-2.0f,	0.5f,	1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	-1.0f,	//25
-		-2.0f,	0.0f,	1.0f,	1.0f,	0.0f,	0.0f,	0.0f,	-1.0f,	//26
-		-1.8f,	0.0f,	1.0f,	0.0f,	0.0f,	0.0f,	0.0f,	-1.0f,	//27
+		-1.8f, 0.5f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, -1.0f, // 24
+		-2.0f, 0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, -1.0f, // 25
+		-2.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, -1.0f, // 26
+		-1.8f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, -1.0f, // 27
 
 		// Pata X-1
-		2.0f,	0.5f,	-1.0f,	0.0f,	1.0f,	-1.0f,	0.0f,	0.0f,	//28
-		2.0f,	0.5f,	-0.8f,	1.0f,	1.0f,	-1.0f,	0.0f,	0.0f,	//29
-		2.0f,	0.0f,	-0.8f,	1.0f,	0.0f,	-1.0f,	0.0f,	0.0f,	//30
-		2.0f,	0.0f,	-1.0f,	0.0f,	0.0f,	-1.0f,	0.0f,	0.0f,	//31
+		2.0f, 0.5f, -1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 0.0f, // 28
+		2.0f, 0.5f, -0.8f, 1.0f, 1.0f, -1.0f, 0.0f, 0.0f, // 29
+		2.0f, 0.0f, -0.8f, 1.0f, 0.0f, -1.0f, 0.0f, 0.0f, // 30
+		2.0f, 0.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, // 31
 
 		// Para X-2
-		2.0f,	0.5f,	0.8f,	0.0f,	1.0f,	-1.0f,	0.0f,	0.0f,	//32
-		2.0f,	0.5f,	1.0f,	1.0f,	1.0f,	-1.0f,	0.0f,	0.0f,	//33
-		2.0f,	0.0f,	1.0f,	1.0f,	0.0f,	-1.0f,	0.0f,	0.0f,	//34
-		2.0f,	0.0f,	0.8f,	0.0f,	0.0f,	-1.0f,	0.0f,	0.0f,	//35
+		2.0f, 0.5f, 0.8f, 0.0f, 1.0f, -1.0f, 0.0f, 0.0f, // 32
+		2.0f, 0.5f, 1.0f, 1.0f, 1.0f, -1.0f, 0.0f, 0.0f, // 33
+		2.0f, 0.0f, 1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 0.0f, // 34
+		2.0f, 0.0f, 0.8f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, // 35
 
 		// Pata -Y-1
-		-2.0f,	0.5f,	-1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	1.0f,	//36
-		-1.8f,	0.5f,	-1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	1.0f,	//37
-		-1.8f,	0.0f,	-1.0f,	1.0f,	0.0f,	0.0f,	0.0f,	1.0f,	//38
-		-2.0f,	0.0f,	-1.0f,	0.0f,	0.0f,	0.0f,	0.0f,	1.0f,	//39
+		-2.0f, 0.5f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, // 36
+		-1.8f, 0.5f, -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, // 37
+		-1.8f, 0.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // 38
+		-2.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, // 39
 
 		// Pata -Y-2
-		1.8f,	0.5f,	-1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	1.0f,	//40
-		2.0f,	0.5f,	-1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	1.0f,	//41
-		2.0f,	0.0f,	-1.0f,	1.0f,	0.0f,	0.0f,	0.0f,	1.0f,	//42
-		1.8f,	0.0f,	-1.0f,	0.0f,	0.0f,	0.0f,	0.0f,	1.0f,	//43
+		1.8f, 0.5f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, // 40
+		2.0f, 0.5f, -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, // 41
+		2.0f, 0.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // 42
+		1.8f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, // 43
 
 		// Pata -X-1
-		-2.0f,	0.5f,	1.0f,	0.0f,	1.0f,	1.0f,	0.0f,	0.0f,	//44
-		-2.0f,	0.5f,	0.8f,	1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	//45
-		-2.0f,	0.0f,	0.8f,	1.0f,	0.0f,	1.0f,	0.0f,	0.0f,	//46
-		-2.0f,	0.0f,	1.0f,	0.0f,	0.0f,	1.0f,	0.0f,	0.0f,	//47
+		-2.0f, 0.5f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, // 44
+		-2.0f, 0.5f, 0.8f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // 45
+		-2.0f, 0.0f, 0.8f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, // 46
+		-2.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // 47
 
 		// Pata -X-2
-		-2.0f,	0.5f,	-0.8f,	0.0f,	1.0f,	1.0f,	0.0f,	0.0f,	//48
-		-2.0f,	0.5f,	-1.0f,	0.0f,	1.0f,	1.0f,	0.0f,	0.0f,	//48
-		-2.0f,	0.0f,	-1.0f,	1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	//49
-		-2.0f,	0.0f,	-0.8f,	1.0f,	1.0f,	1.0f,	0.0f,	0.0f,	//49
+		-2.0f, 0.5f, -0.8f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, // 48
+		-2.0f, 0.5f, -1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, // 48
+		-2.0f, 0.0f, -1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // 49
+		-2.0f, 0.0f, -0.8f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // 49
 	};
 
-	Mesh* mesa = new Mesh();
+	Mesh *mesa = new Mesh();
 	mesa->CreateMesh(mesa_vertices, mesa_indices, 416, 78);
 	meshList.push_back(mesa);
-
 }
 /********************** Fin funciones **************************/
 
@@ -549,10 +853,23 @@ int main()
 	Elderbug = Model();
 	Elderbug.LoadModel("Models/Hollow/ElderBug.obj");
 
+	MesaBanco = Model();
+	MesaBanco.LoadModel("Models/Cartoon/MesaBanco.obj");
+	EscritorioTocino = Model();
+	EscritorioTocino.LoadModel("Models/Cartoon/Escritorio.obj");
+	Tocino = Model();
+	Tocino.LoadModel("Models/Cartoon/TocinoCharacter.obj");
+	Piolin = Model();
+	Piolin.LoadModel("Models/Cartoon/Piolin.obj");
+	Huevo = Model();
+	Huevo.LoadModel("Models/Cartoon/HuevoMacho.obj");
+	Sarten = Model();
+	Sarten.LoadModel("Models/Cartoon/Sarten.obj");
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
 	std::vector<std::string> skyboxFaces;
-	if (!noche) {
+	if (!noche)
+	{
 		skyboxFaces.push_back("Textures/Skybox/Dia/sh_rt.png");
 		skyboxFaces.push_back("Textures/Skybox/Dia/sh_lf.png");
 		skyboxFaces.push_back("Textures/Skybox/Dia/sh_dn.png");
@@ -560,7 +877,8 @@ int main()
 		skyboxFaces.push_back("Textures/Skybox/Dia/sh_bk.png");
 		skyboxFaces.push_back("Textures/Skybox/Dia/sh_ft.png");
 	}
-	else {
+	else
+	{
 		skyboxFaces.push_back("Textures/Skybox/Noche/sh_rt.png");
 		skyboxFaces.push_back("Textures/Skybox/Noche/sh_lf.png");
 		skyboxFaces.push_back("Textures/Skybox/Noche/sh_dn.png");
@@ -578,8 +896,8 @@ int main()
 
 	// luz direccional, s�lo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
-		0.3f, 0.3f,
-		0.0f, 0.0f, -1.0f);
+								 0.3f, 0.3f,
+								 0.0f, 0.0f, -1.0f);
 
 	/// <summary>
 	/// Contador de luces puntuales.
@@ -593,7 +911,7 @@ int main()
 	//                                0.3f, 0.2f, 0.1f);
 	//    pointLightCount++;
 
-    unsigned int spotLightCount = 0;
+	unsigned int spotLightCount = 0;
 	unsigned int spotLightAuxCount = 0;
 
 	/// <summary>
@@ -601,58 +919,58 @@ int main()
 	/// </summary>
 	/// <returns></returns>
 	spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
-		0.0f, 2.0f,
-		0.0f, 0.0f, 0.0f,
-		0.0f, -1.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-		5.0f);
+							  0.0f, 2.0f,
+							  0.0f, 0.0f, 0.0f,
+							  0.0f, -1.0f, 0.0f,
+							  1.0f, 0.0f, 0.0f,
+							  5.0f);
 	spotLightCount++;
 
 	/// <summary>
 	/// Luz Lampara
 	/// </summary>
 	/// <returns></returns>
-    spotLights[1] = SpotLight(1.0f, 1.0f, 1.0f,
-        20.f, 20.0f,
-        -100.0f, 45.0f, -68.0f,
-        0.0f, -1.0f, 0.0f,
-        1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
-        40.0f); // Angulo de apertura
-    
+	spotLights[1] = SpotLight(1.0f, 1.0f, 1.0f,
+							  20.f, 20.0f,
+							  -100.0f, 45.0f, -68.0f,
+							  0.0f, -1.0f, 0.0f,
+							  1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
+							  40.0f);			// Angulo de apertura
+
 	spotLights_aux[0] = SpotLight(1.0f, 1.0f, 1.0f,
-		20.f, 20.0f,
-		-100.0f, 45.0f, -68.0f,
-		0.0f, -1.0f, 0.0f,
-		1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
-		40.0f); // Angulo de apertura
+								  20.f, 20.0f,
+								  -100.0f, 45.0f, -68.0f,
+								  0.0f, -1.0f, 0.0f,
+								  1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
+								  40.0f);			// Angulo de apertura
 
-    spotLightCount++;
-    spotLightAuxCount++;
+	spotLightCount++;
+	spotLightAuxCount++;
 
-    /// <summary>
-    /// Luz UFO
-    /// </summary>
-    /// <returns></returns>
-    spotLights[2] = SpotLight(0.0f, 1.0f, 0.0f,
-        20.f, 20.0f,
-        -230.0f, 180.0f, -190.0f,
-        0.0f, -1.0f, 0.0f,
-        0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
-        15.0f); // Angulo de apertura
-    
-    spotLights_aux[1] = SpotLight(0.0f, 1.0f, 0.0f,
-        20.f, 20.0f,
-        -230.0f, 180.0f, -190.0f,
-        0.0f, -1.0f, 0.0f,
-        0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
-        15.0f); // Angulo de apertura
+	/// <summary>
+	/// Luz UFO
+	/// </summary>
+	/// <returns></returns>
+	spotLights[2] = SpotLight(0.0f, 1.0f, 0.0f,
+							  20.f, 20.0f,
+							  -230.0f, 180.0f, -190.0f,
+							  0.0f, -1.0f, 0.0f,
+							  0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
+							  15.0f);			 // Angulo de apertura
 
-    spotLightCount++;
-    spotLightAuxCount++;
-    /********************** Fin Luces **************************/
+	spotLights_aux[1] = SpotLight(0.0f, 1.0f, 0.0f,
+								  20.f, 20.0f,
+								  -230.0f, 180.0f, -190.0f,
+								  0.0f, -1.0f, 0.0f,
+								  0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
+								  15.0f);			 // Angulo de apertura
+
+	spotLightCount++;
+	spotLightAuxCount++;
+	/********************** Fin Luces **************************/
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
-		uniformSpecularIntensity = 0, uniformShininess = 0, uniformTextureOffset = 0;
+		   uniformSpecularIntensity = 0, uniformShininess = 0, uniformTextureOffset = 0;
 	GLuint uniformColor = 0;
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
 
@@ -681,7 +999,6 @@ int main()
 	int pausaElderBug = 0;
 	/******************* Fin Animaciones Inicializacion ****************************/
 
-
 	// Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
 	{
@@ -689,17 +1006,18 @@ int main()
 		deltaTime = now - lastTime;
 		deltaTime += (now - lastTime) / limitFPS;
 		lastTime = now;
-        
-        // Tiempo del mundo para ciclo de día/noche
-        horaDia += deltaTime * 0.1;
-        // DEBUG de Hora dia:
-        // printf("Hora día: %f\n",horaDia);
-        
-        if (horaDia >= 400.0f){
-            horaDia = 0.0f;
-            cambioSkybox = true; // Toggle de cambio de Skybox
-        }
-        
+
+		// Tiempo del mundo para ciclo de día/noche
+		horaDia += deltaTime * 0.1;
+		// DEBUG de Hora dia:
+		// printf("Hora día: %f\n",horaDia);
+
+		if (horaDia >= 400.0f)
+		{
+			horaDia = 0.0f;
+			cambioSkybox = true; // Toggle de cambio de Skybox
+		}
+
 		/*************************** Animaciones *************************************/
 		// Mov UFO y Meap
 		switch (tipoMovUFO)
@@ -723,13 +1041,15 @@ int main()
 				movMeapX += movUFOOffset * deltaTime;
 				movMeapZ += movUFOOffset * deltaTime;
 			}
-			else {
+			else
+			{
 				tipoMovUFO = 3;
 				luzUFO = true;
 			}
 			break;
 		case 3:
-			if (movMeapY > 0) {
+			if (movMeapY > 0)
+			{
 				movMeapY -= movMeapOffset * deltaTime;
 				rotMeap += rotMeapOffset * deltaTime * 3;
 			}
@@ -740,18 +1060,22 @@ int main()
 			}
 			break;
 		case 4:
-			if (movUFOX < 300) {
+			if (movUFOX < 300)
+			{
 				movUFOX += movUFOOffset * deltaTime;
 			}
-			else {
+			else
+			{
 				tipoMovUFO = 5;
 			}
 			break;
 		case 5:
-			if (movUFOZ < 300) {
+			if (movUFOZ < 300)
+			{
 				movUFOZ += movUFOOffset * deltaTime;
 			}
-			else {
+			else
+			{
 				tipoMovUFO = 6;
 			}
 			break;
@@ -761,7 +1085,8 @@ int main()
 				movUFOX -= movUFOOffset * deltaTime;
 				movUFOZ -= movUFOOffset * deltaTime;
 			}
-			else {
+			else
+			{
 				tipoMovUFO = 7;
 			}
 			break;
@@ -771,13 +1096,15 @@ int main()
 				movUFOX -= movUFOOffset * deltaTime;
 				movUFOZ -= movUFOOffset * deltaTime;
 			}
-			else {
+			else
+			{
 				luzUFO = true;
 				tipoMovUFO = 8;
 			}
 			break;
 		case 8:
-			if (movMeapY < 125) {
+			if (movMeapY < 125)
+			{
 				movMeapY += movMeapOffset * deltaTime;
 				rotMeap -= rotMeapOffset * deltaTime * 3;
 			}
@@ -795,7 +1122,8 @@ int main()
 				movMeapX -= movUFOOffset * deltaTime;
 				movMeapZ -= movUFOOffset * deltaTime;
 			}
-			else {
+			else
+			{
 				tipoMovUFO = 1;
 			}
 			break;
@@ -803,8 +1131,8 @@ int main()
 			tipoMovUFO = 1;
 			break;
 		}
-		
-        // Mov ElderBug.
+
+		// Mov ElderBug.
 		switch (tipoMovElderBug)
 		{
 		case 1:
@@ -815,7 +1143,8 @@ int main()
 			pausaElderBug = 500;
 			break;
 		case 2:
-			if (pausaElderBug > 0) {
+			if (pausaElderBug > 0)
+			{
 				pausaElderBug--;
 			}
 			else
@@ -824,7 +1153,8 @@ int main()
 			}
 			break;
 		case 3:
-			if (movElderBugX > -10) {
+			if (movElderBugX > -10)
+			{
 				movElderBugX -= movElderBugOffset * deltaTime * 0.25;
 			}
 			else
@@ -833,7 +1163,8 @@ int main()
 			}
 			break;
 		case 4:
-			if (rotElderBug < 90) {
+			if (rotElderBug < 90)
+			{
 				rotElderBug += rotElderBugOffset * deltaTime;
 			}
 			else
@@ -842,7 +1173,8 @@ int main()
 			}
 			break;
 		case 5:
-			if (movElderBugZ < 80) {
+			if (movElderBugZ < 80)
+			{
 				movElderBugZ += movElderBugOffset * deltaTime * 0.25;
 			}
 			else
@@ -851,7 +1183,8 @@ int main()
 			}
 			break;
 		case 6:
-			if (rotElderBug < 180) {
+			if (rotElderBug < 180)
+			{
 				rotElderBug += rotElderBugOffset * deltaTime;
 			}
 			else
@@ -860,15 +1193,18 @@ int main()
 			}
 			break;
 		case 7:
-			if (movElderBugX < 90) {
+			if (movElderBugX < 90)
+			{
 				movElderBugX += movElderBugOffset * deltaTime * 0.25;
 			}
-			else {
+			else
+			{
 				tipoMovElderBug = 8;
 			}
 			break;
 		case 8:
-			if (rotElderBug > 90) {
+			if (rotElderBug > 90)
+			{
 				rotElderBug -= rotElderBugOffset * deltaTime;
 			}
 			else
@@ -877,32 +1213,39 @@ int main()
 			}
 			break;
 		case 9:
-			if (movElderBugZ < 280) {
+			if (movElderBugZ < 280)
+			{
 				movElderBugZ += movElderBugOffset * deltaTime * 0.25;
 			}
-			else {
+			else
+			{
 				pausaElderBug = 400;
 				tipoMovElderBug = 10;
 			}
 			break;
 		case 10:
-			if (pausaElderBug > 0) {
+			if (pausaElderBug > 0)
+			{
 				pausaElderBug--;
 			}
-			else {
+			else
+			{
 				tipoMovElderBug = 11;
 			}
 			break;
 		case 11:
-			if (rotElderBug > 0) {
+			if (rotElderBug > 0)
+			{
 				rotElderBug -= rotElderBugOffset * deltaTime;
 			}
-			else {
+			else
+			{
 				tipoMovElderBug = 12;
 			}
 			break;
 		case 12:
-			if (movElderBugX > 20) {
+			if (movElderBugX > 20)
+			{
 				movElderBugX -= movElderBugOffset * deltaTime * 0.25;
 			}
 			else
@@ -911,15 +1254,18 @@ int main()
 			}
 			break;
 		case 13:
-			if (rotElderBug > -90) {
+			if (rotElderBug > -90)
+			{
 				rotElderBug -= rotElderBugOffset * deltaTime;
 			}
-			else {
+			else
+			{
 				tipoMovElderBug = 14;
 			}
 			break;
 		case 14:
-			if (movElderBugZ > 240) {
+			if (movElderBugZ > 240)
+			{
 				movElderBugZ -= movElderBugOffset * deltaTime * 0.25;
 			}
 			else
@@ -928,7 +1274,8 @@ int main()
 			}
 			break;
 		case 15:
-			if (rotElderBug < 0) {
+			if (rotElderBug < 0)
+			{
 				rotElderBug += rotElderBugOffset * deltaTime;
 			}
 			else
@@ -938,7 +1285,8 @@ int main()
 			}
 			break;
 		case 16:
-			if (pausaElderBug > 0) {
+			if (pausaElderBug > 0)
+			{
 				pausaElderBug--;
 			}
 			else
@@ -947,7 +1295,8 @@ int main()
 			}
 			break;
 		case 17:
-			if (rotElderBug > -180) {
+			if (rotElderBug > -180)
+			{
 				rotElderBug -= rotElderBugOffset * deltaTime;
 			}
 			else
@@ -956,7 +1305,8 @@ int main()
 			}
 			break;
 		case 18:
-			if (movElderBugX < 90) {
+			if (movElderBugX < 90)
+			{
 				movElderBugX += movElderBugOffset * deltaTime * 0.25;
 			}
 			else
@@ -965,7 +1315,8 @@ int main()
 			}
 			break;
 		case 19:
-			if (rotElderBug < -90) {
+			if (rotElderBug < -90)
+			{
 				rotElderBug += rotElderBugOffset * deltaTime;
 			}
 			else
@@ -974,15 +1325,18 @@ int main()
 			}
 			break;
 		case 20:
-			if (movElderBugZ > 80) {
+			if (movElderBugZ > 80)
+			{
 				movElderBugZ -= movElderBugOffset * deltaTime * 0.25;
 			}
-			else {
+			else
+			{
 				tipoMovElderBug = 21;
 			}
 			break;
 		case 21:
-			if (rotElderBug < 0) {
+			if (rotElderBug < 0)
+			{
 				rotElderBug += rotElderBugOffset * deltaTime;
 			}
 			else
@@ -991,7 +1345,8 @@ int main()
 			}
 			break;
 		case 22:
-			if (movElderBugX > -10) {
+			if (movElderBugX > -10)
+			{
 				movElderBugX -= movElderBugOffset * deltaTime * 0.25;
 			}
 			else
@@ -1000,7 +1355,8 @@ int main()
 			}
 			break;
 		case 23:
-			if (rotElderBug > -90) {
+			if (rotElderBug > -90)
+			{
 				rotElderBug -= rotElderBugOffset * deltaTime;
 			}
 			else
@@ -1009,7 +1365,8 @@ int main()
 			}
 			break;
 		case 24:
-			if (movElderBugZ > 0) {
+			if (movElderBugZ > 0)
+			{
 				movElderBugZ -= movElderBugOffset * deltaTime * 0.25;
 			}
 			else
@@ -1018,7 +1375,8 @@ int main()
 			}
 			break;
 		case 25:
-			if(rotElderBug > -180) {
+			if (rotElderBug > -180)
+			{
 				rotElderBug -= rotElderBugOffset * deltaTime;
 			}
 			else
@@ -1027,7 +1385,8 @@ int main()
 			}
 			break;
 		case 26:
-			if (movElderBugX < 0) {
+			if (movElderBugX < 0)
+			{
 				movElderBugX += movElderBugOffset * deltaTime * 0.25;
 			}
 			else
@@ -1036,7 +1395,8 @@ int main()
 			}
 			break;
 		case 27:
-			if (rotElderBug < -0) {
+			if (rotElderBug < -0)
+			{
 				rotElderBug += rotElderBugOffset * deltaTime;
 			}
 			else
@@ -1049,13 +1409,13 @@ int main()
 			break;
 		}
 		rotUFO += rotUFOOffset * deltaTime;
-        
-        if (mainWindow.getInicioMoscas()){
-            rotLuciernagas += rotLuciernagasOffset * deltaTime;
-        }
-        
-		/*************************** FIN Animaciones *************************************/
 
+		if (mainWindow.getInicioMoscas())
+		{
+			rotLuciernagas += rotLuciernagasOffset * deltaTime;
+		}
+
+		/*************************** FIN Animaciones *************************************/
 
 		// Recibir eventos del usuario
 		glfwPollEvents();
@@ -1065,31 +1425,35 @@ int main()
 		// Clear the window
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        
-        // Generación de cambio de hora del día
-        
-        if(cambioSkybox){
-            noche = !noche;
-            std::vector<std::string> newSkyboxFaces;
-            if (!noche){
-                newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_rt.png");
-                newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_lf.png");
-                newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_dn.png");
-                newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_up.png");
-                newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_bk.png");
-                newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_ft.png");
-            }else{
-                newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_rt.png");
-                newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_lf.png");
-                newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_dn.png");
-                newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_up.png");
-                newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_bk.png");
-                newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_ft.png");
-            }
-            skybox = Skybox(newSkyboxFaces);
-            cambioSkybox = false;
-        }
-        
+
+		// Generación de cambio de hora del día
+
+		if (cambioSkybox)
+		{
+			noche = !noche;
+			std::vector<std::string> newSkyboxFaces;
+			if (!noche)
+			{
+				newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_rt.png");
+				newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_lf.png");
+				newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_dn.png");
+				newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_up.png");
+				newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_bk.png");
+				newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_ft.png");
+			}
+			else
+			{
+				newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_rt.png");
+				newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_lf.png");
+				newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_dn.png");
+				newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_up.png");
+				newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_bk.png");
+				newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_ft.png");
+			}
+			skybox = Skybox(newSkyboxFaces);
+			cambioSkybox = false;
+		}
+
 		skybox.DrawSkybox(camera.calculateViewMatrix(), projection);
 		shaderList[0].UseShader();
 		uniformModel = shaderList[0].GetModelLocation();
@@ -1108,7 +1472,7 @@ int main()
 		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
 
 		/********************** Renderizado Luces **************************/
-				// luz ligada a la camara de tipo flash
+		// luz ligada a la camara de tipo flash
 		glm::vec3 lowerLight = camera.getCameraPosition();
 		lowerLight.y -= 0.3f;
 
@@ -1117,29 +1481,36 @@ int main()
 		shaderList[0].SetPointLights(pointLights, pointLightCount);
 
 		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
-        
-		if (luzUFO) {
-            // Enciende lampara en la solo en la noche
-            if (!noche){
-                spotLights[1] = spotLights_aux[1]; // Se coloca primero la luz del UFO
-                shaderList[0].SetSpotLights(spotLights, spotLightCount - 1);
-            }else{
-                spotLights[1] = spotLights_aux[0]; // Se coloca primero la luz del faro
-                shaderList[0].SetSpotLights(spotLights, spotLightCount);
-            }
-            shaderList[0].SetSpotLights(spotLights, spotLightCount);
-        }
-        else
-        {
-            if (!noche){
-                shaderList[0].SetSpotLights(spotLights, spotLightCount - 2);
-            }else{
-                spotLights[1] = spotLights_aux[0]; // Se coloca primero la luz del faro
-                shaderList[0].SetSpotLights(spotLights, spotLightCount - 1);
-            }
+
+		if (luzUFO)
+		{
+			// Enciende lampara en la solo en la noche
+			if (!noche)
+			{
+				spotLights[1] = spotLights_aux[1]; // Se coloca primero la luz del UFO
+				shaderList[0].SetSpotLights(spotLights, spotLightCount - 1);
+			}
+			else
+			{
+				spotLights[1] = spotLights_aux[0]; // Se coloca primero la luz del faro
+				shaderList[0].SetSpotLights(spotLights, spotLightCount);
+			}
+			shaderList[0].SetSpotLights(spotLights, spotLightCount);
+		}
+		else
+		{
+			if (!noche)
+			{
+				shaderList[0].SetSpotLights(spotLights, spotLightCount - 2);
+			}
+			else
+			{
+				spotLights[1] = spotLights_aux[0]; // Se coloca primero la luz del faro
+				shaderList[0].SetSpotLights(spotLights, spotLightCount - 1);
+			}
 		}
 
-		//spotLights[1].SetPos(glm::vec3(-100.0f + mainWindow.getmuevex(), 60.0f + mainWindow.getmuevey(), -80.0f + mainWindow.getmuevez()));
+		// spotLights[1].SetPos(glm::vec3(-100.0f + mainWindow.getmuevex(), 60.0f + mainWindow.getmuevey(), -80.0f + mainWindow.getmuevez()));
 		/********************** Fin renderizado luces **************************/
 
 		/********************** Renderizado modelos **************************/
@@ -1193,7 +1564,7 @@ int main()
 		Meap.RenderModel();
 
 		/// <summary>
-		/// Modelo del edificio
+		/// Modelo del innador
 		/// </summary>
 		/// <returns></returns>
 		model = glm::mat4(1.0);
@@ -1248,6 +1619,88 @@ int main()
 		Elderbug.RenderModel();
 
 		/// <summary>
+		/// MesaBancos
+		/// </summary>
+		// model = glm::mat4(1.0);
+		// model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		// model = glm::translate(model, glm::vec3(185.0f, 0.0f, -315.0));
+		// model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
+		// glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		// MesaBanco.RenderModel();
+		// model = glm::mat4(1.0);
+		// model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		// model = glm::translate(model, glm::vec3(185.0f, 0.0f, -215.0));
+		// model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
+		// glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		// MesaBanco.RenderModel();
+		// model = glm::mat4(1.0);
+		// model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		// model = glm::translate(model, glm::vec3(225.0f, 0.0f, -315.0));
+		// model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
+		// glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		// MesaBanco.RenderModel();
+		// model = glm::mat4(1.0);
+		// model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		// model = glm::translate(model, glm::vec3(225.0f, 0.0f, -215.0));
+		// model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
+		// glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		// MesaBanco.RenderModel();
+
+		/// <summary>
+		/// Escritorio Tocino
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(95.0f, 0.0f, -300.0f));
+		model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(36.0f, 36.0f, 36.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		EscritorioTocino.RenderModel();
+
+		/// <summary>
+		/// Tocino
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(85.0f, 0.0f, -225.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 20.0f, 20.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Tocino.RenderModel();
+
+		/// <summary>
+		/// Piolin
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(150.0f, 0.0f, -215.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
+		model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Piolin.RenderModel();
+
+		/// <summary>
+		/// Huevo
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(220.0f, 0.0f, -260.0f));
+		model = glm::scale(model, glm::vec3(2.5f, 2.5f, 2.5f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Huevo.RenderModel();
+
+		/// <summary>
+		/// Sarten
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(130.0f, 0.0f, -348.0f));
+		model = glm::scale(model, glm::vec3(2.5f, 2.5f, 2.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Sarten.RenderModel();
+
+		/// <summary>
 		/// Cartel en construccion.
 		/// </summary>
 		model = glm::mat4(1.0);
@@ -1288,7 +1741,6 @@ int main()
 		MesaMetal.UseTexture();
 		meshList[6]->RenderMesh();
 
-
 		/// <summary>
 		/// Pizarron Hollow.
 		/// </summary>
@@ -1301,7 +1753,7 @@ int main()
 		meshList[5]->RenderMesh();
 
 		/// <summary>
-		/// Pizarron Piolin.
+		/// Pizarron Tocino.
 		/// </summary>
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(33.0f, 22.0f, -170.0f));
@@ -1312,11 +1764,11 @@ int main()
 		meshList[5]->RenderMesh();
 
 		/// <summary>
-		/// Pizarron Perri.
+		/// Pizarron Perry.
 		/// </summary>
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(135.0f, 22.0f, -101.0f));
-		//model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		// model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(80.f, 25.f, 1.f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Pizarron.UseTexture();
@@ -1341,7 +1793,7 @@ int main()
 		toffsetv += 0.0 * deltaTime;
 
 		/********************** Texturas animadas. ************************************/
-				// para que no se desborde la variable
+		// para que no se desborde la variable
 		if (toffsetu > 1.0)
 		{
 			toffsetu = 0.0;
@@ -1351,14 +1803,15 @@ int main()
 		meshList[4]->RenderMesh();
 		glDisable(GL_BLEND);
 
-		//Tecla de cambio de tipo de camara
-		// 0 -> Plano XZ
-		// 1 -> Libre
-		// 2 -> Isometrica
+		// Tecla de cambio de tipo de camara
+		//  0 -> Plano XZ
+		//  1 -> Libre
+		//  2 -> Isometrica
 		if (mainWindow.getCambioCamara())
 		{
 			cameraMode++;
-			if (cameraMode >= 3) {
+			if (cameraMode >= 3)
+			{
 				cameraMode = 0;
 			}
 			mainWindow.toogleCambioCamara();
