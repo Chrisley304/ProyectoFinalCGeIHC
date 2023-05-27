@@ -1778,16 +1778,16 @@ int main()
 
 		// Las texturas transparentes, se ponen al final xd
 		// Agave �qu� sucede si lo renderizan antes del coche y de la pista?
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 0.5f, -20.0f));
-		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		// blending: transparencia o traslucidez
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		AgaveTexture.UseTexture();
-		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		meshList[3]->RenderMesh();
+//		model = glm::mat4(1.0);
+//		model = glm::translate(model, glm::vec3(0.0f, 0.5f, -20.0f));
+//		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+//		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+//		// blending: transparencia o traslucidez
+//		glEnable(GL_BLEND);
+//		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//		AgaveTexture.UseTexture();
+//		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+//		meshList[3]->RenderMesh();
 
 		// textura con movimiento
 		// Importantes porque la variable uniform no podemos modificarla directamente
