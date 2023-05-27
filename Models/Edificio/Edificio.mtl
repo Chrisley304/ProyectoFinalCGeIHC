@@ -1,5 +1,5 @@
 # 3ds Max Wavefront OBJ Exporter v0.99 - (c)2007 guruware
-# File Created: 26.05.2023 15:41:26
+# File Created: 27.05.2023 12:42:40
 
 newmtl Pared
 	Ns 10.0000
@@ -43,7 +43,7 @@ newmtl Puerta_Marco
 	map_Ka Puerta.jpg
 	map_Kd Puerta.jpg
 
-newmtl 13___Default
+newmtl MarcoPuerta
 	Ns 10.0000
 	Ni 1.5000
 	d 1.0000
@@ -98,3 +98,33 @@ newmtl Pavimento
 	Ke 0.0000 0.0000 0.0000
 	map_Ka Estacionamiento.jpg
 	map_Kd Estacionamiento.jpg
+
+newmtl Barras
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.9000 0.9000 0.9000
+	Tr 0.0000
+	d 1.0000
+	Tf 1.0000 1.0000 1.0000
+	Pr 0.9000
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5000
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+	map_Kd Metal_Negro.jpg
+
+newmtl Maderas
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.9000 0.9000 0.9000
+	Tr 0.0000
+	d 1.0000
+	Tf 1.0000 1.0000 1.0000
+	Pr 0.9000
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5000
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+	map_Kd Madera.jpg
