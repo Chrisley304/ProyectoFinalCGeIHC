@@ -803,7 +803,8 @@ int main()
 			tipoMovUFO = 1;
 			break;
 		}
-		// Mov ElderBug.
+		
+        // Mov ElderBug.
 		switch (tipoMovElderBug)
 		{
 		case 1:
@@ -1048,7 +1049,11 @@ int main()
 			break;
 		}
 		rotUFO += rotUFOOffset * deltaTime;
-		rotLuciernagas += rotLuciernagasOffset * deltaTime;
+        
+        if (mainWindow.getInicioMoscas()){
+            rotLuciernagas += rotLuciernagasOffset * deltaTime;
+        }
+        
 		/*************************** FIN Animaciones *************************************/
 
 
