@@ -89,8 +89,12 @@ Model BancaHollow;
 Model Elderbug;
 /********************** Fin Modelos **************************/
 
+/********************** Skybox **************************/
 Skybox skybox;
-bool noche = true; // Variable para llevar a cabo el cambio de ciclo día/noche
+bool cambioSkybox = false;
+bool noche = false;
+float horaDia = 0.0f;
+/********************** Fin Skybox **************************/
 
 /// <summary>
 /// Materiales.
@@ -668,7 +672,17 @@ int main()
 		deltaTime = now - lastTime;
 		deltaTime += (now - lastTime) / limitFPS;
 		lastTime = now;
-
+        
+        // Tiempo del mundo para ciclo de día/noche
+        horaDia += deltaTime * 0.1;
+        // DEBUG de Hora dia:
+        // printf("Hora día: %f\n",horaDia);
+        
+        if (horaDia >= 400.0f){
+            horaDia = 0.0f;
+            cambioSkybox = true; // Toggle de cambio de Skybox
+        }
+        
 		/*************************** Animaciones *************************************/
 		// Mov UFO y Meap
 		switch (tipoMovUFO)
@@ -1029,6 +1043,31 @@ int main()
 		// Clear the window
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        
+        // Generación de
+        
+        if(cambioSkybox){
+            noche = !noche;
+            std::vector<std::string> newSkyboxFaces;
+            if (!noche){
+                newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_rt.png");
+                newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_lf.png");
+                newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_dn.png");
+                newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_up.png");
+                newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_bk.png");
+                newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_ft.png");
+            }else{
+                newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_rt.png");
+                newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_lf.png");
+                newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_dn.png");
+                newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_up.png");
+                newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_bk.png");
+                newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_ft.png");
+            }
+            skybox = Skybox(newSkyboxFaces);
+            cambioSkybox = false;
+        }
+        
 		skybox.DrawSkybox(camera.calculateViewMatrix(), projection);
 		shaderList[0].UseShader();
 		uniformModel = shaderList[0].GetModelLocation();
