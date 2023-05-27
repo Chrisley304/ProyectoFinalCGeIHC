@@ -52,6 +52,12 @@ float rotMeapOffset;
 // Luciernagas
 float rotLuciernagas;
 float rotLuciernagasOffset;
+// Elder Bug
+float movElderBugX;
+float movElderBugZ;
+float movElderBugOffset;
+float rotElderBug;
+float rotElderBugOffset;
 /********************** Fin Variables animación **************************/
 
 Window mainWindow;
@@ -536,27 +542,28 @@ int main()
 	Luciernagas.LoadModel("Models/Hollow/Luciernagas.obj");
 	BancaHollow = Model();
 	BancaHollow.LoadModel("Models/Hollow/BancaHollow.obj");
-    Elderbug = Model();
-    Elderbug.LoadModel("Models/Hollow/ElderBug.obj");
+	Elderbug = Model();
+	Elderbug.LoadModel("Models/Hollow/ElderBug.obj");
 
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
 	std::vector<std::string> skyboxFaces;
-    if (!noche){
-        skyboxFaces.push_back("Textures/Skybox/Dia/sh_rt.png");
-        skyboxFaces.push_back("Textures/Skybox/Dia/sh_lf.png");
-        skyboxFaces.push_back("Textures/Skybox/Dia/sh_dn.png");
-        skyboxFaces.push_back("Textures/Skybox/Dia/sh_up.png");
-        skyboxFaces.push_back("Textures/Skybox/Dia/sh_bk.png");
-        skyboxFaces.push_back("Textures/Skybox/Dia/sh_ft.png");
-    }else{
-        skyboxFaces.push_back("Textures/Skybox/Noche/sh_rt.png");
-        skyboxFaces.push_back("Textures/Skybox/Noche/sh_lf.png");
-        skyboxFaces.push_back("Textures/Skybox/Noche/sh_dn.png");
-        skyboxFaces.push_back("Textures/Skybox/Noche/sh_up.png");
-        skyboxFaces.push_back("Textures/Skybox/Noche/sh_bk.png");
-        skyboxFaces.push_back("Textures/Skybox/Noche/sh_ft.png");
-    }
+	if (!noche) {
+		skyboxFaces.push_back("Textures/Skybox/Dia/sh_rt.png");
+		skyboxFaces.push_back("Textures/Skybox/Dia/sh_lf.png");
+		skyboxFaces.push_back("Textures/Skybox/Dia/sh_dn.png");
+		skyboxFaces.push_back("Textures/Skybox/Dia/sh_up.png");
+		skyboxFaces.push_back("Textures/Skybox/Dia/sh_bk.png");
+		skyboxFaces.push_back("Textures/Skybox/Dia/sh_ft.png");
+	}
+	else {
+		skyboxFaces.push_back("Textures/Skybox/Noche/sh_rt.png");
+		skyboxFaces.push_back("Textures/Skybox/Noche/sh_lf.png");
+		skyboxFaces.push_back("Textures/Skybox/Noche/sh_dn.png");
+		skyboxFaces.push_back("Textures/Skybox/Noche/sh_up.png");
+		skyboxFaces.push_back("Textures/Skybox/Noche/sh_bk.png");
+		skyboxFaces.push_back("Textures/Skybox/Noche/sh_ft.png");
+	}
 
 	skybox = Skybox(skyboxFaces);
 	/********************** Fin Skybox **************************/
@@ -643,6 +650,14 @@ int main()
 	// Luciernagas
 	rotLuciernagas = 0.0f;
 	rotLuciernagasOffset = 1.0f;
+	// ElderBug
+	movElderBugX = 0.0f;
+	movElderBugZ = 0.0f;
+	movElderBugOffset = 1.0f;
+	rotElderBug = 0.0f;
+	rotElderBugOffset = 1.0f;
+	int tipoMovElderBug = 1;
+	int pausaElderBug = 0;
 	/******************* Fin Animaciones Inicializacion ****************************/
 
 
@@ -655,6 +670,7 @@ int main()
 		lastTime = now;
 
 		/*************************** Animaciones *************************************/
+		// Mov UFO y Meap
 		switch (tipoMovUFO)
 		{
 		case 1:
@@ -754,6 +770,250 @@ int main()
 			break;
 		default:
 			tipoMovUFO = 1;
+			break;
+		}
+		// Mov ElderBug.
+		switch (tipoMovElderBug)
+		{
+		case 1:
+			movElderBugX = 0;
+			movElderBugZ = 0;
+			rotElderBug = 0;
+			tipoMovElderBug = 2;
+			pausaElderBug = 500;
+			break;
+		case 2:
+			if (pausaElderBug > 0) {
+				pausaElderBug--;
+			}
+			else
+			{
+				tipoMovElderBug = 3;
+			}
+			break;
+		case 3:
+			if (movElderBugX > -10) {
+				movElderBugX -= movElderBugOffset * deltaTime * 0.25;
+			}
+			else
+			{
+				tipoMovElderBug = 4;
+			}
+			break;
+		case 4:
+			if (rotElderBug < 90) {
+				rotElderBug += rotElderBugOffset * deltaTime;
+			}
+			else
+			{
+				tipoMovElderBug = 5;
+			}
+			break;
+		case 5:
+			if (movElderBugZ < 80) {
+				movElderBugZ += movElderBugOffset * deltaTime * 0.25;
+			}
+			else
+			{
+				tipoMovElderBug = 6;
+			}
+			break;
+		case 6:
+			if (rotElderBug < 180) {
+				rotElderBug += rotElderBugOffset * deltaTime;
+			}
+			else
+			{
+				tipoMovElderBug = 7;
+			}
+			break;
+		case 7:
+			if (movElderBugX < 90) {
+				movElderBugX += movElderBugOffset * deltaTime * 0.25;
+			}
+			else {
+				tipoMovElderBug = 8;
+			}
+			break;
+		case 8:
+			if (rotElderBug > 90) {
+				rotElderBug -= rotElderBugOffset * deltaTime;
+			}
+			else
+			{
+				tipoMovElderBug = 9;
+			}
+			break;
+		case 9:
+			if (movElderBugZ < 280) {
+				movElderBugZ += movElderBugOffset * deltaTime * 0.25;
+			}
+			else {
+				pausaElderBug = 400;
+				tipoMovElderBug = 10;
+			}
+			break;
+		case 10:
+			if (pausaElderBug > 0) {
+				pausaElderBug--;
+			}
+			else {
+				tipoMovElderBug = 11;
+			}
+			break;
+		case 11:
+			if (rotElderBug > 0) {
+				rotElderBug -= rotElderBugOffset * deltaTime;
+			}
+			else {
+				tipoMovElderBug = 12;
+			}
+			break;
+		case 12:
+			if (movElderBugX > 20) {
+				movElderBugX -= movElderBugOffset * deltaTime * 0.25;
+			}
+			else
+			{
+				tipoMovElderBug = 13;
+			}
+			break;
+		case 13:
+			if (rotElderBug > -90) {
+				rotElderBug -= rotElderBugOffset * deltaTime;
+			}
+			else {
+				tipoMovElderBug = 14;
+			}
+			break;
+		case 14:
+			if (movElderBugZ > 240) {
+				movElderBugZ -= movElderBugOffset * deltaTime * 0.25;
+			}
+			else
+			{
+				tipoMovElderBug = 15;
+			}
+			break;
+		case 15:
+			if (rotElderBug < 0) {
+				rotElderBug += rotElderBugOffset * deltaTime;
+			}
+			else
+			{
+				pausaElderBug = 500;
+				tipoMovElderBug = 16;
+			}
+			break;
+		case 16:
+			if (pausaElderBug > 0) {
+				pausaElderBug--;
+			}
+			else
+			{
+				tipoMovElderBug = 17;
+			}
+			break;
+		case 17:
+			if (rotElderBug > -180) {
+				rotElderBug -= rotElderBugOffset * deltaTime;
+			}
+			else
+			{
+				tipoMovElderBug = 18;
+			}
+			break;
+		case 18:
+			if (movElderBugX < 90) {
+				movElderBugX += movElderBugOffset * deltaTime * 0.25;
+			}
+			else
+			{
+				tipoMovElderBug = 19;
+			}
+			break;
+		case 19:
+			if (rotElderBug < -90) {
+				rotElderBug += rotElderBugOffset * deltaTime;
+			}
+			else
+			{
+				tipoMovElderBug = 20;
+			}
+			break;
+		case 20:
+			if (movElderBugZ > 80) {
+				movElderBugZ -= movElderBugOffset * deltaTime * 0.25;
+			}
+			else {
+				tipoMovElderBug = 21;
+			}
+			break;
+		case 21:
+			if (rotElderBug < 0) {
+				rotElderBug += rotElderBugOffset * deltaTime;
+			}
+			else
+			{
+				tipoMovElderBug = 22;
+			}
+			break;
+		case 22:
+			if (movElderBugX > -10) {
+				movElderBugX -= movElderBugOffset * deltaTime * 0.25;
+			}
+			else
+			{
+				tipoMovElderBug = 23;
+			}
+			break;
+		case 23:
+			if (rotElderBug > -90) {
+				rotElderBug -= rotElderBugOffset * deltaTime;
+			}
+			else
+			{
+				tipoMovElderBug = 24;
+			}
+			break;
+		case 24:
+			if (movElderBugZ > 0) {
+				movElderBugZ -= movElderBugOffset * deltaTime * 0.25;
+			}
+			else
+			{
+				tipoMovElderBug = 25;
+			}
+			break;
+		case 25:
+			if(rotElderBug > -180) {
+				rotElderBug -= rotElderBugOffset * deltaTime;
+			}
+			else
+			{
+				tipoMovElderBug = 26;
+			}
+			break;
+		case 26:
+			if (movElderBugX < 0) {
+				movElderBugX += movElderBugOffset * deltaTime * 0.25;
+			}
+			else
+			{
+				tipoMovElderBug = 27;
+			}
+			break;
+		case 27:
+			if (rotElderBug < -0) {
+				rotElderBug += rotElderBugOffset * deltaTime;
+			}
+			else
+			{
+				tipoMovElderBug = 1;
+			}
+			break;
+		default:
+			tipoMovElderBug = 1;
 			break;
 		}
 		rotUFO += rotUFOOffset * deltaTime;
@@ -890,23 +1150,27 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Luciernagas.RenderModel();
 
-        /// <summary>
-        /// Banca Hollow
-        /// </summary>
-        model = glm::mat4(1.0);
-        model = glm::translate(model, glm::vec3(-100.0f, 0.0f, -67.0f));
-        model = glm::scale(model, glm::vec3(25.f, 25.f, 25.f));
-        model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-        Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-        BancaHollow.RenderModel();
+		/// <summary>
+		/// Banca Hollow
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-100.0f, 0.0f, -67.0f));
+		model = glm::scale(model, glm::vec3(25.f, 25.f, 25.f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		BancaHollow.RenderModel();
 
 		/// <summary>
 		/// ElderBug Hollow
 		/// </summary>
 		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-110.0f + movElderBugX, 0.0f, -80.0f + movElderBugZ));
+		model = glm::scale(model, glm::vec3(15.f, 15.f, 15.f));
+		model = glm::rotate(model, -110 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, rotElderBug * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-        Elderbug.RenderModel();
+		Elderbug.RenderModel();
 
 		/// <summary>
 		/// Cartel en construccion.
