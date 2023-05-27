@@ -918,30 +918,30 @@ int main()
 		/// <summary>
 		/// MesaBancos
 		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		model = glm::translate(model, glm::vec3(185.0f, 0.0f, -315.0));
-		model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		MesaBanco.RenderModel();
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		model = glm::translate(model, glm::vec3(185.0f, 0.0f, -215.0));
-		model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		MesaBanco.RenderModel();
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		model = glm::translate(model, glm::vec3(225.0f, 0.0f, -315.0));
-		model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		MesaBanco.RenderModel();
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		model = glm::translate(model, glm::vec3(225.0f, 0.0f, -215.0));
-		model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		MesaBanco.RenderModel();
+		//model = glm::mat4(1.0);
+		//model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		//model = glm::translate(model, glm::vec3(185.0f, 0.0f, -315.0));
+		//model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
+		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		//MesaBanco.RenderModel();
+		//model = glm::mat4(1.0);
+		//model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		//model = glm::translate(model, glm::vec3(185.0f, 0.0f, -215.0));
+		//model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
+		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		//MesaBanco.RenderModel();
+		//model = glm::mat4(1.0);
+		//model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		//model = glm::translate(model, glm::vec3(225.0f, 0.0f, -315.0));
+		//model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
+		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		//MesaBanco.RenderModel();
+		//model = glm::mat4(1.0);
+		//model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		//model = glm::translate(model, glm::vec3(225.0f, 0.0f, -215.0));
+		//model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
+		//glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		//MesaBanco.RenderModel();
 
 		/// <summary>
 		/// Escritorio Tocino
