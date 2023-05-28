@@ -18,6 +18,9 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	muevey = 0.0f;
 	muevez = 0.0f;
     cambioCamara = false;
+    prendeInador=false;
+    debugPosicion=false;
+    iniciaMoscas = false;
 
 	for (size_t i = 0; i < 1024; i++)
 	{
@@ -115,11 +118,21 @@ void Window::ManejaTeclado(GLFWwindow *window, int key, int code, int action, in
     if (key == GLFW_KEY_V && action == GLFW_RELEASE){
         theWindow->toogleCambioCamara();
     }
+    // Boton para debug y obtener la posicion en la que se encuentra la camara
+    if (key == GLFW_KEY_Q && action == GLFW_RELEASE){
+        theWindow->toogleDebugPosicion();
+    }
     
     /** INICIO DE ANIMACIONES **/
     // Inicio/Stop de animacion moscas
     if (key == GLFW_KEY_M && action == GLFW_RELEASE){
         theWindow->toogleIniciaMoscas();
+    }
+    
+    /** LUCES **/
+    // Prende/Apaga luz Innador
+    if (key == GLFW_KEY_I && action == GLFW_RELEASE){
+        theWindow->tooglePrendeInador();
     }
     
     

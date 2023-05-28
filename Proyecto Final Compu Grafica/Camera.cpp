@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include <stdio.h>
 
 Camera::Camera() {}
 
@@ -62,13 +63,6 @@ void Camera::keyControl(bool* keys, GLfloat deltaTime, int newCameraMode)
         }
         
         position = lastPosition;
-        
-        // DEBUG de posici—n
-        /*if (keys[GLFW_KEY_Q]) {
-            printf("Vector de front: x=%f, y=%f, z=%f", front.x, front.y, front.z);
-            printf("Vector de up: x=%f, y=%f, z=%f", up.x, up.y, up.z);
-            printf("Vector de posicion: x=%f, y=%f, z=%f", position.x, position.y, position.z);
-        }*/
 
     }
     
@@ -93,14 +87,6 @@ void Camera::keyControl(bool* keys, GLfloat deltaTime, int newCameraMode)
 		{
 			position += right * velocity;
 		}
-        
-        // DEBUG de posici—n
-		/*if (keys[GLFW_KEY_Q]) {
-			printf("Vector de front: x=%f, y=%f, z=%f", front.x, front.y, front.z);
-			printf("Vector de up: x=%f, y=%f, z=%f", up.x, up.y, up.z);
-			printf("Vector de posicion: x=%f, y=%f, z=%f", position.x, position.y, position.z);
-		}*/
-
 	}
     
     // Camara Isometrica
