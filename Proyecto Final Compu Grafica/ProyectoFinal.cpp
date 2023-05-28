@@ -79,6 +79,7 @@ Texture AgaveTexture;
 Texture CartelConstruccion;
 Texture MesaMetal;
 Texture Pizarron;
+Texture Fuego;
 /********************** Fin Texturas **************************/
 
 /********************** Modelos **************************/
@@ -106,6 +107,8 @@ Model Pan;
 Model Cafe;
 Model Queso;
 Model Sandwich;
+Model Hornet;
+Model Link;
 /********************** Fin Modelos **************************/
 
 /********************** Skybox **************************/
@@ -846,6 +849,8 @@ int main()
 	MesaMetal.LoadTextureA();
 	Pizarron = Texture("Textures/Pizarron.jpg");
 	Pizarron.LoadTextureA();
+	Fuego = Texture("Textures/Fuego.png");
+	Fuego.LoadTextureA();
 	/********************** Cargas de texturas **************************/
 
 	/********************** Cargas de Modelos **************************/
@@ -867,6 +872,10 @@ int main()
 	BancaHollow.LoadModel("Models/Hollow/BancaHollow.obj");
 	Elderbug = Model();
 	Elderbug.LoadModel("Models/Hollow/ElderBug.obj");
+	Hornet = Model();
+	Hornet.LoadModel("Models/Hollow/Hornet.obj");	
+	Link = Model();
+	Link.LoadModel("Models/Hollow/Link.obj");
 
 	MesaBanco = Model();
 	MesaBanco.LoadModel("Models/Cartoon/MesaBanco.obj");
@@ -897,6 +906,7 @@ int main()
 	Queso.LoadModel("Models/Cafeteria/Queso.obj");
 	Sandwich = Model();
 	Sandwich.LoadModel("Models/Cafeteria/Sandwich.obj");
+	
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
 	std::vector<std::string> skyboxFaces;
@@ -1755,9 +1765,71 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-100.0f, 8.0f, 220.0f));
 		model = glm::scale(model, glm::vec3(0.7f, 0.7f, 0.7f));
-		// model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		 model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Sandwich.RenderModel();
+
+		/// <summary>
+		/// Hornet.
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-30.0f, 0.0f, -165.0f));
+		model = glm::scale(model, glm::vec3(30.f, 30.f, 30.f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Hornet.RenderModel();
+
+		/// <summary>
+		/// Link.
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-60.0f, 0.0f, -160.0f));
+		model = glm::scale(model, glm::vec3(1.2f, 1.2f, 1.2f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Link.RenderModel();
+
+		/// <summary>
+		/// Escritorio Hollow
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(20.0f, 15.0f, -330.0f));
+		model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, -60 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::scale(model, glm::vec3(36.0f, 36.0f, 36.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		EscritorioTocino.RenderModel();
+
+		/// <summary>
+		/// MesaBancos
+		/// </summary>
+		// model = glm::mat4(1.0);
+		// model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		// model = glm::translate(model, glm::vec3(185.0f, 0.0f, -315.0));
+		// model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
+		// glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		// MesaBanco.RenderModel();
+		// model = glm::mat4(1.0);
+		// model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		// model = glm::translate(model, glm::vec3(185.0f, 0.0f, -215.0));
+		// model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
+		// glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		// MesaBanco.RenderModel();
+		// model = glm::mat4(1.0);
+		// model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		// model = glm::translate(model, glm::vec3(225.0f, 0.0f, -315.0));
+		// model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
+		// glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		// MesaBanco.RenderModel();
+		// model = glm::mat4(1.0);
+		// model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		// model = glm::translate(model, glm::vec3(225.0f, 0.0f, -215.0));
+		// model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
+		// glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		// MesaBanco.RenderModel();
 
 		/// <summary>
 		/// Escritorio Tocino
@@ -1901,18 +1973,12 @@ int main()
 		Pizarron.UseTexture();
 		meshList[5]->RenderMesh();
 
-		// Las texturas transparentes, se ponen al final xd
-		// Agave �qu� sucede si lo renderizan antes del coche y de la pista?
-		//		model = glm::mat4(1.0);
-		//		model = glm::translate(model, glm::vec3(0.0f, 0.5f, -20.0f));
-		//		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
-		//		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		//		// blending: transparencia o traslucidez
-		//		glEnable(GL_BLEND);
-		//		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		//		AgaveTexture.UseTexture();
-		//		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		//		meshList[3]->RenderMesh();
+		/// <summary>
+		/// Para texturas trasnparentes.
+		/// </summary>
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		Fuego.UseTexture();
 
 		// textura con movimiento
 		// Importantes porque la variable uniform no podemos modificarla directamente
@@ -1926,6 +1992,19 @@ int main()
 			toffsetu = 0.0;
 		}
 		toffset = glm::vec2(toffsetu, toffsetv);
+
+		/// <summary>
+		/// Fuego
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(3.0f, 25.0f, -199.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, 30 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::scale(model, glm::vec3(38.0f, 30.0f, 50.0f));
+		glUniform2fv(uniformTextureOffset, 1, glm::value_ptr(toffset));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Fuego.UseTexture();
+		meshList[4]->RenderMesh();
 
 		meshList[4]->RenderMesh();
 		glDisable(GL_BLEND);
