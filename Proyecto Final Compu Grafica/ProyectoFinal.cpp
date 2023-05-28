@@ -111,17 +111,16 @@ Model Pan;
 Model Cafe;
 Model Queso;
 Model Sandwich;
-<<<<<<< Updated upstream
 Model Hornet;
 Model Link;
 Model Kirby;
 Model Phineas;
 Model Ferb;
-=======
+
 Model WC;
 Model Urinal;
 Model Lavamanos;
->>>>>>> Stashed changes
+
 /********************** Fin Modelos **************************/
 
 /********************** Avatar **************************/
@@ -936,7 +935,6 @@ int main()
 	Sandwich = Model();
 	Sandwich.LoadModel("Models/Cafeteria/Sandwich.obj");
 
-<<<<<<< Updated upstream
 	CuerpoPerry = Model();
 	CuerpoPerry.LoadModel("Models/Perry/cuerpo.obj");
 	BrazoDerPerry = Model();
@@ -952,14 +950,13 @@ int main()
     Phineas.LoadModel("Models/Phineas/phineas.obj");
     Ferb = Model();
     Ferb.LoadModel("Models/ferb.obj");
-=======
+
 	WC = Model();
 	WC.LoadModel("Models/WC/Wc.obj");
 	Urinal = Model();
 	Urinal.LoadModel("Models/WC/Urinal.obj");
 	Lavamanos = Model();
 	Lavamanos.LoadModel("Models/WC/Lavamanos.obj");
->>>>>>> Stashed changes
 
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
