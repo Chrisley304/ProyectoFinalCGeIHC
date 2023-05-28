@@ -65,7 +65,7 @@ bool alaA;
 /********************** Fin Variables animación **************************/
 
 Window mainWindow;
-std::vector<Mesh *> meshList;
+std::vector<Mesh*> meshList;
 std::vector<Shader> shaderList;
 
 Camera camera;
@@ -173,12 +173,12 @@ SpotLight spotLights_aux[MAX_SPOT_LIGHTS];
 /// <summary>
 /// Vertex shader.
 /// </summary>
-static const char *vShader = "shaders/shader_light.vert";
+static const char* vShader = "shaders/shader_light.vert";
 
 /// <summary>
 /// Fragment shader.
 /// </summary>
-static const char *fShader = "shaders/shader_light.frag";
+static const char* fShader = "shaders/shader_light.frag";
 
 /********************** Funciones **************************/
 /// <summary>
@@ -190,7 +190,7 @@ static const char *fShader = "shaders/shader_light.frag";
 /// <param name="verticeCount"></param>
 /// <param name="vLength"></param>
 /// <param name="normalOffset"></param>
-void calcAverageNormals(unsigned int *indices, unsigned int indiceCount, GLfloat *vertices, unsigned int verticeCount, unsigned int vLength, unsigned int normalOffset)
+void calcAverageNormals(unsigned int* indices, unsigned int indiceCount, GLfloat* vertices, unsigned int verticeCount, unsigned int vLength, unsigned int normalOffset)
 {
 	for (size_t i = 0; i < indiceCount; i += 3)
 	{
@@ -236,29 +236,29 @@ void CreateObjects()
 		0, 3, 1,
 		1, 3, 2,
 		2, 3, 0,
-		0, 1, 2};
+		0, 1, 2 };
 
 	GLfloat vertices[] = {
 		//	x      y      z			u	  v			nx	  ny    nz
 		-1.0f, -1.0f, -0.6f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, -1.0f, 1.0f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f,
 		1.0f, -1.0f, -0.6f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f};
+		0.0f, 1.0f, 0.0f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f };
 
 	unsigned int floorIndices[] = {
 		0, 2, 1,
-		1, 2, 3};
+		1, 2, 3 };
 
 	GLfloat floorVertices[] = {
 		-10.0f, 0.0f, -10.0f, 0.0f, 0.0f, 0.0f, -1.0f, 0.0f,
 		10.0f, 0.0f, -10.0f, 10.0f, 0.0f, 0.0f, -1.0f, 0.0f,
 		-10.0f, 0.0f, 10.0f, 0.0f, 10.0f, 0.0f, -1.0f, 0.0f,
-		10.0f, 0.0f, 10.0f, 10.0f, 10.0f, 0.0f, -1.0f, 0.0f};
+		10.0f, 0.0f, 10.0f, 10.0f, 10.0f, 0.0f, -1.0f, 0.0f };
 	unsigned int vegetacionIndices[] = {
 		0, 1, 2,
 		0, 2, 3,
 		4, 5, 6,
-		4, 6, 7};
+		4, 6, 7 };
 
 	GLfloat vegetacionVertices[] = {
 		-0.5f,
@@ -330,7 +330,7 @@ void CreateObjects()
 
 	unsigned int flechaIndices[] = {
 		0, 1, 2,
-		0, 2, 3};
+		0, 2, 3 };
 
 	GLfloat flechaVertices[] = {
 		-0.5f, 0.0f, 0.5f,
@@ -343,26 +343,26 @@ void CreateObjects()
 		0.0f, -1.0f, 0.0f,
 		-0.5f, 0.0f, -0.5f,
 		0.0f, 1.0f, 0.0f,
-		-1.0f, 0.0f};
+		-1.0f, 0.0f };
 
-	Mesh *obj1 = new Mesh();
+	Mesh* obj1 = new Mesh();
 
 	obj1->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj1);
 
-	Mesh *obj2 = new Mesh();
+	Mesh* obj2 = new Mesh();
 	obj2->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj2);
 
-	Mesh *obj3 = new Mesh();
+	Mesh* obj3 = new Mesh();
 	obj3->CreateMesh(floorVertices, floorIndices, 32, 6);
 	meshList.push_back(obj3);
 
-	Mesh *obj4 = new Mesh();
+	Mesh* obj4 = new Mesh();
 	obj4->CreateMesh(vegetacionVertices, vegetacionIndices, 64, 12);
 	meshList.push_back(obj4);
 
-	Mesh *obj5 = new Mesh();
+	Mesh* obj5 = new Mesh();
 	obj5->CreateMesh(flechaVertices, flechaIndices, 32, 6);
 	meshList.push_back(obj5);
 }
@@ -372,7 +372,7 @@ void CreateObjects()
 /// </summary>
 void CreateShaders()
 {
-	Shader *shader1 = new Shader();
+	Shader* shader1 = new Shader();
 
 	shader1->CreateFromFiles(vShader, fShader);
 	shaderList.push_back(*shader1);
@@ -385,262 +385,65 @@ void CrearCubo()
 {
 	unsigned int cubo_indices[] = {
 		// front
-		0,
-		1,
-		2,
-		2,
-		3,
-		0,
+		0,1,2,
+		2,3,0,
 		// right
-		4,
-		5,
-		6,
-		6,
-		7,
-		4,
+		4,5,6,
+		6,7,4,
 		// back
-		8,
-		9,
-		10,
-		10,
-		11,
-		8,
-
+		8,9,10,
+		10,11,8,
 		// left
-		12,
-		13,
-		14,
-		14,
-		15,
-		12,
+		12,13,14,
+		14,15,12,
 		// bottom
-		16,
-		17,
-		18,
-		18,
-		19,
-		16,
+		16,17,18,
+		18,19,16,
 		// top
-		20,
-		21,
-		22,
-		22,
-		23,
-		20,
+		20,21,22,
+		22,23,20,
 	};
 	// Ejercicio 1: reemplazar con sus dados de 6 caras texturizados, agregar normales
 	// average normals
 	GLfloat cubo_vertices[] = {
 		// front
 		// x		y		z		S		T			NX		NY		NZ
-		-0.5f,
-		-0.5f,
-		0.5f,
-		0.25f,
-		0.33f,
-		0.0f,
-		0.0f,
-		-1.0f, // 0
-		0.5f,
-		-0.5f,
-		0.5f,
-		0.5f,
-		0.33f,
-		0.0f,
-		0.0f,
-		-1.0f, // 1
-		0.5f,
-		0.5f,
-		0.5f,
-		0.5f,
-		0.66f,
-		0.0f,
-		0.0f,
-		-1.0f, // 2
-		-0.5f,
-		0.5f,
-		0.5f,
-		0.25f,
-		0.66f,
-		0.0f,
-		0.0f,
-		-1.0f, // 3
+		-0.5f,-0.5f,0.5f,0.25f,0.33f,0.0f,0.0f,-1.0f, // 0
+		0.5f,-0.5f,0.5f,0.5f,0.33f,	0.0f,0.0f,-1.0f, // 1
+		0.5f,0.5f,0.5f,	0.5f,0.66f,0.0f,0.0f,-1.0f, // 2
+		-0.5f,0.5f,0.5f,0.25f,0.66f,0.0f,0.0f,-1.0f, // 3
 		// right
 		// x		y		z		S		T
-		0.5f,
-		-0.5f,
-		0.5f,
-		0.5f,
-		0.33f,
-		-1.0f,
-		0.0f,
-		0.0f,
-		0.5f,
-		-0.5f,
-		-0.5f,
-		0.75f,
-		0.33f,
-		-1.0f,
-		0.0f,
-		0.0f,
-		0.5f,
-		0.5f,
-		-0.5f,
-		0.75f,
-		0.66f,
-		-1.0f,
-		0.0f,
-		0.0f,
-		0.5f,
-		0.5f,
-		0.5f,
-		0.5f,
-		0.66f,
-		-1.0f,
-		0.0f,
-		0.0f,
+		0.5f,-0.5f,0.5f,0.5f,0.33f,-1.0f,0.0f,0.0f,
+		0.5f,-0.5f,-0.5f,0.75f,0.33f,-1.0f,0.0f,0.0f,
+		0.5f,0.5f,-0.5f,0.75f,0.66f,-1.0f,0.0f,0.0f,
+		0.5f,0.5f,0.5f,0.5f,0.66f,-1.0f,0.0f,0.0f,
 		// back
-		-0.5f,
-		-0.5f,
-		-0.5f,
-		1.0f,
-		0.33f,
-		0.0f,
-		0.0f,
-		1.0f,
-		0.5f,
-		-0.5f,
-		-0.5f,
-		0.75f,
-		0.33f,
-		0.0f,
-		0.0f,
-		1.0f,
-		0.5f,
-		0.5f,
-		-0.5f,
-		0.75f,
-		0.66f,
-		0.0f,
-		0.0f,
-		1.0f,
-		-0.5f,
-		0.5f,
-		-0.5f,
-		1.0f,
-		0.66f,
-		0.0f,
-		0.0f,
-		1.0f,
-
+		-0.5f,-0.5f,-0.5f,1.0f,0.33f,0.0f,0.0f,1.0f,
+		0.5f,-0.5f,-0.5f,0.75f,0.33f,0.0f,0.0f,1.0f,
+		0.5f,0.5f,-0.5f,0.75f,0.66f,0.0f,0.0f,1.0f,
+		-0.5f,0.5f,-0.5f,1.0f,0.66f,0.0f,0.0f,1.0f,
 		// left
 		// x		y		z		S		T
-		-0.5f,
-		-0.5f,
-		-0.5f,
-		0.0f,
-		0.33f,
-		1.0f,
-		0.0f,
-		0.0f,
-		-0.5f,
-		-0.5f,
-		0.5f,
-		0.25f,
-		0.33f,
-		1.0f,
-		0.0f,
-		0.0f,
-		-0.5f,
-		0.5f,
-		0.5f,
-		0.25f,
-		0.66f,
-		1.0f,
-		0.0f,
-		0.0f,
-		-0.5f,
-		0.5f,
-		-0.5f,
-		0.0f,
-		0.66f,
-		1.0f,
-		0.0f,
-		0.0f,
-
+		-0.5f,-0.5f,-0.5f,0.0f,0.33f,1.0f,0.0f,0.0f,
+		-0.5f,-0.5f,0.5f,0.25f,0.33f,1.0f,0.0f,0.0f,
+		-0.5f,0.5f,0.5f,0.25f,0.66f,1.0f,0.0f,0.0f,
+		-0.5f,0.5f,-0.5f,0.0f,0.66f,1.0f,0.0f,0.0f,
 		// bottom
 		// x		y		z		S		T
-		-0.5f,
-		-0.5f,
-		0.5f,
-		0.25f,
-		0.33f,
-		0.0f,
-		1.0f,
-		0.0f,
-		0.5f,
-		-0.5f,
-		0.5f,
-		0.5f,
-		0.33f,
-		0.0f,
-		1.0f,
-		0.0f,
-		0.5f,
-		-0.5f,
-		-0.5f,
-		0.5f,
-		0.0f,
-		0.0f,
-		1.0f,
-		0.0f,
-		-0.5f,
-		-0.5f,
-		-0.5f,
-		0.25f,
-		0.0f,
-		0.0f,
-		1.0f,
-		0.0f,
-
+		-0.5f,-0.5f,0.5f,0.25f,0.33f,0.0f,1.0f,0.0f,
+		0.5f,-0.5f,0.5f,0.5f,0.33f,0.0f,1.0f,0.0f,
+		0.5f,-0.5f,-0.5f,0.5f,0.0f,0.0f,1.0f,0.0f,
+		-0.5f,-0.5f,-0.5f,0.25f,0.0f,0.0f,1.0f,0.0f,
 		// UP
 		// x		y		z		S		T
-		-0.5f,
-		0.5f,
-		0.5f,
-		0.25f,
-		0.66f,
-		0.0f,
-		-1.0f,
-		0.0f,
-		0.5f,
-		0.5f,
-		0.5f,
-		0.5f,
-		0.66f,
-		0.0f,
-		-1.0f,
-		0.0f,
-		0.5f,
-		0.5f,
-		-0.5f,
-		0.5f,
-		1.0f,
-		0.0f,
-		-1.0f,
-		0.0f,
-		-0.5f,
-		0.5f,
-		-0.5f,
-		0.25f,
-		1.0f,
-		0.0f,
-		-1.0f,
-		0.0f,
-
+		-0.5f,0.5f,0.5f,0.25f,0.66f,0.0f,-1.0f,0.0f,
+		0.5f,0.5f,0.5f,0.5f,0.66f,0.0f,-1.0f,0.0f,
+		0.5f,0.5f,-0.5f,0.5f,1.0f,0.0f,-1.0f,0.0f,
+		-0.5f,0.5f,-0.5f,0.25f,1.0f,0.0f,-1.0f,0.0f,
 	};
 
-	Mesh *dado = new Mesh();
+	Mesh* dado = new Mesh();
 	dado->CreateMesh(cubo_vertices, cubo_indices, 192, 36);
 	meshList.push_back(dado);
 }
@@ -826,7 +629,7 @@ void CrearMesa()
 		-2.0f, 0.0f, -0.8f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // 49
 	};
 
-	Mesh *mesa = new Mesh();
+	Mesh* mesa = new Mesh();
 	mesa->CreateMesh(mesa_vertices, mesa_indices, 416, 78);
 	meshList.push_back(mesa);
 }
@@ -942,14 +745,14 @@ int main()
 	BrazoIzqPerry = Model();
 	BrazoIzqPerry.LoadModel("Models/Perry/brazoIzquierdo.obj");
 	PiernaDerPerry = Model();
-    PiernaDerPerry.LoadModel("Models/Perry/piernaDerecha.obj");
-    PiernaIzqPerry = Model();
-    PiernaIzqPerry.LoadModel("Models/Perry/piernaIzquierda.obj");
-    
-    Phineas = Model();
-    Phineas.LoadModel("Models/Phineas/phineas.obj");
-    Ferb = Model();
-    Ferb.LoadModel("Models/ferb.obj");
+	PiernaDerPerry.LoadModel("Models/Perry/piernaDerecha.obj");
+	PiernaIzqPerry = Model();
+	PiernaIzqPerry.LoadModel("Models/Perry/piernaIzquierda.obj");
+
+	Phineas = Model();
+	Phineas.LoadModel("Models/Phineas/phineas.obj");
+	Ferb = Model();
+	Ferb.LoadModel("Models/ferb.obj");
 
 	WC = Model();
 	WC.LoadModel("Models/WC/Wc.obj");
@@ -989,8 +792,8 @@ int main()
 
 	// luz direccional, s�lo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
-								 0.5f, 0.5f,
-								 0.0f, 0.0f, -1.0f);
+		0.5f, 0.5f,
+		0.0f, 0.0f, -1.0f);
 
 	/// <summary>
 	/// Contador de luces puntuales.
@@ -999,9 +802,9 @@ int main()
 	unsigned int pointLightCount = 0;
 	// Declaraci�n de primer luz puntual
 	pointLights[0] = PointLight(0.0f, 1.0f, 0.0f, // RGB
-								1.f, 1.f,
-								135.0f, 25.0f, -81.0f, // pos
-								0.3f, 0.05f, 0.1f);	   // Alcance, Difusión, 0
+		1.f, 1.f,
+		135.0f, 25.0f, -81.0f, // pos
+		0.3f, 0.05f, 0.1f);	   // Alcance, Difusión, 0
 	pointLightCount++;
 
 	unsigned int spotLightCount = 0;
@@ -1012,11 +815,11 @@ int main()
 	/// </summary>
 	/// <returns></returns>
 	spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
-							  0.0f, 2.0f,
-							  0.0f, 0.0f, 0.0f,
-							  0.0f, -1.0f, 0.0f,
-							  1.0f, 0.0f, 0.0f,
-							  5.0f);
+		0.0f, 2.0f,
+		0.0f, 0.0f, 0.0f,
+		0.0f, -1.0f, 0.0f,
+		1.0f, 0.0f, 0.0f,
+		5.0f);
 	spotLightCount++;
 
 	/// <summary>
@@ -1024,18 +827,18 @@ int main()
 	/// </summary>
 	/// <returns></returns>
 	spotLights[1] = SpotLight(1.0f, 1.0f, 1.0f,
-							  20.f, 20.0f,
-							  -100.0f, 45.0f, -68.0f,
-							  0.0f, -1.0f, 0.0f,
-							  1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
-							  40.0f);			// Angulo de apertura
+		20.f, 20.0f,
+		-100.0f, 45.0f, -68.0f,
+		0.0f, -1.0f, 0.0f,
+		1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
+		40.0f);			// Angulo de apertura
 
 	spotLights_aux[0] = SpotLight(1.0f, 1.0f, 1.0f,
-								  20.f, 20.0f,
-								  -100.0f, 45.0f, -68.0f,
-								  0.0f, -1.0f, 0.0f,
-								  1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
-								  40.0f);			// Angulo de apertura
+		20.f, 20.0f,
+		-100.0f, 45.0f, -68.0f,
+		0.0f, -1.0f, 0.0f,
+		1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
+		40.0f);			// Angulo de apertura
 
 	spotLightCount++;
 	spotLightAuxCount++;
@@ -1045,25 +848,25 @@ int main()
 	/// </summary>
 	/// <returns></returns>
 	spotLights[2] = SpotLight(0.0f, 1.0f, 0.0f,
-							  20.f, 20.0f,
-							  -230.0f, 180.0f, -190.0f,
-							  0.0f, -1.0f, 0.0f,
-							  0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
-							  15.0f);			 // Angulo de apertura
+		20.f, 20.0f,
+		-230.0f, 180.0f, -190.0f,
+		0.0f, -1.0f, 0.0f,
+		0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
+		15.0f);			 // Angulo de apertura
 
 	spotLights_aux[1] = SpotLight(0.0f, 1.0f, 0.0f,
-								  20.f, 20.0f,
-								  -230.0f, 180.0f, -190.0f,
-								  0.0f, -1.0f, 0.0f,
-								  0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
-								  15.0f);			 // Angulo de apertura
+		20.f, 20.0f,
+		-230.0f, 180.0f, -190.0f,
+		0.0f, -1.0f, 0.0f,
+		0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
+		15.0f);			 // Angulo de apertura
 
 	spotLightCount++;
 	spotLightAuxCount++;
 	/********************** Fin Luces **************************/
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
-		   uniformSpecularIntensity = 0, uniformShininess = 0, uniformTextureOffset = 0;
+		uniformSpecularIntensity = 0, uniformShininess = 0, uniformTextureOffset = 0;
 	GLuint uniformColor = 0;
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
 
@@ -1101,7 +904,7 @@ int main()
 	int direcRot2Avatar = -1;
 	float rotAvatarOffset = 2.0f;
 
-	bool *keys;
+	bool* keys;
 
 	/******************* Fin Animaciones Inicializacion ****************************/
 
@@ -1614,14 +1417,14 @@ int main()
 		if (!noche)
 		{
 			mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
-										 0.5f, 0.5f,
-										 0.0f, 0.0f, -1.0f);
+				0.5f, 0.5f,
+				0.0f, 0.0f, -1.0f);
 		}
 		else
 		{
 			mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
-										 0.2f, 0.2f, // Se hace mas oscuro el ambiente
-										 0.0f, 0.0f, -1.0f);
+				0.2f, 0.2f, // Se hace mas oscuro el ambiente
+				0.0f, 0.0f, -1.0f);
 		}
 		shaderList[0].SetDirectionalLight(&mainLight);
 
@@ -1791,49 +1594,49 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-230.0f + movMeapX, 0.0f + movMeapY, -190 + movMeapZ));
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-        model = glm::rotate(model, rotMeap * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-        Meap.RenderModel();
+		model = glm::rotate(model, rotMeap * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Meap.RenderModel();
 
-        /// <summary>
-        /// Modelo del innador
-        /// </summary>
-        /// <returns></returns>
-        model = glm::mat4(1.0);
-        model = glm::translate(model, glm::vec3(115.0f, 5.0f, -80.0f));
-        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-        Innador.RenderModel();
+		/// <summary>
+		/// Modelo del innador
+		/// </summary>
+		/// <returns></returns>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(115.0f, 5.0f, -80.0f));
+		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Innador.RenderModel();
 
-        /// <summary>
-        /// Modelo del Dr. Doofenshmirtz
-        /// </summary>
-        /// <returns></returns>
-        model = glm::mat4(1.0);
-        model = glm::translate(model, glm::vec3(165.0f, 0.0f, -80.0f));
-        model = glm::scale(model, glm::vec3(7.0f, 7.f, 7.f));
-        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-        Doofenshmirtz.RenderModel();
+		/// <summary>
+		/// Modelo del Dr. Doofenshmirtz
+		/// </summary>
+		/// <returns></returns>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(165.0f, 0.0f, -80.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 7.f, 7.f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Doofenshmirtz.RenderModel();
 
-        /// <summary>
-        /// Modelo de Phineas
-        /// </summary>
-        /// <returns></returns>
-        model = glm::mat4(1.0);
-        model = glm::translate(model, glm::vec3(133.0f, 10.0f, 1.0f));
-        model = glm::scale(model, glm::vec3(7.0f, 7.f, 7.f));
-        model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-        Phineas.RenderModel();
-        
-        /// <summary>
-        /// Modelo de Ferb
-        /// </summary>
-        /// <returns></returns>
-        model = glm::mat4(1.0);
-        model = glm::translate(model, glm::vec3(167.0f, 10.0f, 4.0f));
-        model = glm::scale(model, glm::vec3(7.0f, 7.f, 7.f));
-        model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		/// <summary>
+		/// Modelo de Phineas
+		/// </summary>
+		/// <returns></returns>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(133.0f, 10.0f, 1.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 7.f, 7.f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Phineas.RenderModel();
+
+		/// <summary>
+		/// Modelo de Ferb
+		/// </summary>
+		/// <returns></returns>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(167.0f, 10.0f, 4.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 7.f, 7.f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Ferb.RenderModel();
 
