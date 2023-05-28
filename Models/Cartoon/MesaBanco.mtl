@@ -1,0 +1,77 @@
+newmtl Edificio2:Pared
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Pared.jpg
+map_Ka Pared.jpg
+Ni 1.50
+Ks 0.00 0.00 0.00
+Ns 10.00
+newmtl Edificio2:Pavimento
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Estacionamiento.jpg
+map_Ka Estacionamiento.jpg
+Ni 1.50
+Ks 0.00 0.00 0.00
+Ns 10.00
+newmtl Edificio2:PisoBanio
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd PisoBanio.png
+map_Ka PisoBanio.png
+Ni 1.50
+Ks 0.00 0.00 0.00
+Ns 10.00
+newmtl Edificio2:PisoNormal
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd PisoEsc.jpg
+map_Ka PisoEsc.jpg
+Ni 1.50
+Ks 0.00 0.00 0.00
+Ns 10.00
+newmtl Edificio2:Puerta_Marco
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Puerta.jpg
+map_Ka Puerta.jpg
+Ni 1.50
+Ks 0.00 0.00 0.00
+Ns 10.00
+newmtl Edificio2:Ventanas
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd MarcoVentana.jpg
+map_Ka MarcoVentana.jpg
+Ni 1.50
+Ks 0.00 0.00 0.00
+Ns 10.00
+newmtl Edificio2:___Default
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd MarcoPuerta.png
+map_Ka MarcoPuerta.png
+Ni 1.50
+Ks 0.00 0.00 0.00
+Ns 10.00
+newmtl lambert2SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Mat_BlackPlastic_MB.jpg
+Ni 1.00
