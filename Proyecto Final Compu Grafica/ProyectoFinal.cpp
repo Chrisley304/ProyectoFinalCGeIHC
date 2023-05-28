@@ -839,7 +839,7 @@ void CrearMesa()
 int main()
 {
 	/********************** Ventana **************************/
-	mainWindow = Window(1366, 768); // 1280, 1024 or 1024, 768
+	mainWindow = Window(1920, 1080); // 1280, 1024 or 1024, 768
 	mainWindow.Initialise();
 	/********************** Fin Ventana **************************/
 
