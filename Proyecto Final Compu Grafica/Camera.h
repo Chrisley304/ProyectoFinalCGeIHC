@@ -19,11 +19,13 @@ public:
 	//Camara isometrica
 	void pan(float dx, float dy);
 	void zoom(float delta);
+    
+    GLfloat getLastYaw(){return lastYaw;};
 
-
-	glm::vec3 getCameraPosition();
-	glm::vec3 getCameraDirection();
-	glm::mat4 calculateViewMatrix();
+    glm::vec3 getCameraPosition();
+    glm::vec3 getLastCameraPosition(){return lastPosition;};
+    glm::vec3 getCameraDirection();
+    glm::mat4 calculateViewMatrix();
 
 	~Camera();
 

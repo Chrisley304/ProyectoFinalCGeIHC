@@ -18,7 +18,7 @@ Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLf
 	turnSpeed = startTurnSpeed;
 
 	//Camara isometrica
-	rotation = 0.0f;   // Ángulo de vista inicial de 45 grados
+	rotation = 0.0f;   // Angulo de vista inicial de 45 grados
 	scale = 1.0f;       // Escala inicial de 1.0
 	positionIsometrica = glm::vec3(174.933762f, 180.697876f, -336.841492f);
 	frontIsometrica = glm::vec3(-0.406201f, -0.615662f, 0.675249f);
@@ -63,7 +63,6 @@ void Camera::keyControl(bool* keys, GLfloat deltaTime, int newCameraMode)
         }
         
         position = lastPosition;
-
     }
     
 	//Controles WASD para los modos de camara libre

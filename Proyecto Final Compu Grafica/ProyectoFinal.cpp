@@ -65,7 +65,7 @@ bool alaA;
 /********************** Fin Variables animación **************************/
 
 Window mainWindow;
-std::vector<Mesh*> meshList;
+std::vector<Mesh *> meshList;
 std::vector<Shader> shaderList;
 
 Camera camera;
@@ -110,6 +110,14 @@ Model Sandwich;
 Model Hornet;
 Model Link;
 /********************** Fin Modelos **************************/
+
+/********************** Avatar **************************/
+Model CuerpoPerry;
+Model BrazoDerPerry;
+Model BrazoIzqPerry;
+Model PiernaDerPerry;
+Model PiernaIzqPerry;
+/********************** Fin Avatar **************************/
 
 /********************** Skybox **************************/
 Skybox skybox;
@@ -873,7 +881,7 @@ int main()
 	Elderbug = Model();
 	Elderbug.LoadModel("Models/Hollow/ElderBug.obj");
 	Hornet = Model();
-	Hornet.LoadModel("Models/Hollow/Hornet.obj");	
+	Hornet.LoadModel("Models/Hollow/Hornet.obj");
 	Link = Model();
 	Link.LoadModel("Models/Hollow/Link.obj");
 
@@ -906,7 +914,18 @@ int main()
 	Queso.LoadModel("Models/Cafeteria/Queso.obj");
 	Sandwich = Model();
 	Sandwich.LoadModel("Models/Cafeteria/Sandwich.obj");
-	
+
+	CuerpoPerry = Model();
+	CuerpoPerry.LoadModel("Models/Perry/cuerpo.obj");
+	BrazoDerPerry = Model();
+	BrazoDerPerry.LoadModel("Models/Perry/brazoDerecho.obj");
+	BrazoIzqPerry = Model();
+	BrazoIzqPerry.LoadModel("Models/Perry/brazoIzquierdo.obj");
+	PiernaDerPerry = Model();
+	PiernaDerPerry.LoadModel("Models/Perry/piernaDerecha.obj");
+	PiernaIzqPerry = Model();
+	PiernaIzqPerry.LoadModel("Models/Perry/piernaIzquierda.obj");
+
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
 	std::vector<std::string> skyboxFaces;
@@ -949,8 +968,8 @@ int main()
 	// Declaraci�n de primer luz puntual
 	pointLights[0] = PointLight(0.0f, 1.0f, 0.0f, // RGB
 								1.f, 1.f,
-                                135.0f, 25.0f, -81.0f, // pos
-								0.3f, 0.05f, 0.1f); // Alcance, Difusión, 0
+								135.0f, 25.0f, -81.0f, // pos
+								0.3f, 0.05f, 0.1f);	   // Alcance, Difusión, 0
 	pointLightCount++;
 
 	unsigned int spotLightCount = 0;
@@ -1043,6 +1062,15 @@ int main()
 	rotPB = -360.0f * 4;
 	posPiolin = 0.0f;
 	alaA = false;
+	// Avatar
+	float rot1Avatar = 0.0f;
+	float rot2Avatar = 0.0f;
+	int direcRot1Avatar = 1;
+	int direcRot2Avatar = -1;
+	float rotAvatarOffset = 2.0f;
+
+	bool *keys;
+
 	/******************* Fin Animaciones Inicializacion ****************************/
 
 	// Loop mientras no se cierra la ventana
@@ -1463,19 +1491,25 @@ int main()
 
 		// Piolin
 
-		if (alaA) {
-			if (rotPB >= -30) {
+		if (alaA)
+		{
+			if (rotPB >= -30)
+			{
 				rotPB -= deltaTime;
 			}
-			else {
+			else
+			{
 				alaA = !alaA;
 			}
 		}
-		else {
-			if (rotPB <= 30) {
+		else
+		{
+			if (rotPB <= 30)
+			{
 				rotPB += deltaTime;
 			}
-			else {
+			else
+			{
 				alaA = !alaA;
 			}
 		}
@@ -1486,7 +1520,8 @@ int main()
 
 		// Recibir eventos del usuario
 		glfwPollEvents();
-		camera.keyControl(mainWindow.getsKeys(), deltaTime, cameraMode);
+		keys = mainWindow.getsKeys();
+		camera.keyControl(keys, deltaTime, cameraMode);
 		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
 
 		// Clear the window
@@ -1544,22 +1579,28 @@ int main()
 		lowerLight.y -= 0.3f;
 
 		// Luz principal del mundo (cambia con la hora del día)
-        if (!noche){
-            mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
-                                         0.5f, 0.5f,
-                                         0.0f, 0.0f, -1.0f);
-        }else{
-            mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
-                                         0.2f, 0.2f, // Se hace mas oscuro el ambiente
-                                         0.0f, 0.0f, -1.0f);
-        }
-        shaderList[0].SetDirectionalLight(&mainLight);
-        
-        if(mainWindow.getPrendeInador()){
-            shaderList[0].SetPointLights(pointLights, pointLightCount);
-        }else{
-            shaderList[0].SetPointLights(pointLights, pointLightCount-1);
-        }
+		if (!noche)
+		{
+			mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
+										 0.5f, 0.5f,
+										 0.0f, 0.0f, -1.0f);
+		}
+		else
+		{
+			mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
+										 0.2f, 0.2f, // Se hace mas oscuro el ambiente
+										 0.0f, 0.0f, -1.0f);
+		}
+		shaderList[0].SetDirectionalLight(&mainLight);
+
+		if (mainWindow.getPrendeInador())
+		{
+			shaderList[0].SetPointLights(pointLights, pointLightCount);
+		}
+		else
+		{
+			shaderList[0].SetPointLights(pointLights, pointLightCount - 1);
+		}
 
 		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
 
@@ -1623,6 +1664,84 @@ int main()
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniform2fv(uniformTextureOffset, 1, glm::value_ptr(toffset));
 		Edificio.RenderModel();
+
+		/// <summary>
+		/// Avatar (Perry)
+		/// </summary>
+
+		// Movimiento de las partes del cuerpo al mover avatar
+		if (keys[GLFW_KEY_W] || keys[GLFW_KEY_A] || keys[GLFW_KEY_S] || keys[GLFW_KEY_D])
+		{
+			if (rot1Avatar < 90.0 && rot1Avatar > -90.0)
+			{
+				rot1Avatar += rotAvatarOffset * direcRot1Avatar;
+			}
+			else
+			{
+				direcRot1Avatar = -direcRot1Avatar;
+				rot1Avatar += rotAvatarOffset * direcRot1Avatar;
+			}
+			if (rot2Avatar < 90.0 && rot2Avatar > -90.0)
+			{
+				rot2Avatar += rotAvatarOffset * direcRot2Avatar;
+			}
+			else
+			{
+				direcRot2Avatar = -direcRot2Avatar;
+				rot2Avatar += rotAvatarOffset * direcRot2Avatar;
+			}
+		}
+
+		glm::vec3 escalaPerry = glm::vec3(12.f, 12.f, 12.f);
+		glm::vec3 cameraOffset(0.0f, -18.0f, 30.0f); // Posición relativa de la cámara respecto al personaje
+		// Cuerpo Perry
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 7.0f, 0.0f));
+		if (cameraMode == 0)
+		{
+			//            model = glm::rotate(model, -camera.getCameraDirection().x, glm::vec3(0.0f, 1.0f, 0.0f));
+			//            model = glm::rotate(model, camera.getCameraDirection().z, glm::vec3(0.0f, 1.0f, 0.0f));
+			// Actualizar la posición del modelo de Perry según la posición de la cámara
+			glm::vec3 perryPosition = camera.getCameraPosition() + cameraOffset;
+			model = glm::translate(model, perryPosition);
+		}
+		else
+		{
+			glm::vec3 perryPosition = camera.getLastCameraPosition() + cameraOffset;
+			model = glm::translate(model, perryPosition);
+		}
+		modelaux = model;
+		model = glm::scale(model, escalaPerry);
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		CuerpoPerry.RenderModel();
+		// Brazo Derecho
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-1.5f, 0.0f, 0.0f));
+		model = glm::rotate(model, rot2Avatar * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, escalaPerry);
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		BrazoDerPerry.RenderModel();
+		// Brazo Izquierdo
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(1.5f, 0.0f, 0.0f));
+		model = glm::rotate(model, rot1Avatar * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, escalaPerry);
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		BrazoIzqPerry.RenderModel();
+		// Pierna Derecha
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(-1.f, -3.2f, 0.3f));
+		model = glm::rotate(model, rot1Avatar * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, escalaPerry);
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PiernaDerPerry.RenderModel();
+		// Pierna Izquierda
+		model = modelaux;
+		model = glm::translate(model, glm::vec3(1.f, -3.2f, 0.3f));
+		model = glm::rotate(model, rot2Avatar * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, escalaPerry);
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PiernaIzqPerry.RenderModel();
 
 		/// <summary>
 		/// UFO
@@ -1765,7 +1884,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-100.0f, 8.0f, 220.0f));
 		model = glm::scale(model, glm::vec3(0.7f, 0.7f, 0.7f));
-		 model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Sandwich.RenderModel();
 
@@ -2008,9 +2127,9 @@ int main()
 
 		meshList[4]->RenderMesh();
 		glDisable(GL_BLEND);
-        
-        /** INTERACCION CON TECLAS **/
-        
+
+		/** INTERACCION CON TECLAS **/
+
 		// Tecla de cambio de tipo de camara
 		//  0 -> Plano XZ
 		//  1 -> Libre
@@ -2024,12 +2143,13 @@ int main()
 			}
 			mainWindow.toogleCambioCamara();
 		}
-        
-        // DEBUG de posición
-        if (mainWindow.getDebugPosicion()) {
-            printf("Vector de posicion: x=%f, y=%f, z=%f\n", camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
-            mainWindow.toogleDebugPosicion();
-        }
+
+		// DEBUG de posición
+		if (mainWindow.getDebugPosicion())
+		{
+			printf("Vector de posicion: x=%f, y=%f, z=%f\n", camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
+			mainWindow.toogleDebugPosicion();
+		}
 
 		glUseProgram(0);
 
