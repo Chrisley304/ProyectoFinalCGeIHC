@@ -109,6 +109,8 @@ Model Queso;
 Model Sandwich;
 Model Hornet;
 Model Link;
+Model Phineas;
+Model Ferb;
 /********************** Fin Modelos **************************/
 
 /********************** Avatar **************************/
@@ -849,8 +851,6 @@ int main()
 	plainTexture.LoadTextureA();
 	pisoTexture = Texture("Textures/piso.jpg");
 	pisoTexture.LoadTextureA();
-	AgaveTexture = Texture("Textures/Agave.tga");
-	AgaveTexture.LoadTextureA();
 	CartelConstruccion = Texture("Textures/CartelConstruccion.png");
 	CartelConstruccion.LoadTextureA();
 	MesaMetal = Texture("Textures/MetalMesa.png");
@@ -922,9 +922,14 @@ int main()
 	BrazoIzqPerry = Model();
 	BrazoIzqPerry.LoadModel("Models/Perry/brazoIzquierdo.obj");
 	PiernaDerPerry = Model();
-	PiernaDerPerry.LoadModel("Models/Perry/piernaDerecha.obj");
-	PiernaIzqPerry = Model();
-	PiernaIzqPerry.LoadModel("Models/Perry/piernaIzquierda.obj");
+    PiernaDerPerry.LoadModel("Models/Perry/piernaDerecha.obj");
+    PiernaIzqPerry = Model();
+    PiernaIzqPerry.LoadModel("Models/Perry/piernaIzquierda.obj");
+    
+    Phineas = Model();
+    Phineas.LoadModel("Models/Phineas/phineas.obj");
+    Ferb = Model();
+    Ferb.LoadModel("Models/ferb.obj");
 
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
@@ -1693,7 +1698,7 @@ int main()
 		}
 
 		glm::vec3 escalaPerry = glm::vec3(12.f, 12.f, 12.f);
-		glm::vec3 cameraOffset(0.0f, -18.0f, 30.0f); // Posición relativa de la cámara respecto al personaje
+		glm::vec3 cameraOffset(0.0f, -18.0f, 20.0f); // Posición relativa de la cámara respecto al personaje
 		// Cuerpo Perry
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f, 7.0f, 0.0f));
@@ -1759,29 +1764,51 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-230.0f + movMeapX, 0.0f + movMeapY, -190 + movMeapZ));
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::rotate(model, rotMeap * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Meap.RenderModel();
+        model = glm::rotate(model, rotMeap * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Meap.RenderModel();
 
-		/// <summary>
-		/// Modelo del innador
-		/// </summary>
-		/// <returns></returns>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(115.0f, 5.0f, -80.0f));
-		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Innador.RenderModel();
+        /// <summary>
+        /// Modelo del innador
+        /// </summary>
+        /// <returns></returns>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(115.0f, 5.0f, -80.0f));
+        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Innador.RenderModel();
 
-		/// <summary>
-		/// Modelo del Dr. Doofenshmirtz
-		/// </summary>
-		/// <returns></returns>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(165.0f, 0.0f, -80.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 7.f, 7.f));
+        /// <summary>
+        /// Modelo del Dr. Doofenshmirtz
+        /// </summary>
+        /// <returns></returns>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(165.0f, 0.0f, -80.0f));
+        model = glm::scale(model, glm::vec3(7.0f, 7.f, 7.f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Doofenshmirtz.RenderModel();
+
+        /// <summary>
+        /// Modelo de Phineas
+        /// </summary>
+        /// <returns></returns>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(133.0f, 10.0f, 1.0f));
+        model = glm::scale(model, glm::vec3(7.0f, 7.f, 7.f));
+        model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Phineas.RenderModel();
+        
+        /// <summary>
+        /// Modelo de Ferb
+        /// </summary>
+        /// <returns></returns>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(167.0f, 10.0f, 4.0f));
+        model = glm::scale(model, glm::vec3(7.0f, 7.f, 7.f));
+        model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Doofenshmirtz.RenderModel();
+		Ferb.RenderModel();
 
 		/// <summary>
 		/// FarolHollow
