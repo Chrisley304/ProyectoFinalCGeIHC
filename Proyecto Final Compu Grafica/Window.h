@@ -24,8 +24,12 @@ public:
 	void swapBuffers() { return glfwSwapBuffers(mainWindow); }
     bool getCambioCamara(){return cambioCamara; }
     bool getInicioMoscas(){return iniciaMoscas; }
+    bool getDebugPosicion(){return debugPosicion; }
+    bool getPrendeInador(){return prendeInador; }
     void toogleCambioCamara(){cambioCamara = !cambioCamara; }
     void toogleIniciaMoscas(){iniciaMoscas = !iniciaMoscas; }
+    void toogleDebugPosicion(){debugPosicion = !debugPosicion; }
+    void tooglePrendeInador(){prendeInador = !prendeInador; }
 
 	~Window();
 
@@ -44,6 +48,8 @@ private:
 	GLfloat muevez;
     bool cambioCamara;
     bool iniciaMoscas;
+    bool prendeInador;
+    bool debugPosicion;
 
 	bool mouseFirstMoved;
 	static void ManejaTeclado(GLFWwindow *window, int key, int code, int action, int mode);
