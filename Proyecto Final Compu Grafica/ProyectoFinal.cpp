@@ -1061,6 +1061,8 @@ int main()
     int direcRot2Avatar = -1;
     float rotAvatarOffset = 2.0f;
     
+    bool* keys;
+    
 	/******************* Fin Animaciones Inicializacion ****************************/
 
 	// Loop mientras no se cierra la ventana
@@ -1504,7 +1506,8 @@ int main()
 
 		// Recibir eventos del usuario
 		glfwPollEvents();
-		camera.keyControl(mainWindow.getsKeys(), deltaTime, cameraMode);
+        keys = mainWindow.getsKeys();
+		camera.keyControl(keys, deltaTime, cameraMode);
 		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
 
 		// Clear the window
@@ -1645,19 +1648,24 @@ int main()
         /// <summary>
         /// Avatar (Perry)
         /// </summary>
-        glm::vec3 escalaPerry = glm::vec3(12.f, 12.f, 12.f);
-        if (camera.getMueveCuerpo()){
-            if (rot1Avatar < 90.0 || rot1Avatar > -90.0){
+        
+        // Movimiento de las partes del cuerpo al mover avatar
+        if (keys[GLFW_KEY_W] || keys[GLFW_KEY_A] || keys[GLFW_KEY_S] || keys[GLFW_KEY_D]){
+            if (rot1Avatar < 90.0 && rot1Avatar > -90.0){
                 rot1Avatar += rotAvatarOffset * direcRot1Avatar;
             }else{
                 direcRot1Avatar = -direcRot1Avatar;
+                rot1Avatar += rotAvatarOffset * direcRot1Avatar;
             }
-            if (rot2Avatar < 90.0 || rot2Avatar > -90.0){
+            if (rot2Avatar < 90.0 && rot2Avatar > -90.0){
                 rot2Avatar += rotAvatarOffset * direcRot2Avatar;
             }else{
                 direcRot2Avatar = -direcRot2Avatar;
+                rot2Avatar += rotAvatarOffset * direcRot2Avatar;
             }
         }
+        
+        glm::vec3 escalaPerry = glm::vec3(12.f, 12.f, 12.f);
         glm::vec3 cameraOffset(0.0f, -18.0f, 30.0f); // Posición relativa de la cámara respecto al personaje
         // Cuerpo Perry
         model = glm::mat4(1.0);
@@ -1686,21 +1694,21 @@ int main()
         // Brazo Izquierdo
         model = modelaux;
         model = glm::translate(model, glm::vec3(1.5f, 0.0f, 0.0f));
-//        model = glm::rotate(model, rotPB * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::rotate(model, rot1Avatar * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
         model = glm::scale(model, escalaPerry);
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
         BrazoIzqPerry.RenderModel();
         // Pierna Derecha
         model = modelaux;
         model = glm::translate(model, glm::vec3(-1.f, -3.2f, 0.3f));
-//        model = glm::rotate(model, rotPB * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::rotate(model, rot1Avatar * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
         model = glm::scale(model, escalaPerry);
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
         PiernaDerPerry.RenderModel();
         // Pierna Izquierda
         model = modelaux;
         model = glm::translate(model, glm::vec3(1.f, -3.2f, 0.3f));
-//        model = glm::rotate(model, rotPB * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::rotate(model, rot2Avatar * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
         model = glm::scale(model, escalaPerry);
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
         PiernaIzqPerry.RenderModel();
@@ -2036,6 +2044,7 @@ int main()
 			}
 			mainWindow.toogleCambioCamara();
 		}
+        
         
         // DEBUG de posición
         if (mainWindow.getDebugPosicion()) {

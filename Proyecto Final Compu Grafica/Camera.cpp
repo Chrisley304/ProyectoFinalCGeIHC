@@ -13,7 +13,6 @@ Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLf
 	pitch = startPitch;
 	front = glm::vec3(0.0f, 0.0f, -1.0f);
     lastFront = front;
-    mueveCuerpo = false;
 
 	moveSpeed = startMoveSpeed;
 	turnSpeed = startTurnSpeed;
@@ -46,29 +45,24 @@ void Camera::keyControl(bool* keys, GLfloat deltaTime, int newCameraMode)
         if (keys[GLFW_KEY_W])
         {
             lastPosition += front * velocity;
-            mueveCuerpo = true;
         }
 
         if (keys[GLFW_KEY_S])
         {
             lastPosition -= front * velocity;
-//            mueveCuerpo = true;
         }
 
         if (keys[GLFW_KEY_A])
         {
             lastPosition -= right * velocity;
-//            mueveCuerpo = true;
         }
 
         if (keys[GLFW_KEY_D])
         {
             lastPosition += right * velocity;
-//            mueveCuerpo = true;
         }
         
         position = lastPosition;
-//        mueveCuerpo = false;
     }
     
 	//Controles WASD para los modos de camara libre

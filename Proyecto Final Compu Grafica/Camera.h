@@ -26,8 +26,6 @@ public:
     glm::vec3 getLastCameraPosition(){return lastPosition;};
     glm::vec3 getCameraDirection();
     glm::mat4 calculateViewMatrix();
-    
-    bool getMueveCuerpo(){return mueveCuerpo;}
 
 	~Camera();
 
@@ -43,9 +41,6 @@ private:
 
     GLfloat moveSpeed;
     GLfloat turnSpeed;
-    
-    // Movimiento del personaje
-    bool mueveCuerpo;
     
     // Tipo de camara
     int cameraMode;
