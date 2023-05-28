@@ -111,11 +111,17 @@ Model Pan;
 Model Cafe;
 Model Queso;
 Model Sandwich;
+<<<<<<< Updated upstream
 Model Hornet;
 Model Link;
 Model Kirby;
 Model Phineas;
 Model Ferb;
+=======
+Model WC;
+Model Urinal;
+Model Lavamanos;
+>>>>>>> Stashed changes
 /********************** Fin Modelos **************************/
 
 /********************** Avatar **************************/
@@ -930,6 +936,7 @@ int main()
 	Sandwich = Model();
 	Sandwich.LoadModel("Models/Cafeteria/Sandwich.obj");
 
+<<<<<<< Updated upstream
 	CuerpoPerry = Model();
 	CuerpoPerry.LoadModel("Models/Perry/cuerpo.obj");
 	BrazoDerPerry = Model();
@@ -945,6 +952,14 @@ int main()
     Phineas.LoadModel("Models/Phineas/phineas.obj");
     Ferb = Model();
     Ferb.LoadModel("Models/ferb.obj");
+=======
+	WC = Model();
+	WC.LoadModel("Models/WC/Wc.obj");
+	Urinal = Model();
+	Urinal.LoadModel("Models/WC/Urinal.obj");
+	Lavamanos = Model();
+	Lavamanos.LoadModel("Models/WC/Lavamanos.obj");
+>>>>>>> Stashed changes
 
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
@@ -2084,6 +2099,58 @@ int main()
 		model = glm::scale(model, glm::vec3(2.5f, 2.5f, 2.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Sarten.RenderModel();
+
+		/// <summary>
+		/// WC
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(265.0f, 0.0f, 270.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		WC.RenderModel();
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(265.0f, 0.0f, 241.5f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		WC.RenderModel();
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(230.0f, 0.0f, 241.5f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		WC.RenderModel();
+
+		/// <summary>
+		/// Urinal
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(235.0f, 7.5f, 257.5f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Urinal.RenderModel();
+
+		/// <summary>
+		/// Lavamanos
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(200.0f, 0.0f, 165.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Lavamanos.RenderModel();
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(200.0f, 0.0f, 346.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Lavamanos.RenderModel();
 
 		/// <summary>
 		/// Cartel en construccion.
