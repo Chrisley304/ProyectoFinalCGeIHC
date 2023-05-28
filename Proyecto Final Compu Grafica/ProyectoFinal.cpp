@@ -80,6 +80,10 @@ Texture CartelConstruccion;
 Texture MesaMetal;
 Texture Pizarron;
 Texture Fuego;
+Texture ClaseDoof;
+Texture ClaseTocino;
+Texture ClaseKirby;
+Texture CartelBanio;
 /********************** Fin Texturas **************************/
 
 /********************** Modelos **************************/
@@ -109,6 +113,7 @@ Model Queso;
 Model Sandwich;
 Model Hornet;
 Model Link;
+Model Kirby;
 Model Phineas;
 Model Ferb;
 /********************** Fin Modelos **************************/
@@ -853,6 +858,14 @@ int main()
 	pisoTexture.LoadTextureA();
 	CartelConstruccion = Texture("Textures/CartelConstruccion.png");
 	CartelConstruccion.LoadTextureA();
+	ClaseDoof = Texture("Textures/CartelDoof.png");
+	ClaseDoof.LoadTextureA();
+	ClaseTocino = Texture("Textures/CartelTocino.png");
+	ClaseTocino.LoadTextureA();
+	ClaseKirby = Texture("Textures/CartelKirby.png");
+	ClaseKirby.LoadTextureA();
+	CartelBanio = Texture("Textures/Banio.jpg");
+	CartelBanio.LoadTextureA();
 	MesaMetal = Texture("Textures/MetalMesa.png");
 	MesaMetal.LoadTextureA();
 	Pizarron = Texture("Textures/Pizarron.jpg");
@@ -884,6 +897,8 @@ int main()
 	Hornet.LoadModel("Models/Hollow/Hornet.obj");
 	Link = Model();
 	Link.LoadModel("Models/Hollow/Link.obj");
+	Kirby = Model();
+	Kirby.LoadModel("Models/Hollow/Kirby.obj");
 
 	MesaBanco = Model();
 	MesaBanco.LoadModel("Models/Cartoon/MesaBanco.obj");
@@ -1950,32 +1965,58 @@ int main()
 		EscritorioTocino.RenderModel();
 
 		/// <summary>
-		/// MesaBancos
+		/// Cartel clase Doof.
 		/// </summary>
-		// model = glm::mat4(1.0);
-		// model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		// model = glm::translate(model, glm::vec3(185.0f, 0.0f, -315.0));
-		// model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
-		// glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		// MesaBanco.RenderModel();
-		// model = glm::mat4(1.0);
-		// model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		// model = glm::translate(model, glm::vec3(185.0f, 0.0f, -215.0));
-		// model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
-		// glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		// MesaBanco.RenderModel();
-		// model = glm::mat4(1.0);
-		// model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		// model = glm::translate(model, glm::vec3(225.0f, 0.0f, -315.0));
-		// model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
-		// glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		// MesaBanco.RenderModel();
-		// model = glm::mat4(1.0);
-		// model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		// model = glm::translate(model, glm::vec3(225.0f, 0.0f, -215.0));
-		// model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
-		// glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		// MesaBanco.RenderModel();
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(83, 20.f, 25.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(15.f, 10.0f, 1.f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		ClaseDoof.UseTexture();
+		meshList[5]->RenderMesh();
+
+		/// <summary>
+		/// Cartel clase Tocino.
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(83, 20.f, -90.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(15.f, 10.0f, 1.f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		ClaseTocino.UseTexture();
+		meshList[5]->RenderMesh();
+
+		/// <summary>
+		/// Cartel clase Kirby.
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-14, 20.f, -102.0f));
+		//model = glm::rotate(model, 90 * toRadians, glm::vec3(.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(15.f, 10.0f, 1.f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		ClaseKirby.UseTexture();
+		meshList[5]->RenderMesh();
+
+		/// <summary>
+		/// Kirby.
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-113.0f, 0.0f, -218.0f));
+		model = glm::scale(model, glm::vec3(3.f, 3.f, 3.f));
+		model = glm::rotate(model, 60 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Kirby.RenderModel();
+
+		/// <summary>
+		/// Cartel baño.
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(108, 20.f, 166.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(15.f, 10.0f, 1.f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		CartelBanio.UseTexture();
+		meshList[5]->RenderMesh();
 
 		/// <summary>
 		/// Escritorio Tocino
