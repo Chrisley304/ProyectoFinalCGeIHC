@@ -108,6 +108,7 @@ Model Cafe;
 Model Queso;
 Model Sandwich;
 Model Hornet;
+Model Link;
 /********************** Fin Modelos **************************/
 
 /********************** Skybox **************************/
@@ -872,7 +873,9 @@ int main()
 	Elderbug = Model();
 	Elderbug.LoadModel("Models/Hollow/ElderBug.obj");
 	Hornet = Model();
-	Hornet.LoadModel("Models/Hollow/Hornet.obj");
+	Hornet.LoadModel("Models/Hollow/Hornet.obj");	
+	Link = Model();
+	Link.LoadModel("Models/Hollow/Link.obj");
 
 	MesaBanco = Model();
 	MesaBanco.LoadModel("Models/Cartoon/MesaBanco.obj");
@@ -1762,7 +1765,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-100.0f, 8.0f, 220.0f));
 		model = glm::scale(model, glm::vec3(0.7f, 0.7f, 0.7f));
-		// model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		 model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Sandwich.RenderModel();
 
@@ -1770,11 +1773,21 @@ int main()
 		/// Hornet.
 		/// </summary>
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(50.0f, 0.0f, 50.0f));
-		model = glm::scale(model, glm::vec3(10.f, 10.f, 10.f));
-		//model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-30.0f, 0.0f, -165.0f));
+		model = glm::scale(model, glm::vec3(30.f, 30.f, 30.f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Hornet.RenderModel();
+
+		/// <summary>
+		/// Link.
+		/// </summary>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-60.0f, 0.0f, -160.0f));
+		model = glm::scale(model, glm::vec3(1.2f, 1.2f, 1.2f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Link.RenderModel();
 
 		/// <summary>
 		/// Escritorio Hollow
