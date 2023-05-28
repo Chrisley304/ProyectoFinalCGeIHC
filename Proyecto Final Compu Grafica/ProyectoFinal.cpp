@@ -1096,10 +1096,17 @@ int main()
 	alaA = false;
 	// Avatar
 	float rot1Avatar = 0.0f;
-	float rot2Avatar = 0.0f;
-	int direcRot1Avatar = 1;
-	int direcRot2Avatar = -1;
-	float rotAvatarOffset = 2.0f;
+    float rot2Avatar = 0.0f;
+    int direcRot1Avatar = 1;
+    int direcRot2Avatar = -1;
+    float rotAvatarOffset = 2.0f;
+    float giroAvatar = 0.0f;
+    float giroAvatarOffset = 2.0f;
+    float traslAvatarOffset = 2.0f;
+    int direccionZAvatar = -1;
+    int direccionXAvatar = 1;
+    float giroAvatarX = 20.0f;
+    float giroAvatarZ = 0.0f;
 
 	bool *keys;
 
@@ -1702,54 +1709,87 @@ int main()
 		/// </summary>
 
 		// Movimiento de las partes del cuerpo al mover avatar
-		if (keys[GLFW_KEY_W] || keys[GLFW_KEY_A] || keys[GLFW_KEY_S] || keys[GLFW_KEY_D])
+        if ((keys[GLFW_KEY_W] || keys[GLFW_KEY_A] || keys[GLFW_KEY_S] || keys[GLFW_KEY_D]) && cameraMode == 0 )
+        {
+            if (rot1Avatar < 90.0 && rot1Avatar > -90.0)
+            {
+                rot1Avatar += rotAvatarOffset * direcRot1Avatar;
+            }
+            else
+            {
+                direcRot1Avatar = -direcRot1Avatar;
+                rot1Avatar += rotAvatarOffset * direcRot1Avatar;
+            }
+            if (rot2Avatar < 90.0 && rot2Avatar > -90.0)
+            {
+                rot2Avatar += rotAvatarOffset * direcRot2Avatar;
+            }
+            else
+            {
+                direcRot2Avatar = -direcRot2Avatar;
+                rot2Avatar += rotAvatarOffset * direcRot2Avatar;
+            }
+        }
+        
+        if ((keys[GLFW_KEY_LEFT] || keys[GLFW_KEY_RIGHT] ) && cameraMode == 0 )
 		{
-			if (rot1Avatar < 90.0 && rot1Avatar > -90.0)
+			if (keys[GLFW_KEY_LEFT])
 			{
-				rot1Avatar += rotAvatarOffset * direcRot1Avatar;
+                if (giroAvatarZ > -20 && direccionZAvatar == -1){
+                    giroAvatarZ -= traslAvatarOffset;
+                }
+                else if (giroAvatarZ < 20 && direccionZAvatar == 1){
+                    giroAvatarZ += traslAvatarOffset;
+                }
+                else{
+                    direccionZAvatar = -direccionZAvatar;
+                }
+                
+                if (giroAvatarZ < 1){
+                    giroAvatarX -= traslAvatarOffset;
+                }else{
+                    giroAvatarX += traslAvatarOffset;
+                }
 			}
-			else
+			if (keys[GLFW_KEY_RIGHT])
 			{
-				direcRot1Avatar = -direcRot1Avatar;
-				rot1Avatar += rotAvatarOffset * direcRot1Avatar;
-			}
-			if (rot2Avatar < 90.0 && rot2Avatar > -90.0)
-			{
-				rot2Avatar += rotAvatarOffset * direcRot2Avatar;
-			}
-			else
-			{
-				direcRot2Avatar = -direcRot2Avatar;
-				rot2Avatar += rotAvatarOffset * direcRot2Avatar;
+                if (giroAvatarZ > -20 && direccionZAvatar == 1){
+                    giroAvatarZ -= traslAvatarOffset;
+                }
+                else if (giroAvatarZ < 20 && direccionZAvatar == -1){
+                    giroAvatarZ += traslAvatarOffset;
+                }
+                else{
+                    direccionZAvatar = -direccionZAvatar;
+                }
+                
+                if (giroAvatarZ > 1){
+                    giroAvatarX -= traslAvatarOffset;
+                }else{
+                    giroAvatarX += traslAvatarOffset;
+                }
 			}
 		}
 
 		glm::vec3 escalaPerry = glm::vec3(12.f, 12.f, 12.f);
-		glm::vec3 cameraOffset(0.0f, -18.0f, 20.0f); // Posición relativa de la cámara respecto al personaje
+		glm::vec3 cameraOffset(giroAvatarX, -18.0f, giroAvatarZ); // Posición relativa de la cámara respecto al personaje
 		// Cuerpo Perry
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 7.0f, 0.0f));
-		if (cameraMode == 0)
-		{
-			//            model = glm::rotate(model, -camera.getCameraDirection().x, glm::vec3(0.0f, 1.0f, 0.0f));
-			//            model = glm::rotate(model, camera.getCameraDirection().z, glm::vec3(0.0f, 1.0f, 0.0f));
-			// Actualizar la posición del modelo de Perry según la posición de la cámara
-			glm::vec3 perryPosition = camera.getCameraPosition() + cameraOffset;
-			model = glm::translate(model, perryPosition);
-		}
-		else
-		{
-			glm::vec3 perryPosition = camera.getLastCameraPosition() + cameraOffset;
-			model = glm::translate(model, perryPosition);
-		}
-		modelaux = model;
-		model = glm::scale(model, escalaPerry);
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		CuerpoPerry.RenderModel();
-		// Brazo Derecho
-		model = modelaux;
-		model = glm::translate(model, glm::vec3(-1.5f, 0.0f, 0.0f));
-		model = glm::rotate(model, rot2Avatar * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::translate(model, glm::vec3(0.0f, 7.0f, 0.0f));
+        // Actualizar la posición del modelo de Perry según la posición de la cámara
+        glm::vec3 perryPosition = camera.getLastCameraPosition() + cameraOffset;
+        model = glm::translate(model, perryPosition);
+        model = glm::rotate(model, 90.0f + giroAvatar * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::translate(model, glm::vec3(0.0 + giroAvatarX, 0.0f, 0.0f));
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0 + giroAvatarZ));
+        modelaux = model;
+        model = glm::scale(model, escalaPerry);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        CuerpoPerry.RenderModel();
+        // Brazo Derecho
+        model = modelaux;
+        model = glm::translate(model, glm::vec3(-1.5f, 0.0f, 0.0f));
+        model = glm::rotate(model, rot2Avatar * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		model = glm::scale(model, escalaPerry);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		BrazoDerPerry.RenderModel();
