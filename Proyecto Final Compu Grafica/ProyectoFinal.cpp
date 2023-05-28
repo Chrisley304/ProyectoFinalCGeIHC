@@ -58,6 +58,10 @@ float movElderBugZ;
 float movElderBugOffset;
 float rotElderBug;
 float rotElderBugOffset;
+// Piolin
+float rotPB;
+float posPiolin;
+bool alaA;
 /********************** Fin Variables animación **************************/
 
 Window mainWindow;
@@ -91,7 +95,9 @@ Model Elderbug;
 Model MesaBanco;
 Model EscritorioTocino;
 Model Tocino;
-Model Piolin;
+Model PiolinC;
+Model PiolinBD;
+Model PiolinBI;
 Model Huevo;
 Model Sarten;
 Model Microondas;
@@ -868,12 +874,17 @@ int main()
 	EscritorioTocino.LoadModel("Models/Cartoon/Escritorio.obj");
 	Tocino = Model();
 	Tocino.LoadModel("Models/Cartoon/TocinoCharacter.obj");
-	Piolin = Model();
-	Piolin.LoadModel("Models/Cartoon/Piolin.obj");
 	Huevo = Model();
 	Huevo.LoadModel("Models/Cartoon/HuevoMacho.obj");
 	Sarten = Model();
 	Sarten.LoadModel("Models/Cartoon/Sarten.obj");
+	PiolinC = Model();
+	PiolinC.LoadModel("Models/Cartoon/PiolinCuerpo.obj");
+	PiolinBD = Model();
+	PiolinBD.LoadModel("Models/Cartoon/PiolinBD.obj");
+	PiolinBI = Model();
+	PiolinBI.LoadModel("Models/Cartoon/PiolinBI.obj");
+
 	Microondas = Model();
 	Microondas.LoadModel("Models/Cafeteria/Mircoondas.obj");
 	CartelCafeteria = Model();
@@ -1018,6 +1029,10 @@ int main()
 	rotElderBugOffset = 1.0f;
 	int tipoMovElderBug = 1;
 	int pausaElderBug = 0;
+	// Piolin
+	rotPB = -360.0f * 4;
+	posPiolin = 0.0f;
+	alaA = false;
 	/******************* Fin Animaciones Inicializacion ****************************/
 
 	// Loop mientras no se cierra la ventana
@@ -1436,6 +1451,27 @@ int main()
 			rotLuciernagas += rotLuciernagasOffset * deltaTime;
 		}
 
+		// Piolin
+
+		if (alaA) {
+			if (rotPB >= -30) {
+				rotPB -= deltaTime;
+			}
+			else {
+				alaA = !alaA;
+			}
+		}
+		else {
+			if (rotPB <= 30) {
+				rotPB += deltaTime;
+			}
+			else {
+				alaA = !alaA;
+			}
+		}
+
+		posPiolin += deltaTime;
+
 		/*************************** FIN Animaciones *************************************/
 
 		// Recibir eventos del usuario
@@ -1724,34 +1760,6 @@ int main()
 		Sandwich.RenderModel();
 
 		/// <summary>
-		/// MesaBancos
-		/// </summary>
-		// model = glm::mat4(1.0);
-		// model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		// model = glm::translate(model, glm::vec3(185.0f, 0.0f, -315.0));
-		// model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
-		// glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		// MesaBanco.RenderModel();
-		// model = glm::mat4(1.0);
-		// model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		// model = glm::translate(model, glm::vec3(185.0f, 0.0f, -215.0));
-		// model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
-		// glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		// MesaBanco.RenderModel();
-		// model = glm::mat4(1.0);
-		// model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		// model = glm::translate(model, glm::vec3(225.0f, 0.0f, -315.0));
-		// model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
-		// glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		// MesaBanco.RenderModel();
-		// model = glm::mat4(1.0);
-		// model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		// model = glm::translate(model, glm::vec3(225.0f, 0.0f, -215.0));
-		// model = glm::scale(model, glm::vec3(0.9f, 0.9f, 0.9f));
-		// glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		// MesaBanco.RenderModel();
-
-		/// <summary>
 		/// Escritorio Tocino
 		/// </summary>
 		model = glm::mat4(1.0);
@@ -1778,18 +1786,31 @@ int main()
 		/// </summary>
 		model = glm::mat4(1.0);
 		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		model = glm::translate(model, glm::vec3(150.0f, 0.0f, -215.0f));
-		model = glm::scale(model, glm::vec3(10.0f, 10.0f, 10.0f));
-		model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(150.0f, 35.0f, -215.0f));
+		model = glm::translate(model, glm::vec3(5 * sin(glm::radians(posPiolin)), 0, 5 * cos(glm::radians(posPiolin))));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Piolin.RenderModel();
+		PiolinC.RenderModel();
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(150.0f, 42.5f, -215.0f));
+		model = glm::translate(model, glm::vec3(5 * sin(glm::radians(posPiolin)), 0, 5 * cos(glm::radians(posPiolin))));
+		model = glm::rotate(model, rotPB * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PiolinBD.RenderModel();
+		model = glm::mat4(1.0);
+		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+		model = glm::translate(model, glm::vec3(150.0f, 42.5f, -215.0f));
+		model = glm::translate(model, glm::vec3(5 * sin(glm::radians(posPiolin)), 0, 5 * cos(glm::radians(posPiolin))));
+		model = glm::rotate(model, -rotPB * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		PiolinBI.RenderModel();
 
 		/// <summary>
 		/// Huevo
 		/// </summary>
 		model = glm::mat4(1.0);
 		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		model = glm::translate(model, glm::vec3(220.0f, 0.0f, -260.0f));
+		model = glm::translate(model, glm::vec3(180.0f, 0.0f, -260.0f));
 		model = glm::scale(model, glm::vec3(2.5f, 2.5f, 2.5f));
 		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
