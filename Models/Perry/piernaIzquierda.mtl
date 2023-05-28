@@ -1,0 +1,123 @@
+# Blender MTL File: 'perryElOrnitorrinco.blend'
+# Material Count: 11
+
+newmtl Material.003
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/Downloads/perry (1)/source/perry/0000024656CDE6F8out.png
+
+newmtl Material.005
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/Downloads/perry (1)/source/perry/0000024656CDE6F8out.png
+
+newmtl Material.016
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/Downloads/perry (1)/source/perry/0000024656CDE6F8out.png
+
+newmtl Material.017
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/Downloads/perry (1)/source/perry/0000024656CDE6F8out.png
+
+newmtl Material.018
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/Downloads/perry (1)/source/perry/0000024656CDE6F8out.png
+
+newmtl Material.020
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/Downloads/perry (1)/source/perry/0000024656CDE6F8out.png
+
+newmtl Material.021
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/Downloads/perry (1)/source/perry/0000024656CDE6F8out.png
+
+newmtl Material.025
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/Downloads/perry (1)/source/perry/0000024656CDE6F8out.png
+
+newmtl Material.028
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/Downloads/perry (1)/source/perry/0000024656CDE6F8out.png
+
+newmtl Material.030
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/Downloads/perry (1)/source/perry/0000024656CDE6F8out.png
+
+newmtl Verde_Pelaje_Perry
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/Documents/Development/C:C++/ProyectoFinalCGeIHC/Textures/verde-perry.jpg

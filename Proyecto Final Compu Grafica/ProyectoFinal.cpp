@@ -108,6 +108,15 @@ Model Queso;
 Model Sandwich;
 /********************** Fin Modelos **************************/
 
+/********************** Avatar **************************/
+Model CuerpoPerry;
+Model BrazoDerPerry;
+Model BrazoIzqPerry;
+Model PiernaDerPerry;
+Model PiernaIzqPerry;
+/********************** Fin Avatar **************************/
+
+
 /********************** Skybox **************************/
 Skybox skybox;
 bool cambioSkybox = false;
@@ -897,6 +906,18 @@ int main()
 	Queso.LoadModel("Models/Cafeteria/Queso.obj");
 	Sandwich = Model();
 	Sandwich.LoadModel("Models/Cafeteria/Sandwich.obj");
+    
+    CuerpoPerry = Model();
+    CuerpoPerry.LoadModel("Models/Perry/cuerpo.obj");
+    BrazoDerPerry = Model();
+    BrazoDerPerry.LoadModel("Models/Perry/brazoDerecho.obj");
+    BrazoIzqPerry = Model();
+    BrazoIzqPerry.LoadModel("Models/Perry/brazoIzquierdo.obj");
+    PiernaDerPerry = Model();
+    PiernaDerPerry.LoadModel("Models/Perry/piernaDerecha.obj");
+    PiernaIzqPerry = Model();
+    PiernaIzqPerry.LoadModel("Models/Perry/piernaIzquierda.obj");
+    
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
 	std::vector<std::string> skyboxFaces;
@@ -1033,6 +1054,13 @@ int main()
 	rotPB = -360.0f * 4;
 	posPiolin = 0.0f;
 	alaA = false;
+    // Avatar
+    float rot1Avatar = 0.0f;
+    float rot2Avatar = 0.0f;
+    int direcRot1Avatar = 1;
+    int direcRot2Avatar = -1;
+    float rotAvatarOffset = 2.0f;
+    
 	/******************* Fin Animaciones Inicializacion ****************************/
 
 	// Loop mientras no se cierra la ventana
@@ -1613,7 +1641,70 @@ int main()
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniform2fv(uniformTextureOffset, 1, glm::value_ptr(toffset));
 		Edificio.RenderModel();
-
+        
+        /// <summary>
+        /// Avatar (Perry)
+        /// </summary>
+        glm::vec3 escalaPerry = glm::vec3(12.f, 12.f, 12.f);
+        if (camera.getMueveCuerpo()){
+            if (rot1Avatar < 90.0 || rot1Avatar > -90.0){
+                rot1Avatar += rotAvatarOffset * direcRot1Avatar;
+            }else{
+                direcRot1Avatar = -direcRot1Avatar;
+            }
+            if (rot2Avatar < 90.0 || rot2Avatar > -90.0){
+                rot2Avatar += rotAvatarOffset * direcRot2Avatar;
+            }else{
+                direcRot2Avatar = -direcRot2Avatar;
+            }
+        }
+        glm::vec3 cameraOffset(0.0f, -18.0f, 30.0f); // Posición relativa de la cámara respecto al personaje
+        // Cuerpo Perry
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(0.0f, 7.0f, 0.0f));
+        if (cameraMode == 0) {
+//            model = glm::rotate(model, -camera.getCameraDirection().x, glm::vec3(0.0f, 1.0f, 0.0f));
+//            model = glm::rotate(model, camera.getCameraDirection().z, glm::vec3(0.0f, 1.0f, 0.0f));
+                // Actualizar la posición del modelo de Perry según la posición de la cámara
+            glm::vec3 perryPosition = camera.getCameraPosition() + cameraOffset;
+            model = glm::translate(model, perryPosition);
+        }else{
+            glm::vec3 perryPosition = camera.getLastCameraPosition() + cameraOffset;
+            model = glm::translate(model, perryPosition);
+        }
+        modelaux = model;
+        model = glm::scale(model, escalaPerry);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        CuerpoPerry.RenderModel();
+        // Brazo Derecho
+        model = modelaux;
+        model = glm::translate(model, glm::vec3(-1.5f, 0.0f, 0.0f));
+        model = glm::rotate(model, rot2Avatar * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::scale(model, escalaPerry);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        BrazoDerPerry.RenderModel();
+        // Brazo Izquierdo
+        model = modelaux;
+        model = glm::translate(model, glm::vec3(1.5f, 0.0f, 0.0f));
+//        model = glm::rotate(model, rotPB * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::scale(model, escalaPerry);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        BrazoIzqPerry.RenderModel();
+        // Pierna Derecha
+        model = modelaux;
+        model = glm::translate(model, glm::vec3(-1.f, -3.2f, 0.3f));
+//        model = glm::rotate(model, rotPB * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::scale(model, escalaPerry);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        PiernaDerPerry.RenderModel();
+        // Pierna Izquierda
+        model = modelaux;
+        model = glm::translate(model, glm::vec3(1.f, -3.2f, 0.3f));
+//        model = glm::rotate(model, rotPB * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::scale(model, escalaPerry);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        PiernaIzqPerry.RenderModel();
+        
 		/// <summary>
 		/// UFO
 		/// </summary>
