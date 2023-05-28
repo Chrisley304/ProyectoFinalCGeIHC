@@ -83,6 +83,7 @@ Model Edificio;
 Model UFO;
 Model Meap;
 Model Innador;
+Model Doofenshmirtz;
 Model Farol;
 Model Luciernagas;
 Model BancaHollow;
@@ -143,12 +144,12 @@ SpotLight spotLights_aux[MAX_SPOT_LIGHTS];
 /// <summary>
 /// Vertex shader.
 /// </summary>
-static const char* vShader = "shaders/shader_light.vert";
+static const char *vShader = "shaders/shader_light.vert";
 
 /// <summary>
 /// Fragment shader.
 /// </summary>
-static const char* fShader = "shaders/shader_light.frag";
+static const char *fShader = "shaders/shader_light.frag";
 
 /********************** Funciones **************************/
 /// <summary>
@@ -160,7 +161,7 @@ static const char* fShader = "shaders/shader_light.frag";
 /// <param name="verticeCount"></param>
 /// <param name="vLength"></param>
 /// <param name="normalOffset"></param>
-void calcAverageNormals(unsigned int* indices, unsigned int indiceCount, GLfloat* vertices, unsigned int verticeCount, unsigned int vLength, unsigned int normalOffset)
+void calcAverageNormals(unsigned int *indices, unsigned int indiceCount, GLfloat *vertices, unsigned int verticeCount, unsigned int vLength, unsigned int normalOffset)
 {
 	for (size_t i = 0; i < indiceCount; i += 3)
 	{
@@ -206,29 +207,29 @@ void CreateObjects()
 		0, 3, 1,
 		1, 3, 2,
 		2, 3, 0,
-		0, 1, 2 };
+		0, 1, 2};
 
 	GLfloat vertices[] = {
 		//	x      y      z			u	  v			nx	  ny    nz
 		-1.0f, -1.0f, -0.6f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, -1.0f, 1.0f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f,
 		1.0f, -1.0f, -0.6f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f };
+		0.0f, 1.0f, 0.0f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f};
 
 	unsigned int floorIndices[] = {
 		0, 2, 1,
-		1, 2, 3 };
+		1, 2, 3};
 
 	GLfloat floorVertices[] = {
 		-10.0f, 0.0f, -10.0f, 0.0f, 0.0f, 0.0f, -1.0f, 0.0f,
 		10.0f, 0.0f, -10.0f, 10.0f, 0.0f, 0.0f, -1.0f, 0.0f,
 		-10.0f, 0.0f, 10.0f, 0.0f, 10.0f, 0.0f, -1.0f, 0.0f,
-		10.0f, 0.0f, 10.0f, 10.0f, 10.0f, 0.0f, -1.0f, 0.0f };
+		10.0f, 0.0f, 10.0f, 10.0f, 10.0f, 0.0f, -1.0f, 0.0f};
 	unsigned int vegetacionIndices[] = {
 		0, 1, 2,
 		0, 2, 3,
 		4, 5, 6,
-		4, 6, 7 };
+		4, 6, 7};
 
 	GLfloat vegetacionVertices[] = {
 		-0.5f,
@@ -300,7 +301,7 @@ void CreateObjects()
 
 	unsigned int flechaIndices[] = {
 		0, 1, 2,
-		0, 2, 3 };
+		0, 2, 3};
 
 	GLfloat flechaVertices[] = {
 		-0.5f, 0.0f, 0.5f,
@@ -313,26 +314,26 @@ void CreateObjects()
 		0.0f, -1.0f, 0.0f,
 		-0.5f, 0.0f, -0.5f,
 		0.0f, 1.0f, 0.0f,
-		-1.0f, 0.0f };
+		-1.0f, 0.0f};
 
-	Mesh* obj1 = new Mesh();
+	Mesh *obj1 = new Mesh();
 
 	obj1->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj1);
 
-	Mesh* obj2 = new Mesh();
+	Mesh *obj2 = new Mesh();
 	obj2->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj2);
 
-	Mesh* obj3 = new Mesh();
+	Mesh *obj3 = new Mesh();
 	obj3->CreateMesh(floorVertices, floorIndices, 32, 6);
 	meshList.push_back(obj3);
 
-	Mesh* obj4 = new Mesh();
+	Mesh *obj4 = new Mesh();
 	obj4->CreateMesh(vegetacionVertices, vegetacionIndices, 64, 12);
 	meshList.push_back(obj4);
 
-	Mesh* obj5 = new Mesh();
+	Mesh *obj5 = new Mesh();
 	obj5->CreateMesh(flechaVertices, flechaIndices, 32, 6);
 	meshList.push_back(obj5);
 }
@@ -342,7 +343,7 @@ void CreateObjects()
 /// </summary>
 void CreateShaders()
 {
-	Shader* shader1 = new Shader();
+	Shader *shader1 = new Shader();
 
 	shader1->CreateFromFiles(vShader, fShader);
 	shaderList.push_back(*shader1);
@@ -610,7 +611,7 @@ void CrearCubo()
 
 	};
 
-	Mesh* dado = new Mesh();
+	Mesh *dado = new Mesh();
 	dado->CreateMesh(cubo_vertices, cubo_indices, 192, 36);
 	meshList.push_back(dado);
 }
@@ -796,7 +797,7 @@ void CrearMesa()
 		-2.0f, 0.0f, -0.8f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // 49
 	};
 
-	Mesh* mesa = new Mesh();
+	Mesh *mesa = new Mesh();
 	mesa->CreateMesh(mesa_vertices, mesa_indices, 416, 78);
 	meshList.push_back(mesa);
 }
@@ -850,6 +851,8 @@ int main()
 	Meap.LoadModel("Models/Meap/meap.obj");
 	Innador = Model();
 	Innador.LoadModel("Models/Innador/Innador.obj");
+	Doofenshmirtz = Model();
+	Doofenshmirtz.LoadModel("Models/Doofenshmirtz/Doofenshmirtz.obj");
 	Farol = Model();
 	Farol.LoadModel("Models/Hollow/FarolHollow.obj");
 	Luciernagas = Model();
@@ -878,10 +881,10 @@ int main()
 	Pan = Model();
 	Pan.LoadModel("Models/Cafeteria/Pan.obj");
 	Cafe = Model();
-	Cafe.LoadModel("Models/Cafeteria/Cafe.obj");	
-	Queso= Model();
-	Queso.LoadModel("Models/Cafeteria/Queso.obj");	
-	Sandwich= Model();
+	Cafe.LoadModel("Models/Cafeteria/Cafe.obj");
+	Queso = Model();
+	Queso.LoadModel("Models/Cafeteria/Queso.obj");
+	Sandwich = Model();
 	Sandwich.LoadModel("Models/Cafeteria/Sandwich.obj");
 	/********************** Fin de cargas de Modelos **************************/
 	/********************** Skybox **************************/
@@ -914,8 +917,8 @@ int main()
 
 	// luz direccional, s�lo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
-		0.3f, 0.3f,
-		0.0f, 0.0f, -1.0f);
+								 0.5f, 0.5f,
+								 0.0f, 0.0f, -1.0f);
 
 	/// <summary>
 	/// Contador de luces puntuales.
@@ -923,11 +926,11 @@ int main()
 	/// <returns></returns>
 	unsigned int pointLightCount = 0;
 	// Declaraci�n de primer luz puntual
-	//    pointLights[0] = PointLight(1.0f, 0.0f, 0.0f,
-	//                                0.0f, 1.0f,
-	//                                0.0f, 2.5f, 1.5f,
-	//                                0.3f, 0.2f, 0.1f);
-	//    pointLightCount++;
+	pointLights[0] = PointLight(0.0f, 1.0f, 0.0f, // RGB
+								1.f, 1.f,
+                                135.0f, 25.0f, -81.0f, // pos
+								0.3f, 0.05f, 0.1f); // Alcance, Difusión, 0
+	pointLightCount++;
 
 	unsigned int spotLightCount = 0;
 	unsigned int spotLightAuxCount = 0;
@@ -937,11 +940,11 @@ int main()
 	/// </summary>
 	/// <returns></returns>
 	spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
-		0.0f, 2.0f,
-		0.0f, 0.0f, 0.0f,
-		0.0f, -1.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-		5.0f);
+							  0.0f, 2.0f,
+							  0.0f, 0.0f, 0.0f,
+							  0.0f, -1.0f, 0.0f,
+							  1.0f, 0.0f, 0.0f,
+							  5.0f);
 	spotLightCount++;
 
 	/// <summary>
@@ -949,18 +952,18 @@ int main()
 	/// </summary>
 	/// <returns></returns>
 	spotLights[1] = SpotLight(1.0f, 1.0f, 1.0f,
-		20.f, 20.0f,
-		-100.0f, 45.0f, -68.0f,
-		0.0f, -1.0f, 0.0f,
-		1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
-		40.0f);			// Angulo de apertura
+							  20.f, 20.0f,
+							  -100.0f, 45.0f, -68.0f,
+							  0.0f, -1.0f, 0.0f,
+							  1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
+							  40.0f);			// Angulo de apertura
 
 	spotLights_aux[0] = SpotLight(1.0f, 1.0f, 1.0f,
-		20.f, 20.0f,
-		-100.0f, 45.0f, -68.0f,
-		0.0f, -1.0f, 0.0f,
-		1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
-		40.0f);			// Angulo de apertura
+								  20.f, 20.0f,
+								  -100.0f, 45.0f, -68.0f,
+								  0.0f, -1.0f, 0.0f,
+								  1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
+								  40.0f);			// Angulo de apertura
 
 	spotLightCount++;
 	spotLightAuxCount++;
@@ -970,25 +973,25 @@ int main()
 	/// </summary>
 	/// <returns></returns>
 	spotLights[2] = SpotLight(0.0f, 1.0f, 0.0f,
-		20.f, 20.0f,
-		-230.0f, 180.0f, -190.0f,
-		0.0f, -1.0f, 0.0f,
-		0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
-		15.0f);			 // Angulo de apertura
+							  20.f, 20.0f,
+							  -230.0f, 180.0f, -190.0f,
+							  0.0f, -1.0f, 0.0f,
+							  0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
+							  15.0f);			 // Angulo de apertura
 
 	spotLights_aux[1] = SpotLight(0.0f, 1.0f, 0.0f,
-		20.f, 20.0f,
-		-230.0f, 180.0f, -190.0f,
-		0.0f, -1.0f, 0.0f,
-		0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
-		15.0f);			 // Angulo de apertura
+								  20.f, 20.0f,
+								  -230.0f, 180.0f, -190.0f,
+								  0.0f, -1.0f, 0.0f,
+								  0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
+								  15.0f);			 // Angulo de apertura
 
 	spotLightCount++;
 	spotLightAuxCount++;
 	/********************** Fin Luces **************************/
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
-		uniformSpecularIntensity = 0, uniformShininess = 0, uniformTextureOffset = 0;
+		   uniformSpecularIntensity = 0, uniformShininess = 0, uniformTextureOffset = 0;
 	GLuint uniformColor = 0;
 	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
 
@@ -1494,9 +1497,23 @@ int main()
 		glm::vec3 lowerLight = camera.getCameraPosition();
 		lowerLight.y -= 0.3f;
 
-		// informaci�n al shader de fuentes de iluminaci�n
-		shaderList[0].SetDirectionalLight(&mainLight);
-		shaderList[0].SetPointLights(pointLights, pointLightCount);
+		// Luz principal del mundo (cambia con la hora del día)
+        if (!noche){
+            mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
+                                         0.5f, 0.5f,
+                                         0.0f, 0.0f, -1.0f);
+        }else{
+            mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
+                                         0.2f, 0.2f, // Se hace mas oscuro el ambiente
+                                         0.0f, 0.0f, -1.0f);
+        }
+        shaderList[0].SetDirectionalLight(&mainLight);
+        
+        if(mainWindow.getPrendeInador()){
+            shaderList[0].SetPointLights(pointLights, pointLightCount);
+        }else{
+            shaderList[0].SetPointLights(pointLights, pointLightCount-1);
+        }
 
 		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
 
@@ -1586,10 +1603,20 @@ int main()
 		/// </summary>
 		/// <returns></returns>
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 10.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.050f, 0.05f, 0.05f));
+		model = glm::translate(model, glm::vec3(115.0f, 5.0f, -80.0f));
+		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Innador.RenderModel();
+
+		/// <summary>
+		/// Modelo del Dr. Doofenshmirtz
+		/// </summary>
+		/// <returns></returns>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(165.0f, 0.0f, -80.0f));
+		model = glm::scale(model, glm::vec3(7.0f, 7.f, 7.f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Doofenshmirtz.RenderModel();
 
 		/// <summary>
 		/// FarolHollow
@@ -1652,7 +1679,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(30.0f, 0.0f, 80.0f));
 		model = glm::scale(model, glm::vec3(0.75f, 0.75f, 0.75f));
-		//model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		// model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		CartelCafeteria.RenderModel();
 
@@ -1692,7 +1719,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-100.0f, 8.0f, 220.0f));
 		model = glm::scale(model, glm::vec3(0.7f, 0.7f, 0.7f));
-		//model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		// model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Sandwich.RenderModel();
 
@@ -1855,16 +1882,16 @@ int main()
 
 		// Las texturas transparentes, se ponen al final xd
 		// Agave �qu� sucede si lo renderizan antes del coche y de la pista?
-//		model = glm::mat4(1.0);
-//		model = glm::translate(model, glm::vec3(0.0f, 0.5f, -20.0f));
-//		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
-//		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-//		// blending: transparencia o traslucidez
-//		glEnable(GL_BLEND);
-//		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-//		AgaveTexture.UseTexture();
-//		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
-//		meshList[3]->RenderMesh();
+		//		model = glm::mat4(1.0);
+		//		model = glm::translate(model, glm::vec3(0.0f, 0.5f, -20.0f));
+		//		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		//		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		//		// blending: transparencia o traslucidez
+		//		glEnable(GL_BLEND);
+		//		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		//		AgaveTexture.UseTexture();
+		//		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		//		meshList[3]->RenderMesh();
 
 		// textura con movimiento
 		// Importantes porque la variable uniform no podemos modificarla directamente
@@ -1881,7 +1908,9 @@ int main()
 
 		meshList[4]->RenderMesh();
 		glDisable(GL_BLEND);
-
+        
+        /** INTERACCION CON TECLAS **/
+        
 		// Tecla de cambio de tipo de camara
 		//  0 -> Plano XZ
 		//  1 -> Libre
@@ -1895,6 +1924,12 @@ int main()
 			}
 			mainWindow.toogleCambioCamara();
 		}
+        
+        // DEBUG de posición
+        if (mainWindow.getDebugPosicion()) {
+            printf("Vector de posicion: x=%f, y=%f, z=%f\n", camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
+            mainWindow.toogleDebugPosicion();
+        }
 
 		glUseProgram(0);
 

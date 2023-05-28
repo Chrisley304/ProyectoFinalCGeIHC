@@ -1,0 +1,79 @@
+# Blender MTL File: 'Doofenshmirtz.blend'
+# Material Count: 7
+
+newmtl black
+Ns 35.999996
+Ka 1.000000 1.000000 1.000000
+Kd 0.042311 0.039546 0.039546
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/ProyectoFinalCGeIHC/Textures/negro.jpg
+
+newmtl eye
+Ns 575.999996
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Downloads/dr-doofenshmirtz-rigged-low-poly/textures/eye.png
+
+newmtl eyebrow
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.005180 0.004957 0.004957
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/ProyectoFinalCGeIHC/Textures/negro.jpg
+
+newmtl green
+Ns 35.999996
+Ka 1.000000 1.000000 1.000000
+Kd 0.114435 0.152926 0.045186
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/ProyectoFinalCGeIHC/Textures/VerdeDoofenshmirtz.jpg
+
+newmtl hair
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.187821 0.045186 0.009721
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/ProyectoFinalCGeIHC/Textures/pelo-Doofenshmirtz.jpg
+
+newmtl lab_coat
+Ns 35.999996
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/ProyectoFinalCGeIHC/Textures/plain.png
+
+newmtl skin
+Ns 143.999983
+Ka 1.000000 1.000000 1.000000
+Kd 0.955973 0.527115 0.266356
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd /Users/chrisley/Documents/Development/C:C++/ProyectoFinalCGeIHC/Textures/skin.jpg
