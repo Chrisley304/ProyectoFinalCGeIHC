@@ -572,7 +572,7 @@ void CrearMesa()
         -2.0f, 0.5f, -0.8f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, // 48
         -2.0f, 0.5f, -1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, // 48
         -2.0f, 0.0f, -1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // 49
-        -2.0f, 0.0f, -0.8f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, // 49
+        -2.0f, 0.0f, -0.8f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f // 49
     };
 
     Mesh* mesa = new Mesh();
@@ -759,18 +759,6 @@ int main()
 
     unsigned int spotLightCount = 0;
     unsigned int spotLightAuxCount = 0;
-
-    /// <summary>
-    /// Linterna.
-    /// </summary>
-    /// <returns></returns>
-    spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
-        0.0f, 2.0f,
-        0.0f, 0.0f, 0.0f,
-        0.0f, -1.0f, 0.0f,
-        1.0f, 0.0f, 0.0f,
-        5.0f);
-    spotLightCount++;
 
     /// <summary>
     /// Luz Lampara
@@ -1290,7 +1278,7 @@ int main()
         }
 
         spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
-
+        
         if (luzUFO) {
             // Enciende lampara en la solo en la noche
             if (!noche) {
@@ -1349,13 +1337,13 @@ int main()
 
         // Movimiento de las partes del cuerpo al mover avatar
         if ((keys[GLFW_KEY_W] || keys[GLFW_KEY_A] || keys[GLFW_KEY_S] || keys[GLFW_KEY_D]) && cameraMode == 0) {
-            if (rot1Avatar < 90.0 && rot1Avatar > -90.0) {
+            if (rot1Avatar < 35.0 && rot1Avatar > -35.0) {
                 rot1Avatar += rotAvatarOffset * direcRot1Avatar;
             } else {
                 direcRot1Avatar = -direcRot1Avatar;
                 rot1Avatar += rotAvatarOffset * direcRot1Avatar;
             }
-            if (rot2Avatar < 90.0 && rot2Avatar > -90.0) {
+            if (rot2Avatar < 35.0 && rot2Avatar > -35.0) {
                 rot2Avatar += rotAvatarOffset * direcRot2Avatar;
             } else {
                 direcRot2Avatar = -direcRot2Avatar;
@@ -1366,13 +1354,13 @@ int main()
         glm::vec3 escalaPerry = glm::vec3(12.f, 12.f, 12.f);
         // Cuerpo Perry
         model = glm::mat4(1.0);
-        model = glm::translate(model, glm::vec3(0.0f, 7.0f, 0.0f));
+        model = glm::translate(model, glm::vec3(0.0f, 5.0f, 0.0f));
         // Actualizar la posición del modelo de Perry según la posición de la cámara
         if (cameraMode == 0) {
             cameraPosition = camera.getCameraPosition();
             cameraFront = camera.getCameraDirection();
         }
-        perryPosition = cameraPosition + 30.0f * cameraFront;
+        perryPosition = cameraPosition + 23.0f * cameraFront;
         perryPosition.y = 2.0f;
 
         float perryRotation = glm::degrees(atan2(cameraFront.x, cameraFront.z));
