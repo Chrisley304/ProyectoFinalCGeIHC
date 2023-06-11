@@ -236,101 +236,45 @@ void CreateObjects()
 		0, 3, 1,
 		1, 3, 2,
 		2, 3, 0,
-		0, 1, 2};
+		0, 1, 2 };
 
 	GLfloat vertices[] = {
 		//	x      y      z			u	  v			nx	  ny    nz
 		-1.0f, -1.0f, -0.6f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, -1.0f, 1.0f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f,
 		1.0f, -1.0f, -0.6f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f};
+		0.0f, 1.0f, 0.0f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f };
 
 	unsigned int floorIndices[] = {
 		0, 2, 1,
-		1, 2, 3};
+		1, 2, 3 };
 
 	GLfloat floorVertices[] = {
 		-10.0f, 0.0f, -10.0f, 0.0f, 0.0f, 0.0f, -1.0f, 0.0f,
 		10.0f, 0.0f, -10.0f, 10.0f, 0.0f, 0.0f, -1.0f, 0.0f,
 		-10.0f, 0.0f, 10.0f, 0.0f, 10.0f, 0.0f, -1.0f, 0.0f,
-		10.0f, 0.0f, 10.0f, 10.0f, 10.0f, 0.0f, -1.0f, 0.0f};
+		10.0f, 0.0f, 10.0f, 10.0f, 10.0f, 0.0f, -1.0f, 0.0f };
 	unsigned int vegetacionIndices[] = {
 		0, 1, 2,
 		0, 2, 3,
 		4, 5, 6,
-		4, 6, 7};
+		4, 6, 7 };
 
 	GLfloat vegetacionVertices[] = {
-		-0.5f,
-		-0.5f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.5f,
-		-0.5f,
-		0.0f,
-		1.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.5f,
-		0.5f,
-		0.0f,
-		1.0f,
-		1.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		-0.5f,
-		0.5f,
-		0.0f,
-		0.0f,
-		1.0f,
-		0.0f,
-		0.0f,
-		0.0f,
+		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+		-0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
 
-		0.0f,
-		-0.5f,
-		-0.5f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		-0.5f,
-		0.5f,
-		1.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.5f,
-		0.5f,
-		1.0f,
-		1.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.0f,
-		0.5f,
-		-0.5f,
-		0.0f,
-		1.0f,
-		0.0f,
-		0.0f,
-		0.0f,
+		0.0f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		0.0f,0.5f, 0.5f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f
 	};
 
 	unsigned int flechaIndices[] = {
 		0, 1, 2,
-		0, 2, 3};
+		0, 2, 3 };
 
 	GLfloat flechaVertices[] = {
 		-0.5f, 0.0f, 0.5f,
@@ -343,26 +287,26 @@ void CreateObjects()
 		0.0f, -1.0f, 0.0f,
 		-0.5f, 0.0f, -0.5f,
 		0.0f, 1.0f, 0.0f,
-		-1.0f, 0.0f};
+		-1.0f, 0.0f };
 
-	Mesh *obj1 = new Mesh();
+	Mesh* obj1 = new Mesh();
 
 	obj1->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj1);
 
-	Mesh *obj2 = new Mesh();
+	Mesh* obj2 = new Mesh();
 	obj2->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj2);
 
-	Mesh *obj3 = new Mesh();
+	Mesh* obj3 = new Mesh();
 	obj3->CreateMesh(floorVertices, floorIndices, 32, 6);
 	meshList.push_back(obj3);
 
-	Mesh *obj4 = new Mesh();
+	Mesh* obj4 = new Mesh();
 	obj4->CreateMesh(vegetacionVertices, vegetacionIndices, 64, 12);
 	meshList.push_back(obj4);
 
-	Mesh *obj5 = new Mesh();
+	Mesh* obj5 = new Mesh();
 	obj5->CreateMesh(flechaVertices, flechaIndices, 32, 6);
 	meshList.push_back(obj5);
 }
@@ -372,7 +316,7 @@ void CreateObjects()
 /// </summary>
 void CreateShaders()
 {
-	Shader *shader1 = new Shader();
+	Shader* shader1 = new Shader();
 
 	shader1->CreateFromFiles(vShader, fShader);
 	shaderList.push_back(*shader1);
@@ -385,262 +329,56 @@ void CrearCubo()
 {
 	unsigned int cubo_indices[] = {
 		// front
-		0,
-		1,
-		2,
-		2,
-		3,
-		0,
+		0, 1, 2, 2, 3, 0,
 		// right
-		4,
-		5,
-		6,
-		6,
-		7,
-		4,
+		4, 5, 6, 6, 7, 4,
 		// back
-		8,
-		9,
-		10,
-		10,
-		11,
-		8,
-
+		8, 9, 10, 10, 11, 8,
 		// left
-		12,
-		13,
-		14,
-		14,
-		15,
-		12,
+		12, 13, 14, 14, 15, 12,
 		// bottom
-		16,
-		17,
-		18,
-		18,
-		19,
-		16,
+		16, 17, 18, 18, 19, 16,
 		// top
-		20,
-		21,
-		22,
-		22,
-		23,
-		20,
+		20, 21, 22, 22, 23, 20,
 	};
 	// Ejercicio 1: reemplazar con sus dados de 6 caras texturizados, agregar normales
 	// average normals
 	GLfloat cubo_vertices[] = {
 		// front
 		// x		y		z		S		T			NX		NY		NZ
-		-0.5f,
-		-0.5f,
-		0.5f,
-		0.25f,
-		0.33f,
-		0.0f,
-		0.0f,
-		-1.0f, // 0
-		0.5f,
-		-0.5f,
-		0.5f,
-		0.5f,
-		0.33f,
-		0.0f,
-		0.0f,
-		-1.0f, // 1
-		0.5f,
-		0.5f,
-		0.5f,
-		0.5f,
-		0.66f,
-		0.0f,
-		0.0f,
-		-1.0f, // 2
-		-0.5f,
-		0.5f,
-		0.5f,
-		0.25f,
-		0.66f,
-		0.0f,
-		0.0f,
-		-1.0f, // 3
+		-0.5f, -0.5f, 0.5f, 0.25f, 0.33f, 0.0f, 0.0f, -1.0f, // 0
+		0.5f, -0.5f, 0.5f, 0.5f, 0.33f, 0.0f, 0.0f, -1.0f, // 1
+		0.5f, 0.5f, 0.5f, 0.5f, 0.66f, 0.0f, 0.0f, -1.0f, // 2
+		-0.5f, 0.5f, 0.5f, 0.25f, 0.66f, 0.0f, 0.0f, -1.0f, // 3
 		// right
-		// x		y		z		S		T
-		0.5f,
-		-0.5f,
-		0.5f,
-		0.5f,
-		0.33f,
-		-1.0f,
-		0.0f,
-		0.0f,
-		0.5f,
-		-0.5f,
-		-0.5f,
-		0.75f,
-		0.33f,
-		-1.0f,
-		0.0f,
-		0.0f,
-		0.5f,
-		0.5f,
-		-0.5f,
-		0.75f,
-		0.66f,
-		-1.0f,
-		0.0f,
-		0.0f,
-		0.5f,
-		0.5f,
-		0.5f,
-		0.5f,
-		0.66f,
-		-1.0f,
-		0.0f,
-		0.0f,
+		0.5f, -0.5f, 0.5f, 0.5f, 0.33f, -1.0f, 0.0f, 0.0f,
+		0.5f, -0.5f, -0.5f, 0.75f, 0.33f, -1.0f, 0.0f, 0.0f,
+		0.5f, 0.5f, -0.5f, 0.75f, 0.66f, -1.0f, 0.0f, 0.0f,
+		0.5f, 0.5f, 0.5f, 0.5f, 0.66f, -1.0f, 0.0f, 0.0f,
 		// back
-		-0.5f,
-		-0.5f,
-		-0.5f,
-		1.0f,
-		0.33f,
-		0.0f,
-		0.0f,
-		1.0f,
-		0.5f,
-		-0.5f,
-		-0.5f,
-		0.75f,
-		0.33f,
-		0.0f,
-		0.0f,
-		1.0f,
-		0.5f,
-		0.5f,
-		-0.5f,
-		0.75f,
-		0.66f,
-		0.0f,
-		0.0f,
-		1.0f,
-		-0.5f,
-		0.5f,
-		-0.5f,
-		1.0f,
-		0.66f,
-		0.0f,
-		0.0f,
-		1.0f,
-
+		-0.5f, -0.5f, -0.5f, 1.0f, 0.33f, 0.0f, 0.0f, 1.0f,
+		0.5f, -0.5f, -0.5f, 0.75f, 0.33f, 0.0f, 0.0f, 1.0f,
+		0.5f, 0.5f, -0.5f, 0.75f, 0.66f, 0.0f, 0.0f, 1.0f,
+		-0.5f, 0.5f, -0.5f, 1.0f, 0.66f, 0.0f, 0.0f, 1.0f,
 		// left
-		// x		y		z		S		T
-		-0.5f,
-		-0.5f,
-		-0.5f,
-		0.0f,
-		0.33f,
-		1.0f,
-		0.0f,
-		0.0f,
-		-0.5f,
-		-0.5f,
-		0.5f,
-		0.25f,
-		0.33f,
-		1.0f,
-		0.0f,
-		0.0f,
-		-0.5f,
-		0.5f,
-		0.5f,
-		0.25f,
-		0.66f,
-		1.0f,
-		0.0f,
-		0.0f,
-		-0.5f,
-		0.5f,
-		-0.5f,
-		0.0f,
-		0.66f,
-		1.0f,
-		0.0f,
-		0.0f,
-
+		-0.5f, -0.5f, -0.5f, 0.0f, 0.33f, 1.0f, 0.0f, 0.0f,
+		-0.5f, -0.5f, 0.5f, 0.25f, 0.33f, 1.0f, 0.0f, 0.0f,
+		-0.5f, 0.5f, 0.5f, 0.25f, 0.66f, 1.0f, 0.0f, 0.0f,
+		-0.5f, 0.5f, -0.5f, 0.0f, 0.66f, 1.0f, 0.0f, 0.0f,
 		// bottom
-		// x		y		z		S		T
-		-0.5f,
-		-0.5f,
-		0.5f,
-		0.25f,
-		0.33f,
-		0.0f,
-		1.0f,
-		0.0f,
-		0.5f,
-		-0.5f,
-		0.5f,
-		0.5f,
-		0.33f,
-		0.0f,
-		1.0f,
-		0.0f,
-		0.5f,
-		-0.5f,
-		-0.5f,
-		0.5f,
-		0.0f,
-		0.0f,
-		1.0f,
-		0.0f,
-		-0.5f,
-		-0.5f,
-		-0.5f,
-		0.25f,
-		0.0f,
-		0.0f,
-		1.0f,
-		0.0f,
-
-		// UP
-		// x		y		z		S		T
-		-0.5f,
-		0.5f,
-		0.5f,
-		0.25f,
-		0.66f,
-		0.0f,
-		-1.0f,
-		0.0f,
-		0.5f,
-		0.5f,
-		0.5f,
-		0.5f,
-		0.66f,
-		0.0f,
-		-1.0f,
-		0.0f,
-		0.5f,
-		0.5f,
-		-0.5f,
-		0.5f,
-		1.0f,
-		0.0f,
-		-1.0f,
-		0.0f,
-		-0.5f,
-		0.5f,
-		-0.5f,
-		0.25f,
-		1.0f,
-		0.0f,
-		-1.0f,
-		0.0f,
+		-0.5f, -0.5f, 0.5f, 0.25f, 0.33f, 0.0f, 1.0f, 0.0f,
+		0.5f, -0.5f, 0.5f, 0.5f, 0.33f, 0.0f, 1.0f, 0.0f,
+		0.5f, -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f, 0.25f, 0.0f, 0.0f, 1.0f, 0.0f,
+		// up
+		-0.5f, 0.5f, 0.5f, 0.25f, 0.66f, 0.0f, -1.0f, 0.0f,
+		0.5f, 0.5f, 0.5f, 0.5f, 0.66f, 0.0f, -1.0f, 0.0f,
+		0.5f, 0.5f, -0.5f, 0.5f, 1.0f, 0.0f, -1.0f, 0.0f,
+		-0.5f, 0.5f, -0.5f, 0.25f, 1.0f, 0.0f, -1.0f, 0.0f,
 
 	};
 
-	Mesh *dado = new Mesh();
+	Mesh* dado = new Mesh();
 	dado->CreateMesh(cubo_vertices, cubo_indices, 192, 36);
 	meshList.push_back(dado);
 }
@@ -1725,23 +1463,17 @@ int main()
 		}
 
 		glm::vec3 escalaPerry = glm::vec3(12.f, 12.f, 12.f);
-		glm::vec3 cameraOffset(0.0f, -18.0f, 20.0f); // Posición relativa de la cámara respecto al personaje
 		// Cuerpo Perry
+		glm::vec3 cameraPosition = camera.getCameraPosition();
+		glm::vec3 cameraFront = camera.getCameraDirection();
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f, 7.0f, 0.0f));
-		if (cameraMode == 0)
-		{
-			//            model = glm::rotate(model, -camera.getCameraDirection().x, glm::vec3(0.0f, 1.0f, 0.0f));
-			//            model = glm::rotate(model, camera.getCameraDirection().z, glm::vec3(0.0f, 1.0f, 0.0f));
-			// Actualizar la posición del modelo de Perry según la posición de la cámara
-			glm::vec3 perryPosition = camera.getCameraPosition() + cameraOffset;
-			model = glm::translate(model, perryPosition);
-		}
-		else
-		{
-			glm::vec3 perryPosition = camera.getLastCameraPosition() + cameraOffset;
-			model = glm::translate(model, perryPosition);
-		}
+		// Actualizar la posición del modelo de Perry según la posición de la cámara
+		glm::vec3 perryPosition = cameraPosition + 30.0f * cameraFront;
+		perryPosition.y = cameraPosition.y - 18.0f;
+		float perryRotation = glm::degrees(atan2(cameraFront.x, cameraFront.z));
+		model = glm::translate(model, perryPosition);
+		model = glm::rotate(model, 0.0f + perryRotation * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		modelaux = model;
 		model = glm::scale(model, escalaPerry);
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
