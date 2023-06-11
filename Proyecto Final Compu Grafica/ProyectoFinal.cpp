@@ -17,9 +17,11 @@ Proyecto final de Computación Gráfica e Iteracción Humano-Computadora.
 #include <glm/gtc/type_ptr.hpp>
 
 // Librería de Audio
-//#include <SFML/Audio.hpp>
+
+#ifndef __APPLE__
 #include <irrKlang/irrKlang.h>
 using namespace irrklang;
+#endif
 
 #include "Camera.h"
 #include "Mesh.h"
@@ -854,11 +856,12 @@ int main()
 	mainWindow.Initialise();
 	/********************** Fin Ventana **************************/
 
-
-	ISoundEngine* engine = createIrrKlangDevice();
-	if (!engine) {
-		return 0;
-	}
+    #ifndef __APPLE__
+    ISoundEngine* engine = createIrrKlangDevice();
+    if (!engine) {
+        return 0;
+    }
+    #endif
 
 	/********************** Llamadas funciones **************************/
 	CreateObjects();
@@ -1148,8 +1151,10 @@ int main()
 	while (!mainWindow.getShouldClose())
 	{
 		if (sonido) {
-			engine->play2D("Sounds/DaleZeldaDale.wav", true);
-			sonido = false;
+            #ifndef __APPLE__
+            engine->play2D("Sounds/DaleZeldaDale.wav", true);
+            sonido = false;
+            #endif
 		}
 
 		GLfloat now = glfwGetTime();
