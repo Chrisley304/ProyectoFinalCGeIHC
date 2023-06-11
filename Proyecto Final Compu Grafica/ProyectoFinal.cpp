@@ -1119,8 +1119,8 @@ int main()
 
 	bool *keys;
     
+    // Audio ----
     sound_buffer.loadFromFile("Sounds/OOT_YoungLink_Attack1.wav");
-    
     sf::Listener::setPosition((float)0.0f, (float)0.0f, (float)0.0f); // More detail about these two lines in the next tutorial sound.setPosition(0.Of, 0.Of, 0.Of);
     sonido.setPitch(1.0f);
     sonido.setVolume(7.0f);
@@ -1128,12 +1128,11 @@ int main()
     sonido.setMinDistance(5.0f);
     sonido.setAttenuation(0.5f);
     sonido.setLoop(true);
-    sonido.play();
     
-//    musica.openFromFile("The Trapezist - Quincas Moreira.ogs");
-//    musica.setVolume(100.0f);
-//    musica.setPitch(1.0f);
-//    musica.play();
+    musica.openFromFile("Sounds/DaleZeldaDale.wav");
+    musica.setVolume(100.0f);
+    musica.setPitch(1.0f);
+    musica.play();
 
 	/******************* Fin Animaciones Inicializacion ****************************/
 
@@ -2340,6 +2339,10 @@ int main()
 			}
 			mainWindow.toogleCambioCamara();
 		}
+        
+//        if(keys[GLFW_KEY_SPACE]){
+//            sonido.play();
+//        }
 
 		// DEBUG de posición
 		if (mainWindow.getDebugPosicion())
