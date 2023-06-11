@@ -17,7 +17,9 @@ Proyecto final de Computación Gráfica e Iteracción Humano-Computadora.
 #include <glm/gtc/type_ptr.hpp>
 
 // Librería de Audio
-#include <SFML/Audio.hpp>
+//#include <SFML/Audio.hpp>
+#include <irrKlang/irrKlang.h>
+using namespace irrklang;
 
 #include "Camera.h"
 #include "Mesh.h"
@@ -142,9 +144,9 @@ float horaDia = 0.0f;
 /********************** Fin Skybox **************************/
 
 /********************** Audio **************************/
-sf::Sound sonido;
-sf::SoundBuffer sound_buffer;
-sf::Music musica;
+//sf::Sound sonido;
+//sf::SoundBuffer sound_buffer;
+//sf::Music musica;
 /********************** Fin Audio **************************/
 
 /// <summary>
@@ -852,6 +854,12 @@ int main()
 	mainWindow.Initialise();
 	/********************** Fin Ventana **************************/
 
+
+	ISoundEngine* engine = createIrrKlangDevice();
+	if (!engine) {
+		return 0;
+	}
+
 	/********************** Llamadas funciones **************************/
 	CreateObjects();
 	CreateShaders();
@@ -1120,25 +1128,30 @@ int main()
 	bool *keys;
     
     // Audio ----
-    sound_buffer.loadFromFile("Sounds/OOT_YoungLink_Attack1.wav");
-    sf::Listener::setPosition((float)0.0f, (float)0.0f, (float)0.0f); // More detail about these two lines in the next tutorial sound.setPosition(0.Of, 0.Of, 0.Of);
-    sonido.setPitch(1.0f);
-    sonido.setVolume(7.0f);
-    sonido.setBuffer(sound_buffer);
-    sonido.setMinDistance(5.0f);
-    sonido.setAttenuation(0.5f);
-    sonido.setLoop(true);
-    
-    musica.openFromFile("Sounds/DaleZeldaDale.wav");
-    musica.setVolume(100.0f);
-    musica.setPitch(1.0f);
-    musica.play();
+    //sound_buffer.loadFromFile("Sounds/OOT_YoungLink_Attack1.wav");
+    //sf::Listener::setPosition((float)0.0f, (float)0.0f, (float)0.0f); // More detail about these two lines in the next tutorial sound.setPosition(0.Of, 0.Of, 0.Of);
+    //sonido.setPitch(1.0f);
+    //sonido.setVolume(7.0f);
+    //sonido.setBuffer(sound_buffer);
+    //sonido.setMinDistance(5.0f);
+    //sonido.setAttenuation(0.5f);
+    //sonido.setLoop(true);
+    //
+    //musica.openFromFile("Sounds/DaleZeldaDale.wav");
+    //musica.setVolume(100.0f);
+    //musica.setPitch(1.0f);
+    //musica.play();
 
 	/******************* Fin Animaciones Inicializacion ****************************/
-
+	bool sonido = true;
 	// Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
 	{
+		if (sonido) {
+			engine->play2D("Sounds/DaleZeldaDale.wav", true);
+			sonido = false;
+		}
+
 		GLfloat now = glfwGetTime();
 		deltaTime = now - lastTime;
 		deltaTime += (now - lastTime) / limitFPS;
