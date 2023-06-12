@@ -69,6 +69,16 @@ float rotElderBugOffset;
 float rotPB;
 float posPiolin;
 bool alaA;
+// Globito (KeyFrames)
+float reproduciranimacion, habilitaranimacion,
+guardoFrame, reinicioFrame, ciclo, ciclo2, contador = 0;
+float movGlobito;
+float movGlobito_Offset;
+bool avanzaGlobito;
+bool animacion = false;
+float posXglobito = 203.5f, posYglobito = 10.0f;
+float movGlobito_x = 0.0f, movGlobito_y = 0.0f, giroGlobito = 0.0f;
+
 /********************** Fin Variables animación **************************/
 
 Window mainWindow;
@@ -100,6 +110,7 @@ Model UFO;
 Model Meap;
 Model Innador;
 Model Doofenshmirtz;
+Model ManoDoofenshmirtz;
 Model Farol;
 Model Luciernagas;
 Model BancaHollow;
@@ -123,6 +134,7 @@ Model Link;
 Model Kirby;
 Model Phineas;
 Model Ferb;
+Model Globito;
 
 Model WC;
 Model Urinal;
@@ -579,6 +591,94 @@ void CrearMesa()
     mesa->CreateMesh(mesa_vertices, mesa_indices, 416, 78);
     meshList.push_back(mesa);
 }
+
+// Funciones para animacion por Keyframes
+#define MAX_FRAMES 30
+int i_max_steps = 90; // Se deja en 90 porque no da problema, pero si se llega a laggear o ver fea la animaci�n, hay que bajar este valor.
+int i_curr_steps = 5;
+typedef struct _frame
+{
+        // Variables para GUARDAR Key Frames
+    float movGlobito_x;     // Variable para PosicionX
+    float movGlobito_y;     // Variable para PosicionY
+    float movGlobito_xInc; // Variable para IncrementoX
+    float movGlobito_yInc; // Variable para IncrementoY
+    
+    float giroGlobito;
+    float giroGlobitoInc;
+} FRAME;
+
+FRAME KeyFrame[MAX_FRAMES];
+int FrameIndex = 5; // introducir datos
+bool play = false;
+int playIndex = 0;
+
+void saveFrame(void)
+{
+    
+    printf("frameindex %d\n", FrameIndex);
+    
+    KeyFrame[FrameIndex].movGlobito_x = movGlobito_x;
+    KeyFrame[FrameIndex].movGlobito_y = movGlobito_y;
+    KeyFrame[FrameIndex].giroGlobito = giroGlobito;
+    
+    FrameIndex++;
+}
+
+void resetElements(void)
+{
+    
+    movGlobito_x = KeyFrame[0].movGlobito_x;
+    movGlobito_y = KeyFrame[0].movGlobito_y;
+    giroGlobito = KeyFrame[0].giroGlobito;
+}
+
+void interpolation(void)
+{
+    KeyFrame[playIndex].movGlobito_xInc = (KeyFrame[playIndex + 1].movGlobito_x - KeyFrame[playIndex].movGlobito_x) / i_max_steps;
+    KeyFrame[playIndex].movGlobito_yInc = (KeyFrame[playIndex + 1].movGlobito_y - KeyFrame[playIndex].movGlobito_y) / i_max_steps;
+    KeyFrame[playIndex].giroGlobitoInc = (KeyFrame[playIndex + 1].giroGlobito - KeyFrame[playIndex].giroGlobito) / i_max_steps;
+}
+
+void animate(void)
+{
+        // Movimiento del objeto
+    if (play)
+    {
+        if (i_curr_steps >= i_max_steps) // end of animation between frames?
+        {
+            playIndex++;
+            printf("playindex : %d\n", playIndex);
+            if (playIndex > FrameIndex - 2) // end of total animation?
+            {
+                printf("Frame index= %d\n", FrameIndex);
+                printf("termina anim\n");
+                playIndex = 0;
+                play = false;
+            }
+            else // Next frame interpolations
+            {
+                    // printf("entro aqu�\n");
+                i_curr_steps = 0; // Reset counter
+                    // Interpolation
+                interpolation();
+            }
+        }
+        else
+        {
+                // printf("se qued� aqui\n");
+                // printf("max steps: %f", i_max_steps);
+                // Draw animation
+            movGlobito_x += KeyFrame[playIndex].movGlobito_xInc;
+            movGlobito_y += KeyFrame[playIndex].movGlobito_yInc;
+            giroGlobito += KeyFrame[playIndex].giroGlobitoInc;
+            i_curr_steps++;
+        }
+    }
+}
+
+
+
 /********************** Fin funciones **************************/
 
 /// <summary>
@@ -591,23 +691,23 @@ int main()
     mainWindow = Window(1920, 1080); // 1280, 1024 or 1024, 768
     mainWindow.Initialise();
     /********************** Fin Ventana **************************/
-
+    
 #ifndef __APPLE__
     ISoundEngine* engine = createIrrKlangDevice();
     if (!engine) {
         return 0;
     }
 #endif
-
+    
     /********************** Llamadas funciones **************************/
     CreateObjects();
     CreateShaders();
     CrearCubo();
     CrearMesa();
     /********************** Fin llamadas funciones **************************/
-
+    
     camera = Camera(glm::vec3(0.0f, 20.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 2.5f, 0.5f, cameraMode);
-
+    
     /********************** Cargas de texturas **************************/
     brickTexture = Texture("Textures/brick.png");
     brickTexture.LoadTextureA();
@@ -634,7 +734,7 @@ int main()
     Fuego = Texture("Textures/Fuego.png");
     Fuego.LoadTextureA();
     /********************** Cargas de texturas **************************/
-
+    
     /********************** Cargas de Modelos **************************/
     Edificio = Model();
     Edificio.LoadModel("Models/Edificio/Edificio.obj");
@@ -646,6 +746,11 @@ int main()
     Innador.LoadModel("Models/Innador/Innador.obj");
     Doofenshmirtz = Model();
     Doofenshmirtz.LoadModel("Models/Doofenshmirtz/Doofenshmirtz.obj");
+    ManoDoofenshmirtz = Model();
+    ManoDoofenshmirtz.LoadModel("Models/Doofenshmirtz/Mano_Doofenshmirtz.obj");
+    Globito = Model();
+    Globito.LoadModel("Models/globito.obj");
+
     Farol = Model();
     Farol.LoadModel("Models/Hollow/FarolHollow.obj");
     Luciernagas = Model();
@@ -660,7 +765,7 @@ int main()
     Link.LoadModel("Models/Hollow/Link.obj");
     Kirby = Model();
     Kirby.LoadModel("Models/Hollow/Kirby.obj");
-
+    
     MesaBanco = Model();
     MesaBanco.LoadModel("Models/Cartoon/MesaBanco.obj");
     EscritorioTocino = Model();
@@ -677,7 +782,7 @@ int main()
     PiolinBD.LoadModel("Models/Cartoon/PiolinBD.obj");
     PiolinBI = Model();
     PiolinBI.LoadModel("Models/Cartoon/PiolinBI.obj");
-
+    
     Microondas = Model();
     Microondas.LoadModel("Models/Cafeteria/Mircoondas.obj");
     CartelCafeteria = Model();
@@ -690,7 +795,7 @@ int main()
     Queso.LoadModel("Models/Cafeteria/Queso.obj");
     Sandwich = Model();
     Sandwich.LoadModel("Models/Cafeteria/Sandwich.obj");
-
+    
     CuerpoPerry = Model();
     CuerpoPerry.LoadModel("Models/Perry/cuerpo.obj");
     BrazoDerPerry = Model();
@@ -701,19 +806,19 @@ int main()
     PiernaDerPerry.LoadModel("Models/Perry/piernaDerecha.obj");
     PiernaIzqPerry = Model();
     PiernaIzqPerry.LoadModel("Models/Perry/piernaIzquierda.obj");
-
+    
     Phineas = Model();
     Phineas.LoadModel("Models/Phineas/phineas.obj");
     Ferb = Model();
     Ferb.LoadModel("Models/ferb.obj");
-
+    
     WC = Model();
     WC.LoadModel("Models/WC/Wc.obj");
     Urinal = Model();
     Urinal.LoadModel("Models/WC/Urinal.obj");
     Lavamanos = Model();
     Lavamanos.LoadModel("Models/WC/Lavamanos.obj");
-
+    
     /********************** Fin de cargas de Modelos **************************/
     /********************** Skybox **************************/
     std::vector<std::string> skyboxFaces;
@@ -732,98 +837,98 @@ int main()
         skyboxFaces.push_back("Textures/Skybox/Noche/sh_bk.png");
         skyboxFaces.push_back("Textures/Skybox/Noche/sh_ft.png");
     }
-
+    
     skybox = Skybox(skyboxFaces);
     /********************** Fin Skybox **************************/
-
+    
     /********************** Luces **************************/
     Material_brillante = Material(4.0f, 256);
     Material_opaco = Material(0.3f, 4);
-
-    // luz direccional, s�lo 1 y siempre debe de existir
+    
+        // luz direccional, s�lo 1 y siempre debe de existir
     mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
-        0.5f, 0.5f,
-        0.0f, 0.0f, -1.0f);
-
-    /// <summary>
-    /// Contador de luces puntuales.
-    /// </summary>
-    /// <returns></returns>
+                                 0.5f, 0.5f,
+                                 0.0f, 0.0f, -1.0f);
+    
+        /// <summary>
+        /// Contador de luces puntuales.
+        /// </summary>
+        /// <returns></returns>
     unsigned int pointLightCount = 0;
-    // Declaraci�n de primer luz puntual
+        // Declaraci�n de primer luz puntual
     pointLights[0] = PointLight(0.0f, 1.0f, 0.0f, // RGB
-        1.f, 1.f,
-        135.0f, 25.0f, -81.0f, // pos
-        0.3f, 0.05f, 0.1f); // Alcance, Difusión, 0
+                                1.f, 1.f,
+                                135.0f, 25.0f, -81.0f, // pos
+                                0.3f, 0.05f, 0.1f); // Alcance, Difusión, 0
     pointLightCount++;
-
+    
     unsigned int spotLightCount = 0;
     unsigned int spotLightAuxCount = 0;
-
-    /// <summary>
-    /// Luz Lampara
-    /// </summary>
-    /// <returns></returns>
+    
+        /// <summary>
+        /// Luz Lampara
+        /// </summary>
+        /// <returns></returns>
     spotLights[1] = SpotLight(1.0f, 1.0f, 1.0f,
-        20.f, 20.0f,
-        -100.0f, 45.0f, -68.0f,
-        0.0f, -1.0f, 0.0f,
-        1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
-        40.0f); // Angulo de apertura
-
+                              20.f, 20.0f,
+                              -100.0f, 45.0f, -68.0f,
+                              0.0f, -1.0f, 0.0f,
+                              1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
+                              40.0f); // Angulo de apertura
+    
     spotLights_aux[0] = SpotLight(1.0f, 1.0f, 1.0f,
-        20.f, 20.0f,
-        -100.0f, 45.0f, -68.0f,
-        0.0f, -1.0f, 0.0f,
-        1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
-        40.0f); // Angulo de apertura
-
+                                  20.f, 20.0f,
+                                  -100.0f, 45.0f, -68.0f,
+                                  0.0f, -1.0f, 0.0f,
+                                  1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
+                                  40.0f); // Angulo de apertura
+    
     spotLightCount++;
     spotLightAuxCount++;
-
-    /// <summary>
-    /// Luz UFO
-    /// </summary>
-    /// <returns></returns>
+    
+        /// <summary>
+        /// Luz UFO
+        /// </summary>
+        /// <returns></returns>
     spotLights[2] = SpotLight(0.0f, 1.0f, 0.0f,
-        20.f, 20.0f,
-        -230.0f, 180.0f, -190.0f,
-        0.0f, -1.0f, 0.0f,
-        0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
-        15.0f); // Angulo de apertura
-
+                              20.f, 20.0f,
+                              -230.0f, 180.0f, -190.0f,
+                              0.0f, -1.0f, 0.0f,
+                              0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
+                              15.0f); // Angulo de apertura
+    
     spotLights_aux[1] = SpotLight(0.0f, 1.0f, 0.0f,
-        20.f, 20.0f,
-        -230.0f, 180.0f, -190.0f,
-        0.0f, -1.0f, 0.0f,
-        0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
-        15.0f); // Angulo de apertura
-
+                                  20.f, 20.0f,
+                                  -230.0f, 180.0f, -190.0f,
+                                  0.0f, -1.0f, 0.0f,
+                                  0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
+                                  15.0f); // Angulo de apertura
+    
     spotLightCount++;
     spotLightAuxCount++;
     /********************** Fin Luces **************************/
-
+    
     GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
-           uniformSpecularIntensity = 0, uniformShininess = 0, uniformTextureOffset = 0;
+    uniformSpecularIntensity = 0, uniformShininess = 0, uniformTextureOffset = 0;
     GLuint uniformColor = 0;
     glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
-
+    
     /******************* Animaciones Inicializacion ****************************/
-    // OVNI
+        // OVNI
     rotUFO = 0.0f;
     rotUFOOffset = 1.0f;
     movUFOOffset = 1.0f;
     int tipoMovUFO = 1;
     bool luzUFO = false;
-    // Meap
+        // Meap
     movMeapOffset = 1.0f;
     rotMeapOffset = 1.0f;
     float MeapPosX = 0.0f;
     float MeapPosZ = 0.0f;
-    // Luciernagas
+        // Luciernagas
     rotLuciernagas = 0.0f;
     rotLuciernagasOffset = 1.0f;
-    // ElderBug
+        // ElderBug
     movElderBugX = 0.0f;
     movElderBugZ = 0.0f;
     movElderBugOffset = 1.0f;
@@ -831,16 +936,20 @@ int main()
     rotElderBugOffset = 1.0f;
     int tipoMovElderBug = 1;
     int pausaElderBug = 0;
-    // Piolin
+        // Piolin
     rotPB = -360.0f * 4;
     posPiolin = 0.0f;
     alaA = false;
-    // Avatar
+        // Avatar
     float rot1Avatar = 0.0f;
     float rot2Avatar = 0.0f;
     int direcRot1Avatar = 1;
     int direcRot2Avatar = -1;
     float rotAvatarOffset = 2.0f;
+        // Inador/Doofenshmirtz
+    float angulo_ManoDoofenshmirtz  = -20.0f;
+    int direcAngulo_ManoDoofenshmirtz = -1;
+    float direcAngulo_ManoDoofenshmirtz_Offset = 1.0f;
 
     glm::vec3 cameraPosition = camera.getCameraPosition();
     glm::vec3 cameraFront = camera.getCameraDirection();
@@ -867,6 +976,32 @@ int main()
 
     /******************* Fin Animaciones Inicializacion ****************************/
     bool sonido = true;
+    
+    // KEYFRAMES ------
+    // Movimiento del Globito
+    
+    KeyFrame[0].movGlobito_x = 0.0f;
+    KeyFrame[0].movGlobito_y = 0.0f;
+    KeyFrame[0].giroGlobito = 0;
+    
+    KeyFrame[1].movGlobito_x = 0.0f;
+    KeyFrame[1].movGlobito_y = -5.0f;
+    KeyFrame[1].giroGlobito = 0;
+
+    KeyFrame[2].movGlobito_x = 0.0f;
+    KeyFrame[2].movGlobito_y = 5.0f;
+    KeyFrame[2].giroGlobito = 0;
+
+    KeyFrame[3].movGlobito_x = 0.0f;
+    KeyFrame[3].movGlobito_y = -1.0f;
+    KeyFrame[3].giroGlobito = 0;
+    
+    KeyFrame[4].movGlobito_x = 50.0f;
+    KeyFrame[4].movGlobito_y = 50.0f;
+    KeyFrame[4].giroGlobito = 180;
+    
+    
+    
     // Loop mientras no se cierra la ventana
     while (!mainWindow.getShouldClose()) {
         if (sonido) {
@@ -1435,12 +1570,31 @@ int main()
         /// <returns></returns>
         model = glm::mat4(1.0);
         model = glm::translate(model, glm::vec3(165.0f, 0.0f, -80.0f));
+        modelaux = model;
         model = glm::scale(model, glm::vec3(7.0f, 7.f, 7.f));
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
         Doofenshmirtz.RenderModel();
-
+        
+        // Mano Dr. Doofenshmirtz (Animada)
+        
+        if (mainWindow.getPrendeInador()) {
+            if (angulo_ManoDoofenshmirtz < 5.0 && angulo_ManoDoofenshmirtz > -35.0) {
+                angulo_ManoDoofenshmirtz += direcAngulo_ManoDoofenshmirtz_Offset * direcAngulo_ManoDoofenshmirtz;
+            } else {
+                direcAngulo_ManoDoofenshmirtz = -direcAngulo_ManoDoofenshmirtz;
+                angulo_ManoDoofenshmirtz += direcAngulo_ManoDoofenshmirtz_Offset * direcAngulo_ManoDoofenshmirtz;
+            }
+        }
+        
+        model = modelaux;
+        model = glm::translate(model, glm::vec3(-7.0f, 21.0f, 1.85f));
+        model = glm::scale(model, glm::vec3(0.07f, 0.07f, 0.07f));
+        model = glm::rotate(model, angulo_ManoDoofenshmirtz * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        ManoDoofenshmirtz.RenderModel();
+        
         /// <summary>
-        /// Modelo de Phineas
+        /// Phineas
         /// </summary>
         /// <returns></returns>
         model = glm::mat4(1.0);
@@ -1451,7 +1605,7 @@ int main()
         Phineas.RenderModel();
 
         /// <summary>
-        /// Modelo de Ferb
+        /// Ferb
         /// </summary>
         /// <returns></returns>
         model = glm::mat4(1.0);
@@ -1460,6 +1614,40 @@ int main()
         model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
         Ferb.RenderModel();
+
+        /// <summary>
+        /// Globito
+        /// </summary>
+        /// <returns></returns>
+        
+        if (mainWindow.getIniciaKeyFramesGlobito())
+        {
+            if (play == false && (FrameIndex > 1))
+            {
+                resetElements();
+                    // First Interpolation
+                interpolation();
+                play = true;
+                playIndex = 0;
+                i_curr_steps = 0;
+                printf("\n Presiona ESPACIO para reproducir de nuevo la animacion\n");
+                habilitaranimacion = 0;
+            }
+            else
+            {
+                play = false;
+            }
+            mainWindow.toogleIniciaKeyFramesGlobito();
+        }
+        animate();
+        
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(posXglobito + movGlobito_x, posYglobito + movGlobito_y, -61.0f));
+        model = glm::scale(model, glm::vec3(4.0f, 4.f, 4.f));
+        model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::rotate(model, giroGlobito * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Globito.RenderModel();
 
         /// <summary>
         /// FarolHollow
