@@ -69,6 +69,16 @@ float rotElderBugOffset;
 float rotPB;
 float posPiolin;
 bool alaA;
+// Globito (KeyFrames)
+float reproduciranimacion, habilitaranimacion,
+guardoFrame, reinicioFrame, ciclo, ciclo2, contador = 0;
+float movGlobito;
+float movGlobito_Offset;
+bool avanzaGlobito;
+bool animacion = false;
+float posXglobito = 203.5f, posYglobito = 10.0f;
+float movGlobito_x = 0.0f, movGlobito_y = 0.0f, giroGlobito = 0.0f;
+
 /********************** Fin Variables animación **************************/
 
 Window mainWindow;
@@ -124,6 +134,7 @@ Model Link;
 Model Kirby;
 Model Phineas;
 Model Ferb;
+Model Globito;
 
 Model WC;
 Model Urinal;
@@ -580,6 +591,94 @@ void CrearMesa()
     mesa->CreateMesh(mesa_vertices, mesa_indices, 416, 78);
     meshList.push_back(mesa);
 }
+
+// Funciones para animacion por Keyframes
+#define MAX_FRAMES 30
+int i_max_steps = 90; // Se deja en 90 porque no da problema, pero si se llega a laggear o ver fea la animaci�n, hay que bajar este valor.
+int i_curr_steps = 5;
+typedef struct _frame
+{
+        // Variables para GUARDAR Key Frames
+    float movGlobito_x;     // Variable para PosicionX
+    float movGlobito_y;     // Variable para PosicionY
+    float movGlobito_xInc; // Variable para IncrementoX
+    float movGlobito_yInc; // Variable para IncrementoY
+    
+    float giroGlobito;
+    float giroGlobitoInc;
+} FRAME;
+
+FRAME KeyFrame[MAX_FRAMES];
+int FrameIndex = 5; // introducir datos
+bool play = false;
+int playIndex = 0;
+
+void saveFrame(void)
+{
+    
+    printf("frameindex %d\n", FrameIndex);
+    
+    KeyFrame[FrameIndex].movGlobito_x = movGlobito_x;
+    KeyFrame[FrameIndex].movGlobito_y = movGlobito_y;
+    KeyFrame[FrameIndex].giroGlobito = giroGlobito;
+    
+    FrameIndex++;
+}
+
+void resetElements(void)
+{
+    
+    movGlobito_x = KeyFrame[0].movGlobito_x;
+    movGlobito_y = KeyFrame[0].movGlobito_y;
+    giroGlobito = KeyFrame[0].giroGlobito;
+}
+
+void interpolation(void)
+{
+    KeyFrame[playIndex].movGlobito_xInc = (KeyFrame[playIndex + 1].movGlobito_x - KeyFrame[playIndex].movGlobito_x) / i_max_steps;
+    KeyFrame[playIndex].movGlobito_yInc = (KeyFrame[playIndex + 1].movGlobito_y - KeyFrame[playIndex].movGlobito_y) / i_max_steps;
+    KeyFrame[playIndex].giroGlobitoInc = (KeyFrame[playIndex + 1].giroGlobito - KeyFrame[playIndex].giroGlobito) / i_max_steps;
+}
+
+void animate(void)
+{
+        // Movimiento del objeto
+    if (play)
+    {
+        if (i_curr_steps >= i_max_steps) // end of animation between frames?
+        {
+            playIndex++;
+            printf("playindex : %d\n", playIndex);
+            if (playIndex > FrameIndex - 2) // end of total animation?
+            {
+                printf("Frame index= %d\n", FrameIndex);
+                printf("termina anim\n");
+                playIndex = 0;
+                play = false;
+            }
+            else // Next frame interpolations
+            {
+                    // printf("entro aqu�\n");
+                i_curr_steps = 0; // Reset counter
+                    // Interpolation
+                interpolation();
+            }
+        }
+        else
+        {
+                // printf("se qued� aqui\n");
+                // printf("max steps: %f", i_max_steps);
+                // Draw animation
+            movGlobito_x += KeyFrame[playIndex].movGlobito_xInc;
+            movGlobito_y += KeyFrame[playIndex].movGlobito_yInc;
+            giroGlobito += KeyFrame[playIndex].giroGlobitoInc;
+            i_curr_steps++;
+        }
+    }
+}
+
+
+
 /********************** Fin funciones **************************/
 
 /// <summary>
@@ -649,6 +748,9 @@ int main()
     Doofenshmirtz.LoadModel("Models/Doofenshmirtz/Doofenshmirtz.obj");
     ManoDoofenshmirtz = Model();
     ManoDoofenshmirtz.LoadModel("Models/Doofenshmirtz/Mano_Doofenshmirtz.obj");
+    Globito = Model();
+    Globito.LoadModel("Models/globito.obj");
+
     Farol = Model();
     Farol.LoadModel("Models/Hollow/FarolHollow.obj");
     Luciernagas = Model();
@@ -874,6 +976,32 @@ int main()
 
     /******************* Fin Animaciones Inicializacion ****************************/
     bool sonido = true;
+    
+    // KEYFRAMES ------
+    // Movimiento del Globito
+    
+    KeyFrame[0].movGlobito_x = 0.0f;
+    KeyFrame[0].movGlobito_y = 0.0f;
+    KeyFrame[0].giroGlobito = 0;
+    
+    KeyFrame[1].movGlobito_x = 0.0f;
+    KeyFrame[1].movGlobito_y = -5.0f;
+    KeyFrame[1].giroGlobito = 0;
+
+    KeyFrame[2].movGlobito_x = 0.0f;
+    KeyFrame[2].movGlobito_y = 5.0f;
+    KeyFrame[2].giroGlobito = 0;
+
+    KeyFrame[3].movGlobito_x = 0.0f;
+    KeyFrame[3].movGlobito_y = -1.0f;
+    KeyFrame[3].giroGlobito = 0;
+    
+    KeyFrame[4].movGlobito_x = 50.0f;
+    KeyFrame[4].movGlobito_y = 50.0f;
+    KeyFrame[4].giroGlobito = 180;
+    
+    
+    
     // Loop mientras no se cierra la ventana
     while (!mainWindow.getShouldClose()) {
         if (sonido) {
@@ -1466,7 +1594,7 @@ int main()
         ManoDoofenshmirtz.RenderModel();
         
         /// <summary>
-        /// Modelo de Phineas
+        /// Phineas
         /// </summary>
         /// <returns></returns>
         model = glm::mat4(1.0);
@@ -1477,7 +1605,7 @@ int main()
         Phineas.RenderModel();
 
         /// <summary>
-        /// Modelo de Ferb
+        /// Ferb
         /// </summary>
         /// <returns></returns>
         model = glm::mat4(1.0);
@@ -1486,6 +1614,40 @@ int main()
         model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
         Ferb.RenderModel();
+
+        /// <summary>
+        /// Globito
+        /// </summary>
+        /// <returns></returns>
+        
+        if (mainWindow.getIniciaKeyFramesGlobito())
+        {
+            if (play == false && (FrameIndex > 1))
+            {
+                resetElements();
+                    // First Interpolation
+                interpolation();
+                play = true;
+                playIndex = 0;
+                i_curr_steps = 0;
+                printf("\n Presiona ESPACIO para reproducir de nuevo la animacion\n");
+                habilitaranimacion = 0;
+            }
+            else
+            {
+                play = false;
+            }
+            mainWindow.toogleIniciaKeyFramesGlobito();
+        }
+        animate();
+        
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(posXglobito + movGlobito_x, posYglobito + movGlobito_y, -61.0f));
+        model = glm::scale(model, glm::vec3(4.0f, 4.f, 4.f));
+        model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::rotate(model, giroGlobito * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Globito.RenderModel();
 
         /// <summary>
         /// FarolHollow

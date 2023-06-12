@@ -26,10 +26,12 @@ public:
     bool getInicioMoscas(){return iniciaMoscas; }
     bool getDebugPosicion(){return debugPosicion; }
     bool getPrendeInador(){return prendeInador; }
+    bool getIniciaKeyFramesGlobito(){return iniciaKeyFramesGlobito; }
     void toogleCambioCamara(){cambioCamara = !cambioCamara; }
     void toogleIniciaMoscas(){iniciaMoscas = !iniciaMoscas; }
     void toogleDebugPosicion(){debugPosicion = !debugPosicion; }
     void tooglePrendeInador(){prendeInador = !prendeInador; }
+    void toogleIniciaKeyFramesGlobito(){iniciaKeyFramesGlobito = !iniciaKeyFramesGlobito; }
 
 	~Window();
 
@@ -50,6 +52,7 @@ private:
     bool iniciaMoscas;
     bool prendeInador;
     bool debugPosicion;
+    bool iniciaKeyFramesGlobito;
 
 	bool mouseFirstMoved;
 	static void ManejaTeclado(GLFWwindow *window, int key, int code, int action, int mode);
