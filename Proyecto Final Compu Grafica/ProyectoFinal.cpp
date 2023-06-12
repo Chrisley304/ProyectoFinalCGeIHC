@@ -140,6 +140,11 @@ Model WC;
 Model Urinal;
 Model Lavamanos;
 
+Model EscritorioLobby;
+Model Sillon;
+Model Maceta;
+Model MesaCentro;
+
 /********************** Fin Modelos **************************/
 
 /********************** Avatar **************************/
@@ -818,6 +823,15 @@ int main()
     Urinal.LoadModel("Models/WC/Urinal.obj");
     Lavamanos = Model();
     Lavamanos.LoadModel("Models/WC/Lavamanos.obj");
+
+    EscritorioLobby = Model();
+    EscritorioLobby.LoadModel("Models/Recepcion/DeskR.obj");
+    Maceta = Model();
+    Maceta.LoadModel("Models/Recepcion/maceta.obj");
+    Sillon = Model();
+    Sillon.LoadModel("Models/Recepcion/Sillon.obj");
+    MesaCentro = Model();
+    MesaCentro.LoadModel("Models/Recepcion/MesaCentro.obj");
     
     /********************** Fin de cargas de Modelos **************************/
     /********************** Skybox **************************/
@@ -1960,6 +1974,54 @@ int main()
         Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
         Lavamanos.RenderModel();
+
+        /// <summary>
+        /// Escritorio Recepcion
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(80.0f, 0.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        EscritorioLobby.RenderModel();
+
+        /// <summary>
+        /// Plantas
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(-60.0f, 0.0f, 90.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Maceta.RenderModel();
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(-60.0f, 0.0f, -90.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Maceta.RenderModel();
+
+        /// <summary>
+        /// Sillon
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 60.0f));
+        model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Sillon.RenderModel();
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, -60.0f));
+        model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Sillon.RenderModel();
+
+        /// <summary>
+        /// Mesa Centro
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        MesaCentro.RenderModel();
 
         /// <summary>
         /// Cartel en construccion.
