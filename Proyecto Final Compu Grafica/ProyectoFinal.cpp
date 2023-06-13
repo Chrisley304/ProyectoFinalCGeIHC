@@ -69,6 +69,9 @@ float rotElderBugOffset;
 float rotPB;
 float posPiolin;
 bool alaA;
+// Correcaminos
+float rotCC;
+bool bajaCC;
 // Globito (KeyFrames)
 float reproduciranimacion, habilitaranimacion,
 guardoFrame, reinicioFrame, ciclo, ciclo2, contador = 0;
@@ -135,6 +138,8 @@ Model Kirby;
 Model Phineas;
 Model Ferb;
 Model Globito;
+Model CorreC;
+Model CorreP;
 
 Model WC;
 Model Urinal;
@@ -832,6 +837,11 @@ int main()
     Sillon.LoadModel("Models/Recepcion/Sillon.obj");
     MesaCentro = Model();
     MesaCentro.LoadModel("Models/Recepcion/MesaCentro.obj");
+
+    CorreC = Model();
+    CorreC.LoadModel("Models/Correcaminos/CuerpoCC.obj");
+    CorreP = Model();
+    CorreP.LoadModel("Models/Correcaminos/PiernasCC.obj");
     
     /********************** Fin de cargas de Modelos **************************/
     /********************** Skybox **************************/
@@ -951,9 +961,12 @@ int main()
     int tipoMovElderBug = 1;
     int pausaElderBug = 0;
         // Piolin
-    rotPB = -360.0f * 4;
+    rotPB = 0;
     posPiolin = 0.0f;
     alaA = false;
+        // Correcaminos
+    rotCC = 0;
+    bajaCC = false;
         // Avatar
     float rot1Avatar = 0.0f;
     float rot2Avatar = 0.0f;
@@ -1336,19 +1349,42 @@ int main()
 
         if (alaA) {
             if (rotPB >= -30) {
-                rotPB -= deltaTime;
-            } else {
+                rotPB -= 4;
+            }
+            else {
                 alaA = !alaA;
             }
-        } else {
+        }
+        else {
             if (rotPB <= 30) {
-                rotPB += deltaTime;
-            } else {
+                rotPB += 4;
+            }
+            else {
                 alaA = !alaA;
             }
         }
 
         posPiolin += deltaTime;
+
+        // Correcaminos
+        if (! mainWindow.getInicioCorre()) {
+            if (bajaCC) {
+                if (rotCC >= -0) {
+                    rotCC -= 1;
+                }
+                else {
+                    bajaCC = !bajaCC;
+                }
+            }
+            else {
+                if (rotCC <= 90) {
+                    rotCC += 1;
+                }
+                else {
+                    bajaCC = !bajaCC;
+                }
+            }
+        }
 
         /*************************** FIN Animaciones *************************************/
 
@@ -1901,6 +1937,21 @@ int main()
         model = glm::rotate(model, -rotPB * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
         PiolinBI.RenderModel();
+
+        /// <summary>
+        /// Correcaminos
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(70.0f, 10.0f, -100.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        CorreP.RenderModel();
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(70.0f, 10.0f, -100.0f));
+        model = glm::rotate(model, rotCC * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        CorreC.RenderModel();
 
         /// <summary>
         /// Huevo
