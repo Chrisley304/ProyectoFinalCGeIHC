@@ -69,6 +69,9 @@ float rotElderBugOffset;
 float rotPB;
 float posPiolin;
 bool alaA;
+// Correcaminos
+float rotCC;
+bool bajaCC;
 // Globito (KeyFrames)
 float reproduciranimacion, habilitaranimacion,
 guardoFrame, reinicioFrame, ciclo, ciclo2, contador = 0;
@@ -135,10 +138,17 @@ Model Kirby;
 Model Phineas;
 Model Ferb;
 Model Globito;
+Model CorreC;
+Model CorreP;
 
 Model WC;
 Model Urinal;
 Model Lavamanos;
+
+Model EscritorioLobby;
+Model Sillon;
+Model Maceta;
+Model MesaCentro;
 
 /********************** Fin Modelos **************************/
 
@@ -818,6 +828,20 @@ int main()
     Urinal.LoadModel("Models/WC/Urinal.obj");
     Lavamanos = Model();
     Lavamanos.LoadModel("Models/WC/Lavamanos.obj");
+
+    EscritorioLobby = Model();
+    EscritorioLobby.LoadModel("Models/Recepcion/DeskR.obj");
+    Maceta = Model();
+    Maceta.LoadModel("Models/Recepcion/maceta.obj");
+    Sillon = Model();
+    Sillon.LoadModel("Models/Recepcion/Sillon.obj");
+    MesaCentro = Model();
+    MesaCentro.LoadModel("Models/Recepcion/MesaCentro.obj");
+
+    CorreC = Model();
+    CorreC.LoadModel("Models/Correcaminos/CuerpoCC.obj");
+    CorreP = Model();
+    CorreP.LoadModel("Models/Correcaminos/PiernasCC.obj");
     
     /********************** Fin de cargas de Modelos **************************/
     /********************** Skybox **************************/
@@ -937,9 +961,12 @@ int main()
     int tipoMovElderBug = 1;
     int pausaElderBug = 0;
         // Piolin
-    rotPB = -360.0f * 4;
+    rotPB = 0;
     posPiolin = 0.0f;
     alaA = false;
+        // Correcaminos
+    rotCC = 0;
+    bajaCC = false;
         // Avatar
     float rot1Avatar = 0.0f;
     float rot2Avatar = 0.0f;
@@ -1322,19 +1349,42 @@ int main()
 
         if (alaA) {
             if (rotPB >= -30) {
-                rotPB -= deltaTime;
-            } else {
+                rotPB -= 4;
+            }
+            else {
                 alaA = !alaA;
             }
-        } else {
+        }
+        else {
             if (rotPB <= 30) {
-                rotPB += deltaTime;
-            } else {
+                rotPB += 4;
+            }
+            else {
                 alaA = !alaA;
             }
         }
 
         posPiolin += deltaTime;
+
+        // Correcaminos
+        if (! mainWindow.getInicioCorre()) {
+            if (bajaCC) {
+                if (rotCC >= -0) {
+                    rotCC -= 1;
+                }
+                else {
+                    bajaCC = !bajaCC;
+                }
+            }
+            else {
+                if (rotCC <= 90) {
+                    rotCC += 1;
+                }
+                else {
+                    bajaCC = !bajaCC;
+                }
+            }
+        }
 
         /*************************** FIN Animaciones *************************************/
 
@@ -1889,6 +1939,21 @@ int main()
         PiolinBI.RenderModel();
 
         /// <summary>
+        /// Correcaminos
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(70.0f, 10.0f, -100.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        CorreP.RenderModel();
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(70.0f, 10.0f, -100.0f));
+        model = glm::rotate(model, rotCC * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        CorreC.RenderModel();
+
+        /// <summary>
         /// Huevo
         /// </summary>
         model = glm::mat4(1.0);
@@ -1960,6 +2025,54 @@ int main()
         Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
         Lavamanos.RenderModel();
+
+        /// <summary>
+        /// Escritorio Recepcion
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(80.0f, 0.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        EscritorioLobby.RenderModel();
+
+        /// <summary>
+        /// Plantas
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(-60.0f, 0.0f, 90.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Maceta.RenderModel();
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(-60.0f, 0.0f, -90.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Maceta.RenderModel();
+
+        /// <summary>
+        /// Sillon
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 60.0f));
+        model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Sillon.RenderModel();
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, -60.0f));
+        model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Sillon.RenderModel();
+
+        /// <summary>
+        /// Mesa Centro
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        MesaCentro.RenderModel();
 
         /// <summary>
         /// Cartel en construccion.
