@@ -21,7 +21,7 @@ Window::Window(GLint windowWidth, GLint windowHeight)
     prendeInador=false;
     debugPosicion=false;
     iniciaMoscas = false;
-
+	musica = true;
 	for (size_t i = 0; i < 1024; i++)
 	{
 		keys[i] = 0;
@@ -153,6 +153,14 @@ void Window::ManejaTeclado(GLFWwindow *window, int key, int code, int action, in
 			theWindow->keys[key] = false;
 			// printf("se solto la tecla %d'\n", key);
 		}
+	}
+	if (key == GLFW_KEY_M)
+	{
+		theWindow->musica = ~theWindow->musica;
+	}
+	if (key == GLFW_KEY_0)
+	{
+		theWindow->musica = 0;
 	}
 }
 
