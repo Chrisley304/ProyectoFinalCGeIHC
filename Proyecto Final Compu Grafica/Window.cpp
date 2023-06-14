@@ -126,7 +126,7 @@ void Window::ManejaTeclado(GLFWwindow *window, int key, int code, int action, in
     
     /** INICIO DE ANIMACIONES **/
     // Inicio/Stop de animacion moscas
-    if (key == GLFW_KEY_M && action == GLFW_RELEASE){
+    if (key == GLFW_KEY_L && action == GLFW_RELEASE){
         theWindow->toogleIniciaMoscas();
     }
     
