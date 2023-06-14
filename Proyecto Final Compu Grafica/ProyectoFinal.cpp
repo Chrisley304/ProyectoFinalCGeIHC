@@ -69,6 +69,9 @@ float rotElderBugOffset;
 float rotPB;
 float posPiolin;
 bool alaA;
+// Correcaminos
+float rotCC;
+bool bajaCC;
 // Globito (KeyFrames)
 float reproduciranimacion, habilitaranimacion,
 guardoFrame, reinicioFrame, ciclo, ciclo2, contador = 0;
@@ -135,10 +138,17 @@ Model Kirby;
 Model Phineas;
 Model Ferb;
 Model Globito;
+Model CorreC;
+Model CorreP;
 
 Model WC;
 Model Urinal;
 Model Lavamanos;
+
+Model EscritorioLobby;
+Model Sillon;
+Model Maceta;
+Model MesaCentro;
 
 /********************** Fin Modelos **************************/
 
@@ -705,6 +715,222 @@ int main()
 	CrearCubo();
 	CrearMesa();
 	/********************** Fin llamadas funciones **************************/
+    Farol = Model();
+    Farol.LoadModel("Models/Hollow/FarolHollow.obj");
+    Luciernagas = Model();
+    Luciernagas.LoadModel("Models/Hollow/Luciernagas.obj");
+    BancaHollow = Model();
+    BancaHollow.LoadModel("Models/Hollow/BancaHollow.obj");
+    Elderbug = Model();
+    Elderbug.LoadModel("Models/Hollow/ElderBug.obj");
+    Hornet = Model();
+    Hornet.LoadModel("Models/Hollow/Hornet.obj");
+    Link = Model();
+    Link.LoadModel("Models/Hollow/Link.obj");
+    Kirby = Model();
+    Kirby.LoadModel("Models/Hollow/Kirby.obj");
+    
+    MesaBanco = Model();
+    MesaBanco.LoadModel("Models/Cartoon/MesaBanco.obj");
+    EscritorioTocino = Model();
+    EscritorioTocino.LoadModel("Models/Cartoon/Escritorio.obj");
+    Tocino = Model();
+    Tocino.LoadModel("Models/Cartoon/TocinoCharacter.obj");
+    Huevo = Model();
+    Huevo.LoadModel("Models/Cartoon/HuevoMacho.obj");
+    Sarten = Model();
+    Sarten.LoadModel("Models/Cartoon/Sarten.obj");
+    PiolinC = Model();
+    PiolinC.LoadModel("Models/Cartoon/PiolinCuerpo.obj");
+    PiolinBD = Model();
+    PiolinBD.LoadModel("Models/Cartoon/PiolinBD.obj");
+    PiolinBI = Model();
+    PiolinBI.LoadModel("Models/Cartoon/PiolinBI.obj");
+    
+    Microondas = Model();
+    Microondas.LoadModel("Models/Cafeteria/Mircoondas.obj");
+    CartelCafeteria = Model();
+    CartelCafeteria.LoadModel("Models/Cafeteria/Cartel.obj");
+    Pan = Model();
+    Pan.LoadModel("Models/Cafeteria/Pan.obj");
+    Cafe = Model();
+    Cafe.LoadModel("Models/Cafeteria/Cafe.obj");
+    Queso = Model();
+    Queso.LoadModel("Models/Cafeteria/Queso.obj");
+    Sandwich = Model();
+    Sandwich.LoadModel("Models/Cafeteria/Sandwich.obj");
+    
+    CuerpoPerry = Model();
+    CuerpoPerry.LoadModel("Models/Perry/cuerpo.obj");
+    BrazoDerPerry = Model();
+    BrazoDerPerry.LoadModel("Models/Perry/brazoDerecho.obj");
+    BrazoIzqPerry = Model();
+    BrazoIzqPerry.LoadModel("Models/Perry/brazoIzquierdo.obj");
+    PiernaDerPerry = Model();
+    PiernaDerPerry.LoadModel("Models/Perry/piernaDerecha.obj");
+    PiernaIzqPerry = Model();
+    PiernaIzqPerry.LoadModel("Models/Perry/piernaIzquierda.obj");
+    
+    Phineas = Model();
+    Phineas.LoadModel("Models/Phineas/phineas.obj");
+    Ferb = Model();
+    Ferb.LoadModel("Models/ferb.obj");
+    
+    WC = Model();
+    WC.LoadModel("Models/WC/Wc.obj");
+    Urinal = Model();
+    Urinal.LoadModel("Models/WC/Urinal.obj");
+    Lavamanos = Model();
+    Lavamanos.LoadModel("Models/WC/Lavamanos.obj");
+
+    EscritorioLobby = Model();
+    EscritorioLobby.LoadModel("Models/Recepcion/DeskR.obj");
+    Maceta = Model();
+    Maceta.LoadModel("Models/Recepcion/maceta.obj");
+    Sillon = Model();
+    Sillon.LoadModel("Models/Recepcion/Sillon.obj");
+    MesaCentro = Model();
+    MesaCentro.LoadModel("Models/Recepcion/MesaCentro.obj");
+
+    CorreC = Model();
+    CorreC.LoadModel("Models/Correcaminos/CuerpoCC.obj");
+    CorreP = Model();
+    CorreP.LoadModel("Models/Correcaminos/PiernasCC.obj");
+    
+    /********************** Fin de cargas de Modelos **************************/
+    /********************** Skybox **************************/
+    std::vector<std::string> skyboxFaces;
+    if (!noche) {
+        skyboxFaces.push_back("Textures/Skybox/Dia/sh_rt.png");
+        skyboxFaces.push_back("Textures/Skybox/Dia/sh_lf.png");
+        skyboxFaces.push_back("Textures/Skybox/Dia/sh_dn.png");
+        skyboxFaces.push_back("Textures/Skybox/Dia/sh_up.png");
+        skyboxFaces.push_back("Textures/Skybox/Dia/sh_bk.png");
+        skyboxFaces.push_back("Textures/Skybox/Dia/sh_ft.png");
+    } else {
+        skyboxFaces.push_back("Textures/Skybox/Noche/sh_rt.png");
+        skyboxFaces.push_back("Textures/Skybox/Noche/sh_lf.png");
+        skyboxFaces.push_back("Textures/Skybox/Noche/sh_dn.png");
+        skyboxFaces.push_back("Textures/Skybox/Noche/sh_up.png");
+        skyboxFaces.push_back("Textures/Skybox/Noche/sh_bk.png");
+        skyboxFaces.push_back("Textures/Skybox/Noche/sh_ft.png");
+    }
+    
+    skybox = Skybox(skyboxFaces);
+    /********************** Fin Skybox **************************/
+    
+    /********************** Luces **************************/
+    Material_brillante = Material(4.0f, 256);
+    Material_opaco = Material(0.3f, 4);
+    
+        // luz direccional, s�lo 1 y siempre debe de existir
+    mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
+                                 0.5f, 0.5f,
+                                 0.0f, 0.0f, -1.0f);
+    
+        /// <summary>
+        /// Contador de luces puntuales.
+        /// </summary>
+        /// <returns></returns>
+    unsigned int pointLightCount = 0;
+        // Declaraci�n de primer luz puntual
+    pointLights[0] = PointLight(0.0f, 1.0f, 0.0f, // RGB
+                                1.f, 1.f,
+                                135.0f, 25.0f, -81.0f, // pos
+                                0.3f, 0.05f, 0.1f); // Alcance, Difusión, 0
+    pointLightCount++;
+    
+    unsigned int spotLightCount = 0;
+    unsigned int spotLightAuxCount = 0;
+    
+        /// <summary>
+        /// Luz Lampara
+        /// </summary>
+        /// <returns></returns>
+    spotLights[1] = SpotLight(1.0f, 1.0f, 1.0f,
+                              20.f, 20.0f,
+                              -100.0f, 45.0f, -68.0f,
+                              0.0f, -1.0f, 0.0f,
+                              1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
+                              40.0f); // Angulo de apertura
+    
+    spotLights_aux[0] = SpotLight(1.0f, 1.0f, 1.0f,
+                                  20.f, 20.0f,
+                                  -100.0f, 45.0f, -68.0f,
+                                  0.0f, -1.0f, 0.0f,
+                                  1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
+                                  40.0f); // Angulo de apertura
+    
+    spotLightCount++;
+    spotLightAuxCount++;
+    
+        /// <summary>
+        /// Luz UFO
+        /// </summary>
+        /// <returns></returns>
+    spotLights[2] = SpotLight(0.0f, 1.0f, 0.0f,
+                              20.f, 20.0f,
+                              -230.0f, 180.0f, -190.0f,
+                              0.0f, -1.0f, 0.0f,
+                              0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
+                              15.0f); // Angulo de apertura
+    
+    spotLights_aux[1] = SpotLight(0.0f, 1.0f, 0.0f,
+                                  20.f, 20.0f,
+                                  -230.0f, 180.0f, -190.0f,
+                                  0.0f, -1.0f, 0.0f,
+                                  0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
+                                  15.0f); // Angulo de apertura
+    
+    spotLightCount++;
+    spotLightAuxCount++;
+    /********************** Fin Luces **************************/
+    
+    GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
+    uniformSpecularIntensity = 0, uniformShininess = 0, uniformTextureOffset = 0;
+    GLuint uniformColor = 0;
+    glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 1000.0f);
+    
+    /******************* Animaciones Inicializacion ****************************/
+        // OVNI
+    rotUFO = 0.0f;
+    rotUFOOffset = 1.0f;
+    movUFOOffset = 1.0f;
+    int tipoMovUFO = 1;
+    bool luzUFO = false;
+        // Meap
+    movMeapOffset = 1.0f;
+    rotMeapOffset = 1.0f;
+    float MeapPosX = 0.0f;
+    float MeapPosZ = 0.0f;
+        // Luciernagas
+    rotLuciernagas = 0.0f;
+    rotLuciernagasOffset = 1.0f;
+        // ElderBug
+    movElderBugX = 0.0f;
+    movElderBugZ = 0.0f;
+    movElderBugOffset = 1.0f;
+    rotElderBug = 0.0f;
+    rotElderBugOffset = 1.0f;
+    int tipoMovElderBug = 1;
+    int pausaElderBug = 0;
+        // Piolin
+    rotPB = 0;
+    posPiolin = 0.0f;
+    alaA = false;
+        // Correcaminos
+    rotCC = 0;
+    bajaCC = false;
+        // Avatar
+    float rot1Avatar = 0.0f;
+    float rot2Avatar = 0.0f;
+    int direcRot1Avatar = 1;
+    int direcRot2Avatar = -1;
+    float rotAvatarOffset = 2.0f;
+        // Inador/Doofenshmirtz
+    float angulo_ManoDoofenshmirtz  = -20.0f;
+    int direcAngulo_ManoDoofenshmirtz = -1;
+    float direcAngulo_ManoDoofenshmirtz_Offset = 1.0f;
 
 	camera = Camera(glm::vec3(0.0f, 20.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 2.5f, 0.5f, cameraMode);
 
@@ -1004,1142 +1230,1182 @@ int main()
 				printf("Desactivando musica\n");
 			}
 #endif
-		}
-
-		GLfloat now = glfwGetTime();
-		deltaTime = now - lastTime;
-		deltaTime += (now - lastTime) / limitFPS;
-		lastTime = now;
-
-		// Tiempo del mundo para ciclo de día/noche
-		horaDia += deltaTime * 0.1;
-		// DEBUG de Hora dia:
-		// printf("Hora día: %f\n",horaDia);
-
-		if (horaDia >= 400.0f) {
-			horaDia = 0.0f;
-			cambioSkybox = true; // Toggle de cambio de Skybox
-		}
-
-		/*************************** Animaciones *************************************/
-		// Mov UFO y Meap
-		switch (tipoMovUFO) {
-		case 1:
-			movUFOX = -300.0f;
-			movUFOZ = -300.0f;
-			movMeapX = -300.0f;
-			movMeapY = 125.0f;
-			movMeapZ = -300.0f;
-			MeapPosX = -230.0;
-			MeapPosZ = -90.0;
-			rotMeap = 0.0f;
-			tipoMovUFO = 2;
-			break;
-		case 2:
-			if (movUFOX < 0 && movUFOZ < 0) {
-				movUFOX += movUFOOffset * deltaTime;
-				movUFOZ += movUFOOffset * deltaTime;
-				movMeapX += movUFOOffset * deltaTime;
-				movMeapZ += movUFOOffset * deltaTime;
-			}
-			else {
-				tipoMovUFO = 3;
-				luzUFO = true;
-			}
-			break;
-		case 3:
-			if (movMeapY > 0) {
-				movMeapY -= movMeapOffset * deltaTime;
-				rotMeap += rotMeapOffset * deltaTime * 3;
-			}
-			else {
-				luzUFO = false;
-				tipoMovUFO = 4;
-			}
-			break;
-		case 4:
-			if (movUFOX < 300) {
-				movUFOX += movUFOOffset * deltaTime;
-			}
-			else {
-				tipoMovUFO = 5;
-			}
-			break;
-		case 5:
-			if (movUFOZ < 300) {
-				movUFOZ += movUFOOffset * deltaTime;
-			}
-			else {
-				tipoMovUFO = 6;
-			}
-			break;
-		case 6:
-			if (movUFOX > 0 && movUFOZ > 0) {
-				movUFOX -= movUFOOffset * deltaTime;
-				movUFOZ -= movUFOOffset * deltaTime;
-			}
-			else {
-				tipoMovUFO = 7;
-			}
-			break;
-		case 7:
-			if (movUFOX > 0 && movUFOZ > 0) {
-				movUFOX -= movUFOOffset * deltaTime;
-				movUFOZ -= movUFOOffset * deltaTime;
-			}
-			else {
-				luzUFO = true;
-				tipoMovUFO = 8;
-			}
-			break;
-		case 8:
-			if (movMeapY < 125) {
-				movMeapY += movMeapOffset * deltaTime;
-				rotMeap -= rotMeapOffset * deltaTime * 3;
-			}
-			else {
-				luzUFO = false;
-				tipoMovUFO = 9;
-			}
-			break;
-		case 9:
-			if (movUFOX > -300 && movUFOZ > -300) {
-				movUFOX -= movUFOOffset * deltaTime;
-				movUFOZ -= movUFOOffset * deltaTime;
-				movMeapX -= movUFOOffset * deltaTime;
-				movMeapZ -= movUFOOffset * deltaTime;
-			}
-			else {
-				tipoMovUFO = 1;
-			}
-			break;
-		default:
-			tipoMovUFO = 1;
-			break;
-		}
-
-		// Mov ElderBug.
-		switch (tipoMovElderBug) {
-		case 1:
-			movElderBugX = 0;
-			movElderBugZ = 0;
-			rotElderBug = 0;
-			tipoMovElderBug = 2;
-			pausaElderBug = 500;
-			break;
-		case 2:
-			if (pausaElderBug > 0) {
-				pausaElderBug--;
-			}
-			else {
-				tipoMovElderBug = 3;
-			}
-			break;
-		case 3:
-			if (movElderBugX > -10) {
-				movElderBugX -= movElderBugOffset * deltaTime * 0.25;
-			}
-			else {
-				tipoMovElderBug = 4;
-			}
-			break;
-		case 4:
-			if (rotElderBug < 90) {
-				rotElderBug += rotElderBugOffset * deltaTime;
-			}
-			else {
-				tipoMovElderBug = 5;
-			}
-			break;
-		case 5:
-			if (movElderBugZ < 80) {
-				movElderBugZ += movElderBugOffset * deltaTime * 0.25;
-			}
-			else {
-				tipoMovElderBug = 6;
-			}
-			break;
-		case 6:
-			if (rotElderBug < 180) {
-				rotElderBug += rotElderBugOffset * deltaTime;
-			}
-			else {
-				tipoMovElderBug = 7;
-			}
-			break;
-		case 7:
-			if (movElderBugX < 90) {
-				movElderBugX += movElderBugOffset * deltaTime * 0.25;
-			}
-			else {
-				tipoMovElderBug = 8;
-			}
-			break;
-		case 8:
-			if (rotElderBug > 90) {
-				rotElderBug -= rotElderBugOffset * deltaTime;
-			}
-			else {
-				tipoMovElderBug = 9;
-			}
-			break;
-		case 9:
-			if (movElderBugZ < 280) {
-				movElderBugZ += movElderBugOffset * deltaTime * 0.25;
-			}
-			else {
-				pausaElderBug = 400;
-				tipoMovElderBug = 10;
-			}
-			break;
-		case 10:
-			if (pausaElderBug > 0) {
-				pausaElderBug--;
-			}
-			else {
-				tipoMovElderBug = 11;
-			}
-			break;
-		case 11:
-			if (rotElderBug > 0) {
-				rotElderBug -= rotElderBugOffset * deltaTime;
-			}
-			else {
-				tipoMovElderBug = 12;
-			}
-			break;
-		case 12:
-			if (movElderBugX > 20) {
-				movElderBugX -= movElderBugOffset * deltaTime * 0.25;
-			}
-			else {
-				tipoMovElderBug = 13;
-			}
-			break;
-		case 13:
-			if (rotElderBug > -90) {
-				rotElderBug -= rotElderBugOffset * deltaTime;
-			}
-			else {
-				tipoMovElderBug = 14;
-			}
-			break;
-		case 14:
-			if (movElderBugZ > 240) {
-				movElderBugZ -= movElderBugOffset * deltaTime * 0.25;
-			}
-			else {
-				tipoMovElderBug = 15;
-			}
-			break;
-		case 15:
-			if (rotElderBug < 0) {
-				rotElderBug += rotElderBugOffset * deltaTime;
-			}
-			else {
-				pausaElderBug = 500;
-				tipoMovElderBug = 16;
-			}
-			break;
-		case 16:
-			if (pausaElderBug > 0) {
-				pausaElderBug--;
-			}
-			else {
-				tipoMovElderBug = 17;
-			}
-			break;
-		case 17:
-			if (rotElderBug > -180) {
-				rotElderBug -= rotElderBugOffset * deltaTime;
-			}
-			else {
-				tipoMovElderBug = 18;
-			}
-			break;
-		case 18:
-			if (movElderBugX < 90) {
-				movElderBugX += movElderBugOffset * deltaTime * 0.25;
-			}
-			else {
-				tipoMovElderBug = 19;
-			}
-			break;
-		case 19:
-			if (rotElderBug < -90) {
-				rotElderBug += rotElderBugOffset * deltaTime;
-			}
-			else {
-				tipoMovElderBug = 20;
-			}
-			break;
-		case 20:
-			if (movElderBugZ > 80) {
-				movElderBugZ -= movElderBugOffset * deltaTime * 0.25;
-			}
-			else {
-				tipoMovElderBug = 21;
-			}
-			break;
-		case 21:
-			if (rotElderBug < 0) {
-				rotElderBug += rotElderBugOffset * deltaTime;
-			}
-			else {
-				tipoMovElderBug = 22;
-			}
-			break;
-		case 22:
-			if (movElderBugX > -10) {
-				movElderBugX -= movElderBugOffset * deltaTime * 0.25;
-			}
-			else {
-				tipoMovElderBug = 23;
-			}
-			break;
-		case 23:
-			if (rotElderBug > -90) {
-				rotElderBug -= rotElderBugOffset * deltaTime;
-			}
-			else {
-				tipoMovElderBug = 24;
-			}
-			break;
-		case 24:
-			if (movElderBugZ > 0) {
-				movElderBugZ -= movElderBugOffset * deltaTime * 0.25;
-			}
-			else {
-				tipoMovElderBug = 25;
-			}
-			break;
-		case 25:
-			if (rotElderBug > -180) {
-				rotElderBug -= rotElderBugOffset * deltaTime;
-			}
-			else {
-				tipoMovElderBug = 26;
-			}
-			break;
-		case 26:
-			if (movElderBugX < 0) {
-				movElderBugX += movElderBugOffset * deltaTime * 0.25;
-			}
-			else {
-				tipoMovElderBug = 27;
-			}
-			break;
-		case 27:
-			if (rotElderBug < -0) {
-				rotElderBug += rotElderBugOffset * deltaTime;
-			}
-			else {
-				tipoMovElderBug = 1;
-			}
-			break;
-		default:
-			tipoMovElderBug = 1;
-			break;
-		}
-		rotUFO += rotUFOOffset * deltaTime;
-
-		if (mainWindow.getInicioMoscas()) {
-			rotLuciernagas += rotLuciernagasOffset * deltaTime;
-		}
-
-		// Piolin
-
-		if (alaA) {
-			if (rotPB >= -30) {
-				rotPB -= deltaTime;
-			}
-			else {
-				alaA = !alaA;
-			}
-		}
-		else {
-			if (rotPB <= 30) {
-				rotPB += deltaTime;
-			}
-			else {
-				alaA = !alaA;
-			}
-		}
-
-		posPiolin += deltaTime;
-
-		/*************************** FIN Animaciones *************************************/
-
-		// Recibir eventos del usuario
-		glfwPollEvents();
-		keys = mainWindow.getsKeys();
-		camera.keyControl(keys, deltaTime, cameraMode);
-		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
-
-		// Clear the window
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		// Generación de cambio de hora del día
-
-		if (cambioSkybox) {
-			noche = !noche;
-			std::vector<std::string> newSkyboxFaces;
-			if (!noche) {
-				newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_rt.png");
-				newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_lf.png");
-				newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_dn.png");
-				newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_up.png");
-				newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_bk.png");
-				newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_ft.png");
-			}
-			else {
-				newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_rt.png");
-				newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_lf.png");
-				newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_dn.png");
-				newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_up.png");
-				newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_bk.png");
-				newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_ft.png");
-			}
-			skybox = Skybox(newSkyboxFaces);
-			cambioSkybox = false;
-		}
-
-		skybox.DrawSkybox(camera.calculateViewMatrix(), projection);
-		shaderList[0].UseShader();
-		uniformModel = shaderList[0].GetModelLocation();
-		uniformProjection = shaderList[0].GetProjectionLocation();
-		uniformView = shaderList[0].GetViewLocation();
-		uniformEyePosition = shaderList[0].GetEyePositionLocation();
-		uniformColor = shaderList[0].getColorLocation();
-		uniformTextureOffset = shaderList[0].getOffsetLocation();
-
-		// informaci�n en el shader de intensidad especular y brillo
-		uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
-		uniformShininess = shaderList[0].GetShininessLocation();
-
-		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
-		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
-		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
-
-		/********************** Renderizado Luces **************************/
-		// luz ligada a la camara de tipo flash
-		glm::vec3 lowerLight = camera.getCameraPosition();
-		lowerLight.y -= 0.3f;
-
-		// Luz principal del mundo (cambia con la hora del día)
-		if (!noche) {
-			mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
-				0.5f, 0.5f,
-				0.0f, 0.0f, -1.0f);
-		}
-		else {
-			mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
-				0.2f, 0.2f, // Se hace mas oscuro el ambiente
-				0.0f, 0.0f, -1.0f);
-		}
-		shaderList[0].SetDirectionalLight(&mainLight);
-
-		if (mainWindow.getPrendeInador()) {
-			shaderList[0].SetPointLights(pointLights, pointLightCount);
-		}
-		else {
-			shaderList[0].SetPointLights(pointLights, pointLightCount - 1);
-		}
-
-		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
-
-		if (luzUFO) {
-			// Enciende lampara en la solo en la noche
-			if (!noche) {
-				spotLights[1] = spotLights_aux[1]; // Se coloca primero la luz del UFO
-				shaderList[0].SetSpotLights(spotLights, spotLightCount - 1);
-			}
-			else {
-				spotLights[1] = spotLights_aux[0]; // Se coloca primero la luz del faro
-				shaderList[0].SetSpotLights(spotLights, spotLightCount);
-			}
-			shaderList[0].SetSpotLights(spotLights, spotLightCount);
-		}
-		else {
-			if (!noche) {
-				shaderList[0].SetSpotLights(spotLights, spotLightCount - 2);
-			}
-			else {
-				spotLights[1] = spotLights_aux[0]; // Se coloca primero la luz del faro
-				shaderList[0].SetSpotLights(spotLights, spotLightCount - 1);
-			}
-		}
-
-		// spotLights[1].SetPos(glm::vec3(-100.0f + mainWindow.getmuevex(), 60.0f + mainWindow.getmuevey(), -80.0f + mainWindow.getmuevez()));
-		/********************** Fin renderizado luces **************************/
-
-		/********************** Renderizado modelos **************************/
-
-		glm::mat4 model(1.0);
-		glm::mat4 modelFarol(1.0);
-		glm::mat4 modelaux(1.0);
-		glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
-		glm::vec2 toffset = glm::vec2(0.0f, 0.0f);
-
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(100.0f, 1.0f, 100.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
-		glUniform2fv(uniformTextureOffset, 1, glm::value_ptr(toffset));
-		pisoTexture.UseTexture();
-		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
-
-		meshList[2]->RenderMesh();
-
-		/// <summary>
-		/// Modelo del edificio
-		/// </summary>
-		/// <returns></returns>
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
-		glUniform2fv(uniformTextureOffset, 1, glm::value_ptr(toffset));
-		Edificio.RenderModel();
-
-		/// <summary>
-		/// Avatar (Perry)
-		/// </summary>
-
-		// Movimiento de las partes del cuerpo al mover avatar
-		if ((keys[GLFW_KEY_W] || keys[GLFW_KEY_A] || keys[GLFW_KEY_S] || keys[GLFW_KEY_D]) && cameraMode == 0) {
-			if (rot1Avatar < 35.0 && rot1Avatar > -35.0) {
-				rot1Avatar += rotAvatarOffset * direcRot1Avatar;
-			}
-			else {
-				direcRot1Avatar = -direcRot1Avatar;
-				rot1Avatar += rotAvatarOffset * direcRot1Avatar;
-			}
-			if (rot2Avatar < 35.0 && rot2Avatar > -35.0) {
-				rot2Avatar += rotAvatarOffset * direcRot2Avatar;
-			}
-			else {
-				direcRot2Avatar = -direcRot2Avatar;
-				rot2Avatar += rotAvatarOffset * direcRot2Avatar;
-			}
-		}
-
-		glm::vec3 escalaPerry = glm::vec3(12.f, 12.f, 12.f);
-		// Cuerpo Perry
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 5.0f, 0.0f));
-		// Actualizar la posición del modelo de Perry según la posición de la cámara
-		if (cameraMode == 0) {
-			cameraPosition = camera.getCameraPosition();
-			cameraFront = camera.getCameraDirection();
-		}
-		perryPosition = cameraPosition + 23.0f * cameraFront;
-		perryPosition.y = 2.0f;
-
-		float perryRotation = glm::degrees(atan2(cameraFront.x, cameraFront.z));
-		model = glm::translate(model, perryPosition);
-		model = glm::rotate(model, 0.0f + perryRotation * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		modelaux = model;
-		model = glm::scale(model, escalaPerry);
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		CuerpoPerry.RenderModel();
-		// Brazo Derecho
-		model = modelaux;
-		model = glm::translate(model, glm::vec3(-1.5f, 0.0f, 0.0f));
-		model = glm::rotate(model, rot2Avatar * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::scale(model, escalaPerry);
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		BrazoDerPerry.RenderModel();
-		// Brazo Izquierdo
-		model = modelaux;
-		model = glm::translate(model, glm::vec3(1.5f, 0.0f, 0.0f));
-		model = glm::rotate(model, rot1Avatar * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::scale(model, escalaPerry);
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		BrazoIzqPerry.RenderModel();
-		// Pierna Derecha
-		model = modelaux;
-		model = glm::translate(model, glm::vec3(-1.f, -3.2f, 0.3f));
-		model = glm::rotate(model, rot1Avatar * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::scale(model, escalaPerry);
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		PiernaDerPerry.RenderModel();
-		// Pierna Izquierda
-		model = modelaux;
-		model = glm::translate(model, glm::vec3(1.f, -3.2f, 0.3f));
-		model = glm::rotate(model, rot2Avatar * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::scale(model, escalaPerry);
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		PiernaIzqPerry.RenderModel();
-
-		/// <summary>
-		/// UFO
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-230.0f + movUFOX, 120.0f + movUFOY, -190 + movUFOZ));
-		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-		model = glm::rotate(model, rotUFO * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		UFO.RenderModel();
-
-		/// <summary>
-		/// Modelo de Meap.
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-230.0f + movMeapX, 0.0f + movMeapY, -190 + movMeapZ));
-		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::rotate(model, rotMeap * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Meap.RenderModel();
-
-		/// <summary>
-		/// Modelo del innador
-		/// </summary>
-		/// <returns></returns>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(115.0f, 5.0f, -80.0f));
-		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Innador.RenderModel();
-
-		/// <summary>
-		/// Modelo del Dr. Doofenshmirtz
-		/// </summary>
-		/// <returns></returns>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(165.0f, 0.0f, -80.0f));
-		modelaux = model;
-		model = glm::scale(model, glm::vec3(7.0f, 7.f, 7.f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Doofenshmirtz.RenderModel();
-
-		// Mano Dr. Doofenshmirtz (Animada)
-
-		if (mainWindow.getPrendeInador()) {
-			if (angulo_ManoDoofenshmirtz < 5.0 && angulo_ManoDoofenshmirtz > -35.0) {
-				angulo_ManoDoofenshmirtz += direcAngulo_ManoDoofenshmirtz_Offset * direcAngulo_ManoDoofenshmirtz;
-			}
-			else {
-				direcAngulo_ManoDoofenshmirtz = -direcAngulo_ManoDoofenshmirtz;
-				angulo_ManoDoofenshmirtz += direcAngulo_ManoDoofenshmirtz_Offset * direcAngulo_ManoDoofenshmirtz;
-			}
-		}
-
-		model = modelaux;
-		model = glm::translate(model, glm::vec3(-7.0f, 21.0f, 1.85f));
-		model = glm::scale(model, glm::vec3(0.07f, 0.07f, 0.07f));
-		model = glm::rotate(model, angulo_ManoDoofenshmirtz * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		ManoDoofenshmirtz.RenderModel();
-
-		/// <summary>
-		/// Phineas
-		/// </summary>
-		/// <returns></returns>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(133.0f, 10.0f, 1.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 7.f, 7.f));
-		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Phineas.RenderModel();
-
-		/// <summary>
-		/// Ferb
-		/// </summary>
-		/// <returns></returns>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(167.0f, 10.0f, 4.0f));
-		model = glm::scale(model, glm::vec3(7.0f, 7.f, 7.f));
-		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Ferb.RenderModel();
-
-		/// <summary>
-		/// Globito
-		/// </summary>
-		/// <returns></returns>
-
-		if (mainWindow.getIniciaKeyFramesGlobito())
-		{
-			if (play == false && (FrameIndex > 1))
-			{
-				resetElements();
-				// First Interpolation
-				interpolation();
-				play = true;
-				playIndex = 0;
-				i_curr_steps = 0;
-				printf("\n Presiona ESPACIO para reproducir de nuevo la animacion\n");
-				habilitaranimacion = 0;
-			}
-			else
-			{
-				play = false;
-			}
-			mainWindow.toogleIniciaKeyFramesGlobito();
-		}
-		animate();
-
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(posXglobito + movGlobito_x, posYglobito + movGlobito_y, -61.0f));
-		model = glm::scale(model, glm::vec3(4.0f, 4.f, 4.f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, giroGlobito * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Globito.RenderModel();
-
-		/// <summary>
-		/// FarolHollow
-		/// </summary>
-		/// <returns></returns>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-100.0f, 0.0f, -80.0f));
-		model = glm::scale(model, glm::vec3(15.f, 15.f, 15.f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		modelFarol = model;
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Farol.RenderModel();
-
-		/// <summary>
-		/// Luciernagas
-		/// </summary>
-		model = modelFarol;
-		model = glm::translate(model, glm::vec3(0.0f, 2.0f, 0.0));
-		model = glm::scale(model, glm::vec3(2.f, 2.f, 2.f));
-		model = glm::rotate(model, rotLuciernagas * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Luciernagas.RenderModel();
-
-		/// <summary>
-		/// Banca Hollow
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-100.0f, 0.0f, -67.0f));
-		model = glm::scale(model, glm::vec3(25.f, 25.f, 25.f));
-		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		BancaHollow.RenderModel();
-
-		/// <summary>
-		/// ElderBug Hollow
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-110.0f + movElderBugX, 0.0f, -80.0f + movElderBugZ));
-		model = glm::scale(model, glm::vec3(15.f, 15.f, 15.f));
-		model = glm::rotate(model, -110 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, rotElderBug * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Elderbug.RenderModel();
-
-		/// <summary>
-		/// Microondas
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-50.0f, 12.0f, 220.0f));
-		model = glm::scale(model, glm::vec3(20.0f, 20.0f, 20.0f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Microondas.RenderModel();
-
-		/// <summary>
-		/// Cartel cafetería.
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(30.0f, 0.0f, 80.0f));
-		model = glm::scale(model, glm::vec3(0.75f, 0.75f, 0.75f));
-		// model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		CartelCafeteria.RenderModel();
-
-		/// <summary>
-		/// Pan.
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-80.0f, 7.0f, 220.0f));
-		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
-		model = glm::rotate(model, 15 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Pan.RenderModel();
-
-		/// <summary>
-		/// Café.
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-110.0f, 7.0f, 170.0f));
-		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Cafe.RenderModel();
-
-		/// <summary>
-		/// Queso.
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 8.0f, 220.0f));
-		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
-		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Queso.RenderModel();
-
-		/// <summary>
-		/// Sandwich.
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-100.0f, 8.0f, 220.0f));
-		model = glm::scale(model, glm::vec3(0.7f, 0.7f, 0.7f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Sandwich.RenderModel();
-
-		/// <summary>
-		/// Hornet.
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-30.0f, 0.0f, -165.0f));
-		model = glm::scale(model, glm::vec3(30.f, 30.f, 30.f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Hornet.RenderModel();
-
-		/// <summary>
-		/// Link.
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-60.0f, 0.0f, -160.0f));
-		model = glm::scale(model, glm::vec3(1.2f, 1.2f, 1.2f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Link.RenderModel();
-
-		/// <summary>
-		/// Escritorio Hollow
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		model = glm::translate(model, glm::vec3(20.0f, 15.0f, -330.0f));
-		model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, -60 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::scale(model, glm::vec3(36.0f, 36.0f, 36.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		EscritorioTocino.RenderModel();
-
-		/// <summary>
-		/// Cartel clase Doof.
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(83, 20.f, 25.0f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(15.f, 10.0f, 1.f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		ClaseDoof.UseTexture();
-		meshList[5]->RenderMesh();
-
-		/// <summary>
-		/// Cartel clase Tocino.
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(83, 20.f, -90.0f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(15.f, 10.0f, 1.f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		ClaseTocino.UseTexture();
-		meshList[5]->RenderMesh();
-
-		/// <summary>
-		/// Cartel clase Kirby.
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-14, 20.f, -102.0f));
-		// model = glm::rotate(model, 90 * toRadians, glm::vec3(.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(15.f, 10.0f, 1.f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		ClaseKirby.UseTexture();
-		meshList[5]->RenderMesh();
-
-		/// <summary>
-		/// Kirby.
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-113.0f, 0.0f, -218.0f));
-		model = glm::scale(model, glm::vec3(3.f, 3.f, 3.f));
-		model = glm::rotate(model, 60 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Kirby.RenderModel();
-
-		/// <summary>
-		/// Cartel baño.
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(108, 20.f, 166.0f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(15.f, 10.0f, 1.f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		CartelBanio.UseTexture();
-		meshList[5]->RenderMesh();
-
-		/// <summary>
-		/// Escritorio Tocino
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		model = glm::translate(model, glm::vec3(95.0f, 0.0f, -300.0f));
-		model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(36.0f, 36.0f, 36.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		EscritorioTocino.RenderModel();
-
-		/// <summary>
-		/// Tocino
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		model = glm::translate(model, glm::vec3(85.0f, 0.0f, -225.0f));
-		model = glm::scale(model, glm::vec3(20.0f, 20.0f, 20.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Tocino.RenderModel();
-
-		/// <summary>
-		/// Piolin
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		model = glm::translate(model, glm::vec3(150.0f, 35.0f, -215.0f));
-		model = glm::translate(model, glm::vec3(5 * sin(glm::radians(posPiolin)), 0, 5 * cos(glm::radians(posPiolin))));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		PiolinC.RenderModel();
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		model = glm::translate(model, glm::vec3(150.0f, 42.5f, -215.0f));
-		model = glm::translate(model, glm::vec3(5 * sin(glm::radians(posPiolin)), 0, 5 * cos(glm::radians(posPiolin))));
-		model = glm::rotate(model, rotPB * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		PiolinBD.RenderModel();
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		model = glm::translate(model, glm::vec3(150.0f, 42.5f, -215.0f));
-		model = glm::translate(model, glm::vec3(5 * sin(glm::radians(posPiolin)), 0, 5 * cos(glm::radians(posPiolin))));
-		model = glm::rotate(model, -rotPB * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		PiolinBI.RenderModel();
-
-		/// <summary>
-		/// Huevo
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		model = glm::translate(model, glm::vec3(180.0f, 0.0f, -260.0f));
-		model = glm::scale(model, glm::vec3(2.5f, 2.5f, 2.5f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Huevo.RenderModel();
-
-		/// <summary>
-		/// Sarten
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		model = glm::translate(model, glm::vec3(130.0f, 0.0f, -348.0f));
-		model = glm::scale(model, glm::vec3(2.5f, 2.5f, 2.5f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Sarten.RenderModel();
-
-		/// <summary>
-		/// WC
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		model = glm::translate(model, glm::vec3(265.0f, 0.0f, 270.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		WC.RenderModel();
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		model = glm::translate(model, glm::vec3(265.0f, 0.0f, 241.5f));
-		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		WC.RenderModel();
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		model = glm::translate(model, glm::vec3(230.0f, 0.0f, 241.5f));
-		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		WC.RenderModel();
-
-		/// <summary>
-		/// Urinal
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		model = glm::translate(model, glm::vec3(235.0f, 7.5f, 257.5f));
-		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Urinal.RenderModel();
-
-		/// <summary>
-		/// Lavamanos
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		model = glm::translate(model, glm::vec3(200.0f, 0.0f, 165.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Lavamanos.RenderModel();
-		model = glm::mat4(1.0);
-		model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
-		model = glm::translate(model, glm::vec3(200.0f, 0.0f, 346.0f));
-		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Lavamanos.RenderModel();
-
-		/// <summary>
-		/// Cartel en construccion.
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-140.0f, 0.f, 120.0f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, 35 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::scale(model, glm::vec3(15.f, 15.f, 1.f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		CartelConstruccion.UseTexture();
-		meshList[5]->RenderMesh();
-
-		/// <summary>
-		/// Mesa de metal 1.
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(50.0f, 0.f, 220.0f));
-		model = glm::scale(model, glm::vec3(20.f, 5.f, 7.f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		MesaMetal.UseTexture();
-		meshList[6]->RenderMesh();
-
-		/// <summary>
-		/// Mesa de metal 2.
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-50.0f, 0.f, 220.0f));
-		model = glm::scale(model, glm::vec3(20.f, 5.f, 7.f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		MesaMetal.UseTexture();
-		meshList[6]->RenderMesh();
-
-		/// <summary>
-		/// Mesa de metal 3.
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-110.0f, 0.f, 170.0f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(24.f, 5.f, 7.f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		MesaMetal.UseTexture();
-		meshList[6]->RenderMesh();
-
-		/// <summary>
-		/// Pizarron Hollow.
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(31.0f, 22.0f, -170.0f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(80.f, 25.f, 1.f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Pizarron.UseTexture();
-		meshList[5]->RenderMesh();
-
-		/// <summary>
-		/// Pizarron Tocino.
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(33.0f, 22.0f, -170.0f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(80.f, 25.f, 1.f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Pizarron.UseTexture();
-		meshList[5]->RenderMesh();
-
-		/// <summary>
-		/// Pizarron Perry.
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(135.0f, 22.0f, -101.0f));
-		model = glm::scale(model, glm::vec3(80.f, 25.f, 1.f));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Pizarron.UseTexture();
-		meshList[5]->RenderMesh();
-
-		/// <summary>
-		/// Para texturas trasnparentes.
-		/// </summary>
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		Fuego.UseTexture();
-
-		// textura con movimiento
-		// Importantes porque la variable uniform no podemos modificarla directamente
-		toffsetu += 0.001 * deltaTime;
-		toffsetv += 0.0 * deltaTime;
-
-		/********************** Texturas animadas. ************************************/
-		// para que no se desborde la variable
-		if (toffsetu > 1.0) {
-			toffsetu = 0.0;
-		}
-		toffset = glm::vec2(toffsetu, toffsetv);
-
-		/// <summary>
-		/// Fuego
-		/// </summary>
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(3.0f, 25.0f, -199.0f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, 30 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::scale(model, glm::vec3(38.0f, 30.0f, 50.0f));
-		glUniform2fv(uniformTextureOffset, 1, glm::value_ptr(toffset));
-		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Fuego.UseTexture();
-		meshList[4]->RenderMesh();
-
-		meshList[4]->RenderMesh();
-		glDisable(GL_BLEND);
-
-		/** INTERACCION CON TECLAS **/
-
-		// Tecla de cambio de tipo de camara
-		//  0 -> Plano XZ
-		//  1 -> Libre
-		//  2 -> Isometrica
-		if (mainWindow.getCambioCamara()) {
-			cameraMode++;
-			if (cameraMode >= 3) {
-				cameraMode = 0;
-			}
-			mainWindow.toogleCambioCamara();
-		}
-
-		//        if(keys[GLFW_KEY_SPACE]){
-		//            sonido.play();
-		//        }
-
-		// DEBUG de posición
-		if (mainWindow.getDebugPosicion()) {
-			printf("Vector de posicion: x=%f, y=%f, z=%f\n", camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
-			mainWindow.toogleDebugPosicion();
-		}
-
-		glUseProgram(0);
-
-		mainWindow.swapBuffers();
-	}
-
-	return 0;
+        }
+
+        GLfloat now = glfwGetTime();
+        deltaTime = now - lastTime;
+        deltaTime += (now - lastTime) / limitFPS;
+        lastTime = now;
+
+        // Tiempo del mundo para ciclo de día/noche
+        horaDia += deltaTime * 0.1;
+        // DEBUG de Hora dia:
+        // printf("Hora día: %f\n",horaDia);
+
+        if (horaDia >= 400.0f) {
+            horaDia = 0.0f;
+            cambioSkybox = true; // Toggle de cambio de Skybox
+        }
+
+        /*************************** Animaciones *************************************/
+        // Mov UFO y Meap
+        switch (tipoMovUFO) {
+        case 1:
+            movUFOX = -300.0f;
+            movUFOZ = -300.0f;
+            movMeapX = -300.0f;
+            movMeapY = 125.0f;
+            movMeapZ = -300.0f;
+            MeapPosX = -230.0;
+            MeapPosZ = -90.0;
+            rotMeap = 0.0f;
+            tipoMovUFO = 2;
+            break;
+        case 2:
+            if (movUFOX < 0 && movUFOZ < 0) {
+                movUFOX += movUFOOffset * deltaTime;
+                movUFOZ += movUFOOffset * deltaTime;
+                movMeapX += movUFOOffset * deltaTime;
+                movMeapZ += movUFOOffset * deltaTime;
+            } else {
+                tipoMovUFO = 3;
+                luzUFO = true;
+            }
+            break;
+        case 3:
+            if (movMeapY > 0) {
+                movMeapY -= movMeapOffset * deltaTime;
+                rotMeap += rotMeapOffset * deltaTime * 3;
+            } else {
+                luzUFO = false;
+                tipoMovUFO = 4;
+            }
+            break;
+        case 4:
+            if (movUFOX < 300) {
+                movUFOX += movUFOOffset * deltaTime;
+            } else {
+                tipoMovUFO = 5;
+            }
+            break;
+        case 5:
+            if (movUFOZ < 300) {
+                movUFOZ += movUFOOffset * deltaTime;
+            } else {
+                tipoMovUFO = 6;
+            }
+            break;
+        case 6:
+            if (movUFOX > 0 && movUFOZ > 0) {
+                movUFOX -= movUFOOffset * deltaTime;
+                movUFOZ -= movUFOOffset * deltaTime;
+            } else {
+                tipoMovUFO = 7;
+            }
+            break;
+        case 7:
+            if (movUFOX > 0 && movUFOZ > 0) {
+                movUFOX -= movUFOOffset * deltaTime;
+                movUFOZ -= movUFOOffset * deltaTime;
+            } else {
+                luzUFO = true;
+                tipoMovUFO = 8;
+            }
+            break;
+        case 8:
+            if (movMeapY < 125) {
+                movMeapY += movMeapOffset * deltaTime;
+                rotMeap -= rotMeapOffset * deltaTime * 3;
+            } else {
+                luzUFO = false;
+                tipoMovUFO = 9;
+            }
+            break;
+        case 9:
+            if (movUFOX > -300 && movUFOZ > -300) {
+                movUFOX -= movUFOOffset * deltaTime;
+                movUFOZ -= movUFOOffset * deltaTime;
+                movMeapX -= movUFOOffset * deltaTime;
+                movMeapZ -= movUFOOffset * deltaTime;
+            } else {
+                tipoMovUFO = 1;
+            }
+            break;
+        default:
+            tipoMovUFO = 1;
+            break;
+        }
+
+        // Mov ElderBug.
+        switch (tipoMovElderBug) {
+        case 1:
+            movElderBugX = 0;
+            movElderBugZ = 0;
+            rotElderBug = 0;
+            tipoMovElderBug = 2;
+            pausaElderBug = 500;
+            break;
+        case 2:
+            if (pausaElderBug > 0) {
+                pausaElderBug--;
+            } else {
+                tipoMovElderBug = 3;
+            }
+            break;
+        case 3:
+            if (movElderBugX > -10) {
+                movElderBugX -= movElderBugOffset * deltaTime * 0.25;
+            } else {
+                tipoMovElderBug = 4;
+            }
+            break;
+        case 4:
+            if (rotElderBug < 90) {
+                rotElderBug += rotElderBugOffset * deltaTime;
+            } else {
+                tipoMovElderBug = 5;
+            }
+            break;
+        case 5:
+            if (movElderBugZ < 80) {
+                movElderBugZ += movElderBugOffset * deltaTime * 0.25;
+            } else {
+                tipoMovElderBug = 6;
+            }
+            break;
+        case 6:
+            if (rotElderBug < 180) {
+                rotElderBug += rotElderBugOffset * deltaTime;
+            } else {
+                tipoMovElderBug = 7;
+            }
+            break;
+        case 7:
+            if (movElderBugX < 90) {
+                movElderBugX += movElderBugOffset * deltaTime * 0.25;
+            } else {
+                tipoMovElderBug = 8;
+            }
+            break;
+        case 8:
+            if (rotElderBug > 90) {
+                rotElderBug -= rotElderBugOffset * deltaTime;
+            } else {
+                tipoMovElderBug = 9;
+            }
+            break;
+        case 9:
+            if (movElderBugZ < 280) {
+                movElderBugZ += movElderBugOffset * deltaTime * 0.25;
+            } else {
+                pausaElderBug = 400;
+                tipoMovElderBug = 10;
+            }
+            break;
+        case 10:
+            if (pausaElderBug > 0) {
+                pausaElderBug--;
+            } else {
+                tipoMovElderBug = 11;
+            }
+            break;
+        case 11:
+            if (rotElderBug > 0) {
+                rotElderBug -= rotElderBugOffset * deltaTime;
+            } else {
+                tipoMovElderBug = 12;
+            }
+            break;
+        case 12:
+            if (movElderBugX > 20) {
+                movElderBugX -= movElderBugOffset * deltaTime * 0.25;
+            } else {
+                tipoMovElderBug = 13;
+            }
+            break;
+        case 13:
+            if (rotElderBug > -90) {
+                rotElderBug -= rotElderBugOffset * deltaTime;
+            } else {
+                tipoMovElderBug = 14;
+            }
+            break;
+        case 14:
+            if (movElderBugZ > 240) {
+                movElderBugZ -= movElderBugOffset * deltaTime * 0.25;
+            } else {
+                tipoMovElderBug = 15;
+            }
+            break;
+        case 15:
+            if (rotElderBug < 0) {
+                rotElderBug += rotElderBugOffset * deltaTime;
+            } else {
+                pausaElderBug = 500;
+                tipoMovElderBug = 16;
+            }
+            break;
+        case 16:
+            if (pausaElderBug > 0) {
+                pausaElderBug--;
+            } else {
+                tipoMovElderBug = 17;
+            }
+            break;
+        case 17:
+            if (rotElderBug > -180) {
+                rotElderBug -= rotElderBugOffset * deltaTime;
+            } else {
+                tipoMovElderBug = 18;
+            }
+            break;
+        case 18:
+            if (movElderBugX < 90) {
+                movElderBugX += movElderBugOffset * deltaTime * 0.25;
+            } else {
+                tipoMovElderBug = 19;
+            }
+            break;
+        case 19:
+            if (rotElderBug < -90) {
+                rotElderBug += rotElderBugOffset * deltaTime;
+            } else {
+                tipoMovElderBug = 20;
+            }
+            break;
+        case 20:
+            if (movElderBugZ > 80) {
+                movElderBugZ -= movElderBugOffset * deltaTime * 0.25;
+            } else {
+                tipoMovElderBug = 21;
+            }
+            break;
+        case 21:
+            if (rotElderBug < 0) {
+                rotElderBug += rotElderBugOffset * deltaTime;
+            } else {
+                tipoMovElderBug = 22;
+            }
+            break;
+        case 22:
+            if (movElderBugX > -10) {
+                movElderBugX -= movElderBugOffset * deltaTime * 0.25;
+            } else {
+                tipoMovElderBug = 23;
+            }
+            break;
+        case 23:
+            if (rotElderBug > -90) {
+                rotElderBug -= rotElderBugOffset * deltaTime;
+            } else {
+                tipoMovElderBug = 24;
+            }
+            break;
+        case 24:
+            if (movElderBugZ > 0) {
+                movElderBugZ -= movElderBugOffset * deltaTime * 0.25;
+            } else {
+                tipoMovElderBug = 25;
+            }
+            break;
+        case 25:
+            if (rotElderBug > -180) {
+                rotElderBug -= rotElderBugOffset * deltaTime;
+            } else {
+                tipoMovElderBug = 26;
+            }
+            break;
+        case 26:
+            if (movElderBugX < 0) {
+                movElderBugX += movElderBugOffset * deltaTime * 0.25;
+            } else {
+                tipoMovElderBug = 27;
+            }
+            break;
+        case 27:
+            if (rotElderBug < -0) {
+                rotElderBug += rotElderBugOffset * deltaTime;
+            } else {
+                tipoMovElderBug = 1;
+            }
+            break;
+        default:
+            tipoMovElderBug = 1;
+            break;
+        }
+        rotUFO += rotUFOOffset * deltaTime;
+
+        if (mainWindow.getInicioMoscas()) {
+            rotLuciernagas += rotLuciernagasOffset * deltaTime;
+        }
+
+        // Piolin
+
+        if (alaA) {
+            if (rotPB >= -30) {
+                rotPB -= 4;
+            }
+            else {
+                alaA = !alaA;
+            }
+        }
+        else {
+            if (rotPB <= 30) {
+                rotPB += 4;
+            }
+            else {
+                alaA = !alaA;
+            }
+        }
+
+        posPiolin += deltaTime;
+
+        // Correcaminos
+        if (! mainWindow.getInicioCorre()) {
+            if (bajaCC) {
+                if (rotCC >= -0) {
+                    rotCC -= 1;
+                }
+                else {
+                    bajaCC = !bajaCC;
+                }
+            }
+            else {
+                if (rotCC <= 90) {
+                    rotCC += 1;
+                }
+                else {
+                    bajaCC = !bajaCC;
+                }
+            }
+        }
+
+        /*************************** FIN Animaciones *************************************/
+
+        // Recibir eventos del usuario
+        glfwPollEvents();
+        keys = mainWindow.getsKeys();
+        camera.keyControl(keys, deltaTime, cameraMode);
+        camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
+
+        // Clear the window
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        // Generación de cambio de hora del día
+
+        if (cambioSkybox) {
+            noche = !noche;
+            std::vector<std::string> newSkyboxFaces;
+            if (!noche) {
+                newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_rt.png");
+                newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_lf.png");
+                newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_dn.png");
+                newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_up.png");
+                newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_bk.png");
+                newSkyboxFaces.push_back("Textures/Skybox/Dia/sh_ft.png");
+            } else {
+                newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_rt.png");
+                newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_lf.png");
+                newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_dn.png");
+                newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_up.png");
+                newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_bk.png");
+                newSkyboxFaces.push_back("Textures/Skybox/Noche/sh_ft.png");
+            }
+            skybox = Skybox(newSkyboxFaces);
+            cambioSkybox = false;
+        }
+
+        skybox.DrawSkybox(camera.calculateViewMatrix(), projection);
+        shaderList[0].UseShader();
+        uniformModel = shaderList[0].GetModelLocation();
+        uniformProjection = shaderList[0].GetProjectionLocation();
+        uniformView = shaderList[0].GetViewLocation();
+        uniformEyePosition = shaderList[0].GetEyePositionLocation();
+        uniformColor = shaderList[0].getColorLocation();
+        uniformTextureOffset = shaderList[0].getOffsetLocation();
+
+        // informaci�n en el shader de intensidad especular y brillo
+        uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
+        uniformShininess = shaderList[0].GetShininessLocation();
+
+        glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
+        glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
+        glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
+
+        /********************** Renderizado Luces **************************/
+        // luz ligada a la camara de tipo flash
+        glm::vec3 lowerLight = camera.getCameraPosition();
+        lowerLight.y -= 0.3f;
+
+        // Luz principal del mundo (cambia con la hora del día)
+        if (!noche) {
+            mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
+                0.5f, 0.5f,
+                0.0f, 0.0f, -1.0f);
+        } else {
+            mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
+                0.2f, 0.2f, // Se hace mas oscuro el ambiente
+                0.0f, 0.0f, -1.0f);
+        }
+        shaderList[0].SetDirectionalLight(&mainLight);
+
+        if (mainWindow.getPrendeInador()) {
+            shaderList[0].SetPointLights(pointLights, pointLightCount);
+        } else {
+            shaderList[0].SetPointLights(pointLights, pointLightCount - 1);
+        }
+
+        spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
+        
+        if (luzUFO) {
+            // Enciende lampara en la solo en la noche
+            if (!noche) {
+                spotLights[1] = spotLights_aux[1]; // Se coloca primero la luz del UFO
+                shaderList[0].SetSpotLights(spotLights, spotLightCount - 1);
+            } else {
+                spotLights[1] = spotLights_aux[0]; // Se coloca primero la luz del faro
+                shaderList[0].SetSpotLights(spotLights, spotLightCount);
+            }
+            shaderList[0].SetSpotLights(spotLights, spotLightCount);
+        } else {
+            if (!noche) {
+                shaderList[0].SetSpotLights(spotLights, spotLightCount - 2);
+            } else {
+                spotLights[1] = spotLights_aux[0]; // Se coloca primero la luz del faro
+                shaderList[0].SetSpotLights(spotLights, spotLightCount - 1);
+            }
+        }
+
+        // spotLights[1].SetPos(glm::vec3(-100.0f + mainWindow.getmuevex(), 60.0f + mainWindow.getmuevey(), -80.0f + mainWindow.getmuevez()));
+        /********************** Fin renderizado luces **************************/
+
+        /********************** Renderizado modelos **************************/
+
+        glm::mat4 model(1.0);
+        glm::mat4 modelFarol(1.0);
+        glm::mat4 modelaux(1.0);
+        glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
+        glm::vec2 toffset = glm::vec2(0.0f, 0.0f);
+
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(100.0f, 1.0f, 100.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+        glUniform2fv(uniformTextureOffset, 1, glm::value_ptr(toffset));
+        pisoTexture.UseTexture();
+        Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+
+        meshList[2]->RenderMesh();
+
+        /// <summary>
+        /// Modelo del edificio
+        /// </summary>
+        /// <returns></returns>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+        glUniform2fv(uniformTextureOffset, 1, glm::value_ptr(toffset));
+        Edificio.RenderModel();
+
+        /// <summary>
+        /// Avatar (Perry)
+        /// </summary>
+
+        // Movimiento de las partes del cuerpo al mover avatar
+        if ((keys[GLFW_KEY_W] || keys[GLFW_KEY_A] || keys[GLFW_KEY_S] || keys[GLFW_KEY_D]) && cameraMode == 0) {
+            if (rot1Avatar < 35.0 && rot1Avatar > -35.0) {
+                rot1Avatar += rotAvatarOffset * direcRot1Avatar;
+            } else {
+                direcRot1Avatar = -direcRot1Avatar;
+                rot1Avatar += rotAvatarOffset * direcRot1Avatar;
+            }
+            if (rot2Avatar < 35.0 && rot2Avatar > -35.0) {
+                rot2Avatar += rotAvatarOffset * direcRot2Avatar;
+            } else {
+                direcRot2Avatar = -direcRot2Avatar;
+                rot2Avatar += rotAvatarOffset * direcRot2Avatar;
+            }
+        }
+
+        glm::vec3 escalaPerry = glm::vec3(12.f, 12.f, 12.f);
+        // Cuerpo Perry
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(0.0f, 5.0f, 0.0f));
+        // Actualizar la posición del modelo de Perry según la posición de la cámara
+        if (cameraMode == 0) {
+            cameraPosition = camera.getCameraPosition();
+            cameraFront = camera.getCameraDirection();
+        }
+        perryPosition = cameraPosition + 23.0f * cameraFront;
+        perryPosition.y = 2.0f;
+
+        float perryRotation = glm::degrees(atan2(cameraFront.x, cameraFront.z));
+        model = glm::translate(model, perryPosition);
+        model = glm::rotate(model, 0.0f + perryRotation * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        modelaux = model;
+        model = glm::scale(model, escalaPerry);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        CuerpoPerry.RenderModel();
+        // Brazo Derecho
+        model = modelaux;
+        model = glm::translate(model, glm::vec3(-1.5f, 0.0f, 0.0f));
+        model = glm::rotate(model, rot2Avatar * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::scale(model, escalaPerry);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        BrazoDerPerry.RenderModel();
+        // Brazo Izquierdo
+        model = modelaux;
+        model = glm::translate(model, glm::vec3(1.5f, 0.0f, 0.0f));
+        model = glm::rotate(model, rot1Avatar * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::scale(model, escalaPerry);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        BrazoIzqPerry.RenderModel();
+        // Pierna Derecha
+        model = modelaux;
+        model = glm::translate(model, glm::vec3(-1.f, -3.2f, 0.3f));
+        model = glm::rotate(model, rot1Avatar * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::scale(model, escalaPerry);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        PiernaDerPerry.RenderModel();
+        // Pierna Izquierda
+        model = modelaux;
+        model = glm::translate(model, glm::vec3(1.f, -3.2f, 0.3f));
+        model = glm::rotate(model, rot2Avatar * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::scale(model, escalaPerry);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        PiernaIzqPerry.RenderModel();
+
+        /// <summary>
+        /// UFO
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(-230.0f + movUFOX, 120.0f + movUFOY, -190 + movUFOZ));
+        model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+        model = glm::rotate(model, rotUFO * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        UFO.RenderModel();
+
+        /// <summary>
+        /// Modelo de Meap.
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(-230.0f + movMeapX, 0.0f + movMeapY, -190 + movMeapZ));
+        model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+        model = glm::rotate(model, rotMeap * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Meap.RenderModel();
+
+        /// <summary>
+        /// Modelo del innador
+        /// </summary>
+        /// <returns></returns>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(115.0f, 5.0f, -80.0f));
+        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Innador.RenderModel();
+
+        /// <summary>
+        /// Modelo del Dr. Doofenshmirtz
+        /// </summary>
+        /// <returns></returns>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(165.0f, 0.0f, -80.0f));
+        modelaux = model;
+        model = glm::scale(model, glm::vec3(7.0f, 7.f, 7.f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Doofenshmirtz.RenderModel();
+        
+        // Mano Dr. Doofenshmirtz (Animada)
+        
+        if (mainWindow.getPrendeInador()) {
+            if (angulo_ManoDoofenshmirtz < 5.0 && angulo_ManoDoofenshmirtz > -35.0) {
+                angulo_ManoDoofenshmirtz += direcAngulo_ManoDoofenshmirtz_Offset * direcAngulo_ManoDoofenshmirtz;
+            } else {
+                direcAngulo_ManoDoofenshmirtz = -direcAngulo_ManoDoofenshmirtz;
+                angulo_ManoDoofenshmirtz += direcAngulo_ManoDoofenshmirtz_Offset * direcAngulo_ManoDoofenshmirtz;
+            }
+        }
+        
+        model = modelaux;
+        model = glm::translate(model, glm::vec3(-7.0f, 21.0f, 1.85f));
+        model = glm::scale(model, glm::vec3(0.07f, 0.07f, 0.07f));
+        model = glm::rotate(model, angulo_ManoDoofenshmirtz * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        ManoDoofenshmirtz.RenderModel();
+        
+        /// <summary>
+        /// Phineas
+        /// </summary>
+        /// <returns></returns>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(133.0f, 10.0f, 1.0f));
+        model = glm::scale(model, glm::vec3(7.0f, 7.f, 7.f));
+        model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Phineas.RenderModel();
+
+        /// <summary>
+        /// Ferb
+        /// </summary>
+        /// <returns></returns>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(167.0f, 10.0f, 4.0f));
+        model = glm::scale(model, glm::vec3(7.0f, 7.f, 7.f));
+        model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Ferb.RenderModel();
+
+        /// <summary>
+        /// Globito
+        /// </summary>
+        /// <returns></returns>
+        
+        if (mainWindow.getIniciaKeyFramesGlobito())
+        {
+            if (play == false && (FrameIndex > 1))
+            {
+                resetElements();
+                    // First Interpolation
+                interpolation();
+                play = true;
+                playIndex = 0;
+                i_curr_steps = 0;
+                printf("\n Presiona ESPACIO para reproducir de nuevo la animacion\n");
+                habilitaranimacion = 0;
+            }
+            else
+            {
+                play = false;
+            }
+            mainWindow.toogleIniciaKeyFramesGlobito();
+        }
+        animate();
+        
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(posXglobito + movGlobito_x, posYglobito + movGlobito_y, -61.0f));
+        model = glm::scale(model, glm::vec3(4.0f, 4.f, 4.f));
+        model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::rotate(model, giroGlobito * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Globito.RenderModel();
+
+        /// <summary>
+        /// FarolHollow
+        /// </summary>
+        /// <returns></returns>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(-100.0f, 0.0f, -80.0f));
+        model = glm::scale(model, glm::vec3(15.f, 15.f, 15.f));
+        model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        modelFarol = model;
+        Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Farol.RenderModel();
+
+        /// <summary>
+        /// Luciernagas
+        /// </summary>
+        model = modelFarol;
+        model = glm::translate(model, glm::vec3(0.0f, 2.0f, 0.0));
+        model = glm::scale(model, glm::vec3(2.f, 2.f, 2.f));
+        model = glm::rotate(model, rotLuciernagas * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Luciernagas.RenderModel();
+
+        /// <summary>
+        /// Banca Hollow
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(-100.0f, 0.0f, -67.0f));
+        model = glm::scale(model, glm::vec3(25.f, 25.f, 25.f));
+        model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        BancaHollow.RenderModel();
+
+        /// <summary>
+        /// ElderBug Hollow
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(-110.0f + movElderBugX, 0.0f, -80.0f + movElderBugZ));
+        model = glm::scale(model, glm::vec3(15.f, 15.f, 15.f));
+        model = glm::rotate(model, -110 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::rotate(model, rotElderBug * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Elderbug.RenderModel();
+
+        /// <summary>
+        /// Microondas
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(-50.0f, 12.0f, 220.0f));
+        model = glm::scale(model, glm::vec3(20.0f, 20.0f, 20.0f));
+        model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Microondas.RenderModel();
+
+        /// <summary>
+        /// Cartel cafetería.
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(30.0f, 0.0f, 80.0f));
+        model = glm::scale(model, glm::vec3(0.75f, 0.75f, 0.75f));
+        // model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        CartelCafeteria.RenderModel();
+
+        /// <summary>
+        /// Pan.
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(-80.0f, 7.0f, 220.0f));
+        model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
+        model = glm::rotate(model, 15 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Pan.RenderModel();
+
+        /// <summary>
+        /// Café.
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(-110.0f, 7.0f, 170.0f));
+        model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
+        model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Cafe.RenderModel();
+
+        /// <summary>
+        /// Queso.
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(0.0f, 8.0f, 220.0f));
+        model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
+        model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Queso.RenderModel();
+
+        /// <summary>
+        /// Sandwich.
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(-100.0f, 8.0f, 220.0f));
+        model = glm::scale(model, glm::vec3(0.7f, 0.7f, 0.7f));
+        model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Sandwich.RenderModel();
+
+        /// <summary>
+        /// Hornet.
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(-30.0f, 0.0f, -165.0f));
+        model = glm::scale(model, glm::vec3(30.f, 30.f, 30.f));
+        model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Hornet.RenderModel();
+
+        /// <summary>
+        /// Link.
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(-60.0f, 0.0f, -160.0f));
+        model = glm::scale(model, glm::vec3(1.2f, 1.2f, 1.2f));
+        model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Link.RenderModel();
+
+        /// <summary>
+        /// Escritorio Hollow
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(20.0f, 15.0f, -330.0f));
+        model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::rotate(model, 90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::rotate(model, -60 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+        model = glm::scale(model, glm::vec3(36.0f, 36.0f, 36.0f));
+        Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        EscritorioTocino.RenderModel();
+
+        /// <summary>
+        /// Cartel clase Doof.
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(83, 20.f, 25.0f));
+        model = glm::rotate(model, -90 * toRadians, glm::vec3(.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(15.f, 10.0f, 1.f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        ClaseDoof.UseTexture();
+        meshList[5]->RenderMesh();
+
+        /// <summary>
+        /// Cartel clase Tocino.
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(83, 20.f, -90.0f));
+        model = glm::rotate(model, -90 * toRadians, glm::vec3(.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(15.f, 10.0f, 1.f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        ClaseTocino.UseTexture();
+        meshList[5]->RenderMesh();
+
+        /// <summary>
+        /// Cartel clase Kirby.
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(-14, 20.f, -102.0f));
+        // model = glm::rotate(model, 90 * toRadians, glm::vec3(.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(15.f, 10.0f, 1.f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        ClaseKirby.UseTexture();
+        meshList[5]->RenderMesh();
+
+        /// <summary>
+        /// Kirby.
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(-113.0f, 0.0f, -218.0f));
+        model = glm::scale(model, glm::vec3(3.f, 3.f, 3.f));
+        model = glm::rotate(model, 60 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Kirby.RenderModel();
+
+        /// <summary>
+        /// Cartel baño.
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(108, 20.f, 166.0f));
+        model = glm::rotate(model, -90 * toRadians, glm::vec3(.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(15.f, 10.0f, 1.f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        CartelBanio.UseTexture();
+        meshList[5]->RenderMesh();
+
+        /// <summary>
+        /// Escritorio Tocino
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(95.0f, 0.0f, -300.0f));
+        model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(36.0f, 36.0f, 36.0f));
+        Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        EscritorioTocino.RenderModel();
+
+        /// <summary>
+        /// Tocino
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(85.0f, 0.0f, -225.0f));
+        model = glm::scale(model, glm::vec3(20.0f, 20.0f, 20.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Tocino.RenderModel();
+
+        /// <summary>
+        /// Piolin
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(150.0f, 35.0f, -215.0f));
+        model = glm::translate(model, glm::vec3(5 * sin(glm::radians(posPiolin)), 0, 5 * cos(glm::radians(posPiolin))));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        PiolinC.RenderModel();
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(150.0f, 42.5f, -215.0f));
+        model = glm::translate(model, glm::vec3(5 * sin(glm::radians(posPiolin)), 0, 5 * cos(glm::radians(posPiolin))));
+        model = glm::rotate(model, rotPB * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        PiolinBD.RenderModel();
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(150.0f, 42.5f, -215.0f));
+        model = glm::translate(model, glm::vec3(5 * sin(glm::radians(posPiolin)), 0, 5 * cos(glm::radians(posPiolin))));
+        model = glm::rotate(model, -rotPB * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        PiolinBI.RenderModel();
+
+        /// <summary>
+        /// Correcaminos
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(70.0f, 10.0f, -100.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        CorreP.RenderModel();
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(70.0f, 10.0f, -100.0f));
+        model = glm::rotate(model, rotCC * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        CorreC.RenderModel();
+
+        /// <summary>
+        /// Huevo
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(180.0f, 0.0f, -260.0f));
+        model = glm::scale(model, glm::vec3(2.5f, 2.5f, 2.5f));
+        model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Huevo.RenderModel();
+
+        /// <summary>
+        /// Sarten
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(130.0f, 0.0f, -348.0f));
+        model = glm::scale(model, glm::vec3(2.5f, 2.5f, 2.5f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Sarten.RenderModel();
+
+        /// <summary>
+        /// WC
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(265.0f, 0.0f, 270.0f));
+        Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        WC.RenderModel();
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(265.0f, 0.0f, 241.5f));
+        model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        WC.RenderModel();
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(230.0f, 0.0f, 241.5f));
+        model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        WC.RenderModel();
+
+        /// <summary>
+        /// Urinal
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(235.0f, 7.5f, 257.5f));
+        model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Urinal.RenderModel();
+
+        /// <summary>
+        /// Lavamanos
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(200.0f, 0.0f, 165.0f));
+        Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Lavamanos.RenderModel();
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(200.0f, 0.0f, 346.0f));
+        model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Lavamanos.RenderModel();
+
+        /// <summary>
+        /// Escritorio Recepcion
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(80.0f, 0.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        EscritorioLobby.RenderModel();
+
+        /// <summary>
+        /// Plantas
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(-60.0f, 0.0f, 90.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Maceta.RenderModel();
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(-60.0f, 0.0f, -90.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Maceta.RenderModel();
+
+        /// <summary>
+        /// Sillon
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 60.0f));
+        model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Sillon.RenderModel();
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, -60.0f));
+        model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Sillon.RenderModel();
+
+        /// <summary>
+        /// Mesa Centro
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::scale(model, glm::vec3(0.65f, 0.65f, 0.65f));
+        model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        MesaCentro.RenderModel();
+
+        /// <summary>
+        /// Cartel en construccion.
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(-140.0f, 0.f, 120.0f));
+        model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::rotate(model, 35 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+        model = glm::scale(model, glm::vec3(15.f, 15.f, 1.f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        CartelConstruccion.UseTexture();
+        meshList[5]->RenderMesh();
+
+        /// <summary>
+        /// Mesa de metal 1.
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(50.0f, 0.f, 220.0f));
+        model = glm::scale(model, glm::vec3(20.f, 5.f, 7.f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        MesaMetal.UseTexture();
+        meshList[6]->RenderMesh();
+
+        /// <summary>
+        /// Mesa de metal 2.
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(-50.0f, 0.f, 220.0f));
+        model = glm::scale(model, glm::vec3(20.f, 5.f, 7.f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        MesaMetal.UseTexture();
+        meshList[6]->RenderMesh();
+
+        /// <summary>
+        /// Mesa de metal 3.
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(-110.0f, 0.f, 170.0f));
+        model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(24.f, 5.f, 7.f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        MesaMetal.UseTexture();
+        meshList[6]->RenderMesh();
+
+        /// <summary>
+        /// Pizarron Hollow.
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(31.0f, 22.0f, -170.0f));
+        model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(80.f, 25.f, 1.f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Pizarron.UseTexture();
+        meshList[5]->RenderMesh();
+
+        /// <summary>
+        /// Pizarron Tocino.
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(33.0f, 22.0f, -170.0f));
+        model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(80.f, 25.f, 1.f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Pizarron.UseTexture();
+        meshList[5]->RenderMesh();
+
+        /// <summary>
+        /// Pizarron Perry.
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(135.0f, 22.0f, -101.0f));
+        model = glm::scale(model, glm::vec3(80.f, 25.f, 1.f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Pizarron.UseTexture();
+        meshList[5]->RenderMesh();
+
+        /// <summary>
+        /// Para texturas trasnparentes.
+        /// </summary>
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        Fuego.UseTexture();
+
+        // textura con movimiento
+        // Importantes porque la variable uniform no podemos modificarla directamente
+        toffsetu += 0.001 * deltaTime;
+        toffsetv += 0.0 * deltaTime;
+
+        /********************** Texturas animadas. ************************************/
+        // para que no se desborde la variable
+        if (toffsetu > 1.0) {
+            toffsetu = 0.0;
+        }
+        toffset = glm::vec2(toffsetu, toffsetv);
+
+        /// <summary>
+        /// Fuego
+        /// </summary>
+        model = glm::mat4(1.0);
+        model = glm::translate(model, glm::vec3(3.0f, 25.0f, -199.0f));
+        model = glm::rotate(model, 90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::rotate(model, 30 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+        model = glm::scale(model, glm::vec3(38.0f, 30.0f, 50.0f));
+        glUniform2fv(uniformTextureOffset, 1, glm::value_ptr(toffset));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        Fuego.UseTexture();
+        meshList[4]->RenderMesh();
+
+        meshList[4]->RenderMesh();
+        glDisable(GL_BLEND);
+
+        /** INTERACCION CON TECLAS **/
+
+        // Tecla de cambio de tipo de camara
+        //  0 -> Plano XZ
+        //  1 -> Libre
+        //  2 -> Isometrica
+        if (mainWindow.getCambioCamara()) {
+            cameraMode++;
+            if (cameraMode >= 3) {
+                cameraMode = 0;
+            }
+            mainWindow.toogleCambioCamara();
+        }
+
+        //        if(keys[GLFW_KEY_SPACE]){
+        //            sonido.play();
+        //        }
+
+        // DEBUG de posición
+        if (mainWindow.getDebugPosicion()) {
+            printf("Vector de posicion: x=%f, y=%f, z=%f\n", camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
+            mainWindow.toogleDebugPosicion();
+        }
+
+        glUseProgram(0);
+
+        mainWindow.swapBuffers();
+    }
+
+    return 0;
 }

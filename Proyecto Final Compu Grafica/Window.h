@@ -26,11 +26,13 @@ public:
 	void swapBuffers() { return glfwSwapBuffers(mainWindow); }
     bool getCambioCamara(){return cambioCamara; }
     bool getInicioMoscas(){return iniciaMoscas; }
+	bool getInicioCorre() { return iniciaCorre; }
     bool getDebugPosicion(){return debugPosicion; }
     bool getPrendeInador(){return prendeInador; }
     bool getIniciaKeyFramesGlobito(){return iniciaKeyFramesGlobito; }
     void toogleCambioCamara(){cambioCamara = !cambioCamara; }
     void toogleIniciaMoscas(){iniciaMoscas = !iniciaMoscas; }
+	void toogleIniciaCorre() { iniciaCorre = !iniciaCorre; }
     void toogleDebugPosicion(){debugPosicion = !debugPosicion; }
     void tooglePrendeInador(){prendeInador = !prendeInador; }
     void toogleIniciaKeyFramesGlobito(){iniciaKeyFramesGlobito = !iniciaKeyFramesGlobito; }
@@ -53,6 +55,7 @@ private:
 	GLboolean musica;
     bool cambioCamara;
     bool iniciaMoscas;
+	bool iniciaCorre;
     bool prendeInador;
     bool debugPosicion;
     bool iniciaKeyFramesGlobito;

@@ -133,6 +133,11 @@ void Window::ManejaTeclado(GLFWwindow *window, int key, int code, int action, in
     if (key == GLFW_KEY_SPACE && action == GLFW_RELEASE){
         theWindow->toogleIniciaKeyFramesGlobito();
     }
+
+	// Inicio animacion de Correcaminos
+	if (key == GLFW_KEY_C && action == GLFW_RELEASE) {
+		theWindow->toogleIniciaCorre();
+	}
     
     /** LUCES **/
     // Prende/Apaga luz Innador
