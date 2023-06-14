@@ -16,6 +16,8 @@ public:
 	GLfloat getmuevex() { return muevex; }
 	GLfloat getmuevey() { return muevey; }
 	GLfloat getmuevez() { return muevez; }
+	GLfloat getMusica() { return musica; }
+	GLboolean getMusicaR() { return musicaR; }
 	bool getShouldClose()
 	{
 		return glfwWindowShouldClose(mainWindow);
@@ -50,6 +52,8 @@ private:
 	GLfloat muevex;
 	GLfloat muevey;
 	GLfloat muevez;
+	GLboolean musica;
+	GLboolean musicaR;
     bool cambioCamara;
     bool iniciaMoscas;
 	bool iniciaCorre;
