@@ -889,16 +889,17 @@ int main()
     unsigned int spotLightCount = 0;
     unsigned int spotLightAuxCount = 0;
     
-        /// <summary>
-        /// Luz Lampara
-        /// </summary>
-        /// <returns></returns>
-    spotLights[1] = SpotLight(1.0f, 1.0f, 1.0f,
+    /// <summary>
+    /// Luz Lampara
+    /// </summary>
+    /// <returns></returns>
+    spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
                               20.f, 20.0f,
                               -100.0f, 45.0f, -68.0f,
                               0.0f, -1.0f, 0.0f,
                               1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
                               40.0f); // Angulo de apertura
+    spotLightCount++;
     
     spotLights_aux[0] = SpotLight(1.0f, 1.0f, 1.0f,
                                   20.f, 20.0f,
@@ -906,20 +907,20 @@ int main()
                                   0.0f, -1.0f, 0.0f,
                                   1.0f, 0.3f, 0.0f, // Alcance, Difusión, 0
                                   40.0f); // Angulo de apertura
-    
-    spotLightCount++;
     spotLightAuxCount++;
     
-        /// <summary>
-        /// Luz UFO
-        /// </summary>
-        /// <returns></returns>
-    spotLights[2] = SpotLight(0.0f, 1.0f, 0.0f,
+    
+    /// <summary>
+    /// Luz UFO
+    /// </summary>
+    /// <returns></returns>
+    spotLights[1] = SpotLight(0.0f, 1.0f, 0.0f,
                               20.f, 20.0f,
                               -230.0f, 180.0f, -190.0f,
                               0.0f, -1.0f, 0.0f,
                               0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
                               15.0f); // Angulo de apertura
+    spotLightCount++;
     
     spotLights_aux[1] = SpotLight(0.0f, 1.0f, 0.0f,
                                   20.f, 20.0f,
@@ -928,7 +929,6 @@ int main()
                                   0.8f, 0.05f, 0.0f, // Alcance, Difusión, 0
                                   15.0f); // Angulo de apertura
     
-    spotLightCount++;
     spotLightAuxCount++;
     /********************** Fin Luces **************************/
     
@@ -1467,18 +1467,17 @@ int main()
         if (luzUFO) {
             // Enciende lampara en la solo en la noche
             if (!noche) {
-                spotLights[1] = spotLights_aux[1]; // Se coloca primero la luz del UFO
+                spotLights[0] = spotLights_aux[1]; // Se coloca primero la luz del UFO
                 shaderList[0].SetSpotLights(spotLights, spotLightCount - 1);
             } else {
-                spotLights[1] = spotLights_aux[0]; // Se coloca primero la luz del faro
+                spotLights[0] = spotLights_aux[0]; // Se coloca primero la luz del faro
                 shaderList[0].SetSpotLights(spotLights, spotLightCount);
             }
-            shaderList[0].SetSpotLights(spotLights, spotLightCount);
         } else {
             if (!noche) {
                 shaderList[0].SetSpotLights(spotLights, spotLightCount - 2);
             } else {
-                spotLights[1] = spotLights_aux[0]; // Se coloca primero la luz del faro
+                spotLights[0] = spotLights_aux[0]; // Se coloca primero la luz del faro
                 shaderList[0].SetSpotLights(spotLights, spotLightCount - 1);
             }
         }
